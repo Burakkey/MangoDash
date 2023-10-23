@@ -1,19 +1,12 @@
 package entity;
 
-import java.util.HashMap;
-import java.util.List;
+import java.time.LocalDateTime;
 
-public class User {
-    private String username;
-    private String password;
-    private List<Integer> data;
+public interface User {
 
-    public void User(String username, String password){
-        this.username = username;
-        this.password = password;
+    String getName();
 
+    String getPassword();
 
-
-    }
-
+    LocalDateTime getCreationTime();
 }
