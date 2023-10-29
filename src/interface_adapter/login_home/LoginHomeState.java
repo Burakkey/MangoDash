@@ -1,2 +1,4 @@
-package interface_adapter.login_home;public class LoginHomeState {
+package interface_adapter.login_home;
+
+public class LoginHomeState {
 }

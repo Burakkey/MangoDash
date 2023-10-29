@@ -1,2 +1,4 @@
-package interface_adapter.login_home;public class LoginController {
+package interface_adapter.login_home;
+
+public class LoginHomeController {
 }
