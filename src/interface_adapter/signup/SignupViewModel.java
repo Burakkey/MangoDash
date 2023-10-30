@@ -2,11 +2,12 @@ package interface_adapter.signup;
 
 import interface_adapter.ViewModel;
 
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class SignupViewModel extends ViewModel {
-
+    public static final Color BACKGROUND_COLOR = Color.ORANGE;
     public static final String CLEAR_BUTTON_LABEL = "Clear";
     public static final String TITLE_LABEL = "Sign Up View";
     public static final String USERNAME_LABEL = "Choose username";
