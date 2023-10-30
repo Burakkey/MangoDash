@@ -64,7 +64,7 @@ public class Main {
         HomepageView homepageView = new HomepageView(homepageViewModel);
         views.add(homepageView, homepageView.viewName);
 
-        viewManagerModel.setActiveView(signupView.viewName);
+        viewManagerModel.setActiveView(homepageView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

@@ -20,7 +20,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
     public HomepageView(HomepageViewModel homepageViewModel) {
         // This is the code that modifies the color
         this.setBackground(Color.ORANGE);
-        setSize(new Dimension(400,400));
+        this.setPreferredSize(new Dimension(1200,600));
 
         this.homepageViewModel = homepageViewModel;
         this.homepageViewModel.addPropertyChangeListener(this);
