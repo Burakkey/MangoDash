@@ -8,10 +8,16 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class HomepageViewModel extends ViewModel {
-    public static final String HOME_BUTTON_LABEL = "Home";
-    public static final String RANKINGS_BUTTON_LABEL = "Rankings";
-    public static final String EXTENSIONS_BUTTON_LABEL = "Extensions";
-    public static final String SETTINGS_BUTTON_LABEL = "Settings";
+
+    public static final String HOME_TAB_LABEL = "Home";
+
+    public static final String RANKING_TAB_LABEL = "Rankings";
+
+    public static final String EXTENSION_TAB_LABEL = "Extensions";
+
+    public static final String ACCOUNT_TAB_LABEL = "Settings";
+
+
 
     public static final Color BACKGROUND_COLOR = Color.ORANGE;
 
