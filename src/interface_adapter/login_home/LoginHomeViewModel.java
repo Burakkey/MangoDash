@@ -3,12 +3,14 @@ package interface_adapter.login_home;
 import interface_adapter.ViewModel;
 import interface_adapter.login.LoginState;
 
+import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class LoginHomeViewModel extends ViewModel {
     public static final String LOGIN_BUTTON_LABEL = "Log In";
     public static final String SIGNUP_BUTTON_LABEL = "Sign Up";
+    public static final Color BACKGROUND_COLOR = Color.ORANGE;
     private LoginHomeState state = new LoginHomeState();
     public LoginHomeViewModel() {
         super("login home menu");
