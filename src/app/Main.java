@@ -9,6 +9,7 @@ import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.*;
+import view.Homepage.HomepageView;
 
 import javax.swing.*;
 import java.awt.*;
