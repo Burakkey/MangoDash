@@ -19,6 +19,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final LoginViewModel loginViewModel;
 
     final JTextField usernameInputField = new JTextField(15);
+
     private final JLabel usernameErrorField = new JLabel();
 
     final JPasswordField passwordInputField = new JPasswordField(15);
@@ -29,29 +30,38 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final LoginController loginController;
 
     public LoginView(LoginViewModel loginViewModel, LoginController controller) {
+        Font font = new Font("Times New Roman", Font.PLAIN, 20); // change font later
+
         this.setPreferredSize(new Dimension(1200, 600)); // set window size
         this.setBackground(Color.ORANGE); //set colour
-
 
         this.loginController = controller;
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
 
         JLabel title = new JLabel("Login");
+        title.setFont(font);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel("Username"), usernameInputField);
+        JLabel j = new JLabel("Username   ");
+        j.setFont(font);
+        LabelTextPanel usernameInfo = new LabelTextPanel(j, usernameInputField);
         usernameInfo.setBackground(Color.ORANGE); //set colour
-        LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
+
+        JLabel k = new JLabel("Password   ");
+        k.setFont(font);
+        LabelTextPanel passwordInfo = new LabelTextPanel(k, passwordInputField);
         passwordInfo.setBackground(Color.ORANGE); //set colour
 
         JPanel buttons = new JPanel();
         buttons.setBackground(Color.ORANGE); //set colour
+
         logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
+        logIn.setFont(font);
         buttons.add(logIn);
+
         cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
+        cancel.setFont(font);
         buttons.add(cancel);
 
 
