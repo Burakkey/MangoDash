@@ -23,8 +23,6 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
         JLabel title = new JLabel("Homepage View");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JTabbedPane tabbed
     }
 
     /**
