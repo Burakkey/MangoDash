@@ -24,16 +24,13 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         JLabel title = new JLabel("Homepage View");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JPanel homePanel = new JPanel();
-        homePanel.setBackground(Color.ORANGE);
+        JPanel homePanel = HomePanelComponent.getPanel();
 
-        JPanel rankingPanel = new JPanel();
-        rankingPanel.setBackground(Color.ORANGE);
+        JPanel rankingPanel = RankingPanelComponent.getPanel();
 
-        JPanel extensionPanel = new JPanel();
-        extensionPanel.setBackground(Color.ORANGE);
+        JPanel extensionPanel = ExtensionPanelComponents.getPanel();
 
-        JPanel settingsPanel = settingsPanelComponent.getPanel();
+        JPanel settingsPanel = SettingsPanelComponent.getPanel();
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setPreferredSize(new Dimension(1200,600));
