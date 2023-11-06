@@ -1,7 +1,6 @@
 package interface_adapter.homepage;
 
 import interface_adapter.ViewModel;
-import interface_adapter.homepage.HomepageState;
 
 import java.awt.*;
 import java.beans.PropertyChangeListener;
@@ -17,11 +16,21 @@ public class HomepageViewModel extends ViewModel {
 
     public static final String ACCOUNT_TAB_LABEL = "Settings";
 
+    public static final String LOG_OUT_BUTTON_LABEL = "Logout";
 
+    public static final String CHANGE_PASSWORD_BUTTON_LABEL = "Change Password";
+
+    public static final String SAVE_CHANGES_BUTTON_LABEL = "Save Changes";
+
+    public static final String NAME_JLABEL = "Name";
+
+    public static final String USERNAME_JLABEL = "Username";
+
+    public static final String BIO_JLABEL = "Bio";
 
     public static final Color BACKGROUND_COLOR = Color.ORANGE;
 
-    private HomepageState state = new HomepageState();
+    private static HomepageState state = new HomepageState();
 
     public HomepageViewModel() {
         super("homepage menu");
@@ -30,6 +39,8 @@ public class HomepageViewModel extends ViewModel {
     public void setState(HomepageState state) {
         this.state = state;
     }
+
+
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
@@ -43,7 +54,7 @@ public class HomepageViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public HomepageState getState() {
+    public static HomepageState getState() {
         return state;
     }
 }
