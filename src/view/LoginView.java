@@ -22,6 +22,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public final Color LIGHT_ORANGE = new Color(255, 200, 100);
 
     final JTextField usernameInputField = new JTextField(15);
+
     private final JLabel usernameErrorField = new JLabel();
 
     final JPasswordField passwordInputField = new JPasswordField(15);
@@ -32,30 +33,42 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final LoginController loginController;
 
     public LoginView(LoginViewModel loginViewModel, LoginController controller) {
+        Font font = new Font("Times New Roman", Font.PLAIN, 20); // change font later
+
+        this.setPreferredSize(new Dimension(1200, 600)); // set window size
+        this.setBackground(Color.ORANGE); //set colour
 
 
         this.loginController = controller;
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
 
-        JLabel title = new JLabel("Login Screen");
+        JLabel title = new JLabel("Login");
+        title.setFont(font);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel("Username"), usernameInputField);
-        LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
+        JLabel j = new JLabel("Username   ");
+        j.setFont(font);
+        LabelTextPanel usernameInfo = new LabelTextPanel(j, usernameInputField);
+        usernameInfo.setBackground(Color.ORANGE); //set colour
+
+        JLabel k = new JLabel("Password   ");
+        k.setFont(font);
+        LabelTextPanel passwordInfo = new LabelTextPanel(k, passwordInputField);
+        passwordInfo.setBackground(Color.ORANGE); //set colour
 
         JPanel buttons = new JPanel();
+        buttons.setBackground(Color.ORANGE); //set colour
+
         logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
+        logIn.setFont(font);
         buttons.add(logIn);
+
         cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
+        cancel.setFont(font);
         buttons.add(cancel);
 
-        // TODO
-        this.setBackground(LIGHT_ORANGE);
-        setPreferredSize(new Dimension(1200,600));
-        buttons.setBackground(Color.ORANGE);
+
 
         logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
