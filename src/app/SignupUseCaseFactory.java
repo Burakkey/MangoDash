@@ -1,5 +1,8 @@
 package app;
 
+import interface_adapter.back_in_signup.BackInSignupController;
+import interface_adapter.back_in_signup.BackInSignupPresenter;
+import interface_adapter.back_in_signup.BackInSignupViewModel;
 import interface_adapter.clear_users.ClearController;
 import interface_adapter.clear_users.ClearPresenter;
 import interface_adapter.clear_users.ClearViewModel;
@@ -7,6 +10,9 @@ import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import use_case.Back.BackInputBoundary;
+import use_case.Back.BackInteractor;
+import use_case.Back.BackOutputBoundary;
 import use_case.clear_users.ClearInputBoundary;
 import use_case.clear_users.ClearInteractor;
 import use_case.clear_users.ClearOutputBoundary;
@@ -29,7 +35,7 @@ public class SignupUseCaseFactory {
     private SignupUseCaseFactory() {}
 
     public static SignupView create(
-            ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject, ClearViewModel clearViewModel, ClearUserDataAccessInterface userDataAccessObject2) {
+            ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject, ClearViewModel clearViewModel, ClearUserDataAccessInterface userDataAccessObject2 ) {
 
         try {
             SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);
@@ -41,6 +47,7 @@ public class SignupUseCaseFactory {
 
         return null;
     }
+
 
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel, LoginViewModel loginViewModel, SignupUserDataAccessInterface userDataAccessObject) throws IOException {
 
@@ -59,8 +66,6 @@ public class SignupUseCaseFactory {
 
         // Notice how we pass this method's parameters to the Presenter.
         ClearOutputBoundary clearOutputBoundary = new ClearPresenter(viewManagerModel, clearViewModel);
-
-        UserFactory userFactory = new CommonUserFactory();
 
         ClearInputBoundary userClearInteractor = new ClearInteractor(userDataAccessObject, clearOutputBoundary);
 

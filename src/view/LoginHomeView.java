@@ -54,6 +54,7 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
      //     * React to a button click that results in evt.
      //     */
     public void actionPerformed(ActionEvent evt) {
+//        if (evt.getActionCommand() == signupButton.getActionCommand()):
         System.out.println("Click " + evt.getActionCommand());
     }
 
