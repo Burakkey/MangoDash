@@ -108,12 +108,12 @@ public class SettingsPanelComponent {
         nameInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                HomepageState currentState = HomepageViewModel.getState();
-                String text = nameInputField.getText() + e.getKeyChar();
-                currentState.setName(text);
-                // Update the state in the view model
-                HomepageViewModel viewModel = new HomepageViewModel();
-                viewModel.setState(currentState);
+//                HomepageState currentState = HomepageViewModel.getState();
+//                String text = nameInputField.getText() + e.getKeyChar();
+//                currentState.setName(text);
+//                // Update the state in the view model
+//                HomepageViewModel viewModel = new HomepageViewModel();
+//                viewModel.setState(currentState);
             }
 
             @Override
@@ -130,12 +130,12 @@ public class SettingsPanelComponent {
         bioInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                HomepageState currentState = HomepageViewModel.getState();
-                String text = bioInputField.getText() + e.getKeyChar();
-                currentState.setBio(text);
-                // Update the state in the view model
-                HomepageViewModel viewModel = new HomepageViewModel();
-                viewModel.setState(currentState);
+//                HomepageState currentState = HomepageViewModel.getState();
+//                String text = bioInputField.getText() + e.getKeyChar();
+//                currentState.setBio(text);
+//                // Update the state in the view model
+//                HomepageViewModel viewModel = new HomepageViewModel();
+//                viewModel.setState(currentState);
             }
 
             @Override
