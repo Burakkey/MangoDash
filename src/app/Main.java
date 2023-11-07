@@ -3,12 +3,13 @@ package app;
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapter.clear_users.ClearViewModel;
+import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
-import interface_adapter.login_home.LoginHomeViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.*;
+import view.Homepage.HomepageView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,7 +42,7 @@ public class Main {
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         ClearViewModel clearViewModel = new ClearViewModel();
-        LoginHomeViewModel loginHomeViewModel = new LoginHomeViewModel();
+        HomepageViewModel homepageViewModel = new HomepageViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         FileUserDataAccessObject userDataAccessObject2;
@@ -61,10 +62,10 @@ public class Main {
         LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
         views.add(loggedInView, loggedInView.viewName);
 
-        LoginHomeView loginHomeView = new LoginHomeView(loginHomeViewModel);
-        views.add(loginHomeView, loginHomeView.viewName);
+        HomepageView homepageView = new HomepageView(homepageViewModel);
+        views.add(homepageView, homepageView.viewName);
 
-        viewManagerModel.setActiveView(loginHomeView.viewName); // Set Active View Model
+        viewManagerModel.setActiveView(homepageView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();
