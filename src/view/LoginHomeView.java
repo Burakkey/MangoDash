@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.login_home.LoginHomeViewModel;
 
 import javax.imageio.ImageIO;
@@ -14,11 +15,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class LoginHomeView extends JPanel implements ActionListener, PropertyChangeListener {
-    public final String viewName = "login home";
+    public final String viewName = "Home";
     private final LoginHomeViewModel loginHomeViewModel;
     final JButton signupButton;
     final JButton loginButton;
-    public LoginHomeView(LoginHomeViewModel loginHomeViewModel) {
+    private final ViewManagerModel viewManagerModel;
+    public LoginHomeView(LoginHomeViewModel loginHomeViewModel, ViewManagerModel viewManagerModel) {
         // This is the code that modifies the color
         this.setBackground(Color.ORANGE);
         setPreferredSize(new Dimension(1200,600));
@@ -26,6 +28,7 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
 
         this.loginHomeViewModel = loginHomeViewModel;
         this.loginHomeViewModel.addPropertyChangeListener(this);
+        this.viewManagerModel = viewManagerModel;
 
 //        JLabel title = new JLabel("Login Home View");
 //        title.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -69,14 +72,19 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
      //     * React to a button click that results in evt.
      //     */
     public void actionPerformed(ActionEvent evt) {
-//        if (evt.getActionCommand() == signupButton.getActionCommand()):
+        if (evt.getActionCommand() == signupButton.getActionCommand()){
+            viewManagerModel.setActiveView("sign up");
+            viewManagerModel.firePropertyChanged();
+        }
+        else if (evt.getActionCommand().equals(loginButton.getActionCommand())){
+            viewManagerModel.setActiveView("log in");
+            viewManagerModel.firePropertyChanged();
+        }
         System.out.println("Click " + evt.getActionCommand());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-//        LoggedInState state = (LoggedInState) evt.getNewValue();
-//        username.setText(state.getUsername());
     }
 
 }

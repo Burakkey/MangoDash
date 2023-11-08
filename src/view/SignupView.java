@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.back_in_signup.BackInSignupController;
 import interface_adapter.back_in_signup.BackInSignupState;
 import interface_adapter.back_in_signup.BackInSignupViewModel;
@@ -38,15 +39,17 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton clear;
     // TODO
     private final JButton back;
+    private final ViewManagerModel viewManagerModel;
 
 
 
-    public SignupView(SignupController controller, SignupViewModel signupViewModel, ClearController controller2, ClearViewModel clearViewModel) {
+    public SignupView(SignupController controller, SignupViewModel signupViewModel, ClearController controller2, ClearViewModel clearViewModel, ViewManagerModel viewManagerModel) {
 
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
         this.clearController = controller2;
         this.clearViewModel = clearViewModel;
+        this.viewManagerModel = viewManagerModel;
 
         signupViewModel.addPropertyChangeListener(this);
         clearViewModel.addPropertyChangeListener(this);
@@ -193,8 +196,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
             JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
         }
         else if (evt.getActionCommand() == back.getActionCommand()){
-            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
-             // TODO HERE ABOUT ACCESSING VIEW MANAGER MODEL
+            viewManagerModel.setActiveView("Home");
+            viewManagerModel.firePropertyChanged();
         }
         System.out. println("Click " + evt.getActionCommand());
     }
