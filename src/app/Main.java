@@ -6,6 +6,7 @@ import interface_adapter.clear_users.ClearViewModel;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.login_home.LoginHomeViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.*;
@@ -43,6 +44,7 @@ public class Main {
         SignupViewModel signupViewModel = new SignupViewModel();
         ClearViewModel clearViewModel = new ClearViewModel();
         HomepageViewModel homepageViewModel = new HomepageViewModel();
+        LoginHomeViewModel loginHomeViewModel = new LoginHomeViewModel();
 
         FileUserDataAccessObject userDataAccessObject;
         FileUserDataAccessObject userDataAccessObject2;
@@ -59,13 +61,17 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel);
+        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, viewManagerModel);
         views.add(loggedInView, loggedInView.viewName);
 
         HomepageView homepageView = new HomepageView(homepageViewModel);
         views.add(homepageView, homepageView.viewName);
 
-        viewManagerModel.setActiveView(homepageView.viewName);
+
+        LoginHomeView loginHomeView = new LoginHomeView(loginHomeViewModel, viewManagerModel); // TODO CHANGE IN PARAMETERS
+        views.add(loginHomeView, loginHomeView.viewName);
+
+        viewManagerModel.setActiveView(loginHomeView.viewName);
         viewManagerModel.firePropertyChanged();
 
         application.pack();

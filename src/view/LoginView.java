@@ -1,5 +1,6 @@
 package view;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
@@ -17,6 +18,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
+    private final ViewManagerModel viewManagerModel;
 
     // TODO
     public final Color LIGHT_ORANGE = new Color(255, 200, 100);
@@ -30,9 +32,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     final JButton logIn;
     final JButton cancel;
+    final JButton back;
     private final LoginController loginController;
 
-    public LoginView(LoginViewModel loginViewModel, LoginController controller) {
+    public LoginView(LoginViewModel loginViewModel, LoginController controller, ViewManagerModel viewManagerModel) {
         Font font = new Font("Times New Roman", Font.PLAIN, 20); // change font later
 
         this.setPreferredSize(new Dimension(1200, 600)); // set window size
@@ -42,6 +45,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginController = controller;
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
+        this.viewManagerModel = viewManagerModel;
 
         JLabel title = new JLabel("Login");
         title.setFont(font);
@@ -68,6 +72,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         cancel.setFont(font);
         buttons.add(cancel);
 
+        back = new JButton(loginViewModel.BACK_BUTTON_LABEL);
+        back.setFont(font);
+        buttons.add(back);
+
 
 
         logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -86,6 +94,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         );
 
         cancel.addActionListener(this);
+        back.addActionListener(this);
 
         usernameInputField.addKeyListener(new KeyListener() {
             @Override
@@ -135,6 +144,18 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
+        if (evt.getActionCommand() == cancel.getActionCommand()){
+            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+        }
+        else if (evt.getActionCommand() == back.getActionCommand()){
+            viewManagerModel.setActiveView("Home");
+            viewManagerModel.firePropertyChanged();
+        }
+        else if (evt.getActionCommand() == logIn.getActionCommand()){
+            viewManagerModel.setActiveView("logged in");
+            viewManagerModel.firePropertyChanged();
+        }
+
         System.out.println("Click " + evt.getActionCommand());
     }
 
