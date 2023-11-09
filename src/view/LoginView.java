@@ -5,22 +5,24 @@ import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 
+import javax.imageio.ImageIO;
+import java.io.File;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
     private final ViewManagerModel viewManagerModel;
-
-    // TODO
     public final Color LIGHT_ORANGE = new Color(255, 200, 100);
 
     final JTextField usernameInputField = new JTextField(15);
@@ -31,15 +33,15 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JLabel passwordErrorField = new JLabel();
 
     final JButton logIn;
-    final JButton cancel;
+    //final JButton cancel;
     final JButton back;
     private final LoginController loginController;
 
     public LoginView(LoginViewModel loginViewModel, LoginController controller, ViewManagerModel viewManagerModel) {
-        Font font = new Font("Times New Roman", Font.PLAIN, 20); // change font later
+        Font medFont = loginViewModel.getComfortaaMedium();
 
         this.setPreferredSize(new Dimension(1200, 600)); // set window size
-        this.setBackground(Color.ORANGE); //set colour
+        this.setBackground(LIGHT_ORANGE); //set colour
 
 
         this.loginController = controller;
@@ -47,33 +49,40 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginViewModel.addPropertyChangeListener(this);
         this.viewManagerModel = viewManagerModel;
 
-        JLabel title = new JLabel("Login");
-        title.setFont(font);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+//        JLabel title = new JLabel("Login");
+//        title.setFont(medFont);
+//        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        try {
+            BufferedImage titlePicture = ImageIO.read(new File("src/assets/login_view/LoginViewTitle.png"));
+            JLabel picLabel = new JLabel(new ImageIcon(titlePicture));
+            picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            add(picLabel);
+        } catch (IOException ignored) {
+        }
 
         JLabel j = new JLabel("Username   ");
-        j.setFont(font);
+        j.setFont(medFont);
         LabelTextPanel usernameInfo = new LabelTextPanel(j, usernameInputField);
-        usernameInfo.setBackground(Color.ORANGE); //set colour
+        usernameInfo.setBackground(LIGHT_ORANGE); //set colour
 
         JLabel k = new JLabel("Password   ");
-        k.setFont(font);
+        k.setFont(medFont);
         LabelTextPanel passwordInfo = new LabelTextPanel(k, passwordInputField);
-        passwordInfo.setBackground(Color.ORANGE); //set colour
+        passwordInfo.setBackground(LIGHT_ORANGE); //set colour
 
         JPanel buttons = new JPanel();
-        buttons.setBackground(Color.ORANGE); //set colour
+        buttons.setBackground(LIGHT_ORANGE); //set colour
 
         logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
-        logIn.setFont(font);
+        logIn.setFont(medFont);
         buttons.add(logIn);
 
-        cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
-        cancel.setFont(font);
-        buttons.add(cancel);
+//        cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
+//        cancel.setFont(medFont);
+//        buttons.add(cancel);
 
         back = new JButton(loginViewModel.BACK_BUTTON_LABEL);
-        back.setFont(font);
+        back.setFont(medFont);
         buttons.add(back);
 
 
@@ -93,7 +102,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-        cancel.addActionListener(this);
+        //cancel.addActionListener(this);
         back.addActionListener(this);
 
         usernameInputField.addKeyListener(new KeyListener() {
@@ -132,7 +141,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     }
                 });
 
-        this.add(title);
+        //this.add(title);
         this.add(usernameInfo);
         this.add(usernameErrorField);
         this.add(passwordInfo);
@@ -144,10 +153,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getActionCommand() == cancel.getActionCommand()){
-            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
-        }
-        else if (evt.getActionCommand() == back.getActionCommand()){
+//        if (evt.getActionCommand() == cancel.getActionCommand()){
+//            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+//        }
+        if (evt.getActionCommand() == back.getActionCommand()){
             viewManagerModel.setActiveView("Home");
             viewManagerModel.firePropertyChanged();
         }
