@@ -23,8 +23,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
     private final ViewManagerModel viewManagerModel;
-
-    // TODO
     public final Color LIGHT_ORANGE = new Color(255, 200, 100);
 
     final JTextField usernameInputField = new JTextField(15);
@@ -35,7 +33,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JLabel passwordErrorField = new JLabel();
 
     final JButton logIn;
-    final JButton cancel;
+    //final JButton cancel;
     final JButton back;
     private final LoginController loginController;
 
@@ -79,9 +77,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         logIn.setFont(medFont);
         buttons.add(logIn);
 
-        cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
-        cancel.setFont(medFont);
-        buttons.add(cancel);
+//        cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
+//        cancel.setFont(medFont);
+//        buttons.add(cancel);
 
         back = new JButton(loginViewModel.BACK_BUTTON_LABEL);
         back.setFont(medFont);
@@ -104,7 +102,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-        cancel.addActionListener(this);
+        //cancel.addActionListener(this);
         back.addActionListener(this);
 
         usernameInputField.addKeyListener(new KeyListener() {
@@ -155,10 +153,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-        if (evt.getActionCommand() == cancel.getActionCommand()){
-            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
-        }
-        else if (evt.getActionCommand() == back.getActionCommand()){
+//        if (evt.getActionCommand() == cancel.getActionCommand()){
+//            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
+//        }
+        if (evt.getActionCommand() == back.getActionCommand()){
             viewManagerModel.setActiveView("Home");
             viewManagerModel.firePropertyChanged();
         }
