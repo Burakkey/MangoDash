@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 class CommonUser implements User {
 
     private final String name;
+
+    private final String username;
     private final String password;
     private final LocalDateTime creationTime;
 
@@ -13,8 +15,9 @@ class CommonUser implements User {
      * @param name
      * @param password
      */
-    CommonUser(String name, String password, LocalDateTime creationTime) {
+    CommonUser(String name, String username, String password, LocalDateTime creationTime) {
         this.name = name;
+        this.username = username;
         this.password = password;
         this.creationTime = creationTime;
     }
@@ -22,6 +25,11 @@ class CommonUser implements User {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getUserName() {
+        return username;
     }
 
     @Override
