@@ -33,7 +33,7 @@ public class HomepageViewModel extends ViewModel {
     private static HomepageState state = new HomepageState();
 
     public HomepageViewModel() {
-        super("homepage menu");
+        super("homepage");
     }
 
     public void setState(HomepageState state) {
