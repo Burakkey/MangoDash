@@ -1,4 +1,5 @@
 package view.Homepage;
+import interface_adapter.homepage.HomepagePresenter;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
 
@@ -10,11 +11,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class SettingsPanelComponent {
-    public static JPanel getPanel() {
+    public static JPanel getPanel(HomepageViewModel homepageViewModel) {
+
 
         final JTextField nameInputField = new JTextField(15);
 
         final JTextField bioInputField = new JTextField(15);
+
+        final JTextField usernameTextField = new JTextField(15);
 
         JPanel settingsPanel = new JPanel();
         settingsPanel.setLayout(new GridBagLayout());
@@ -24,7 +28,7 @@ public class SettingsPanelComponent {
         JPanel fieldsPanel = new JPanel(new GridBagLayout());
 
         // Create text fields
-        JTextField usernameTextField = new JTextField("Username");
+
         usernameTextField.setPreferredSize(new Dimension(200, 30));
 
         // Create and configure JLabels with right alignment
@@ -108,12 +112,13 @@ public class SettingsPanelComponent {
         nameInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-//                HomepageState currentState = HomepageViewModel.getState();
-//                String text = nameInputField.getText() + e.getKeyChar();
-//                currentState.setName(text);
-//                // Update the state in the view model
-//                HomepageViewModel viewModel = new HomepageViewModel();
-//                viewModel.setState(currentState);
+                HomepageState currentState = homepageViewModel.getState();
+                System.out.println(currentState.getName());
+                nameInputField.setText(currentState.getName());
+                String text = nameInputField.getText() + e.getKeyChar();
+                currentState.setName(text);
+                HomepageViewModel viewModel = new HomepageViewModel();
+                viewModel.setState(currentState);
             }
 
             @Override

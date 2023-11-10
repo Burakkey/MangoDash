@@ -25,13 +25,13 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void prepareSuccessView(LoginOutputData response) {
         // On success, switch to the logged in view.
-        System.out.println("Success till here");
-        HomepageState homepageState = HomepageViewModel.getState();
+        HomepageState homepageState = new HomepageState();
+        homepageState.setName(response.getName());
         homepageState.setUsername(response.getUsername());
         this.homepageViewModel.setState(homepageState);
-        homepageViewModel.firePropertyChanged();
-        viewManagerModel.setActiveView(homepageViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
+        this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
+        this.homepageViewModel.firePropertyChanged();
+        this.viewManagerModel.firePropertyChanged();
     }
 
     @Override
