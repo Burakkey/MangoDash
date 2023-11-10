@@ -1,6 +1,8 @@
 package view.Homepage;
+import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
+import use_case.change_user_data.ChangeDataInteractor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -208,7 +210,7 @@ public class SettingsPanelComponent {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(changePasswordButton)) {
-                            // do something
+
                         }
                     }
                 }

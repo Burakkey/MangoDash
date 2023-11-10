@@ -17,6 +17,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String newName = changeDataInput.getName();
         String oldPassword = changeDataInput.getOldPassword();
         String newPassword = changeDataInput.getNewPassword();
+        String bio = changeDataInput.getBio();
         if (changeDataInput.getNewPassword() != null &&
                 changeDataInput.getOldPassword() != null &&
                 changeDataInput.getRepeateNewPassword() != null) {
@@ -28,7 +29,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
                 homepagePresenter.prepareFailView("Incorrect password for " + username + ".");
             }else {
                 changeDataAccessInterface.modifyUser(newName,username,newPassword);
-                ChangeDataOutput changeDataOutput = new ChangeDataOutput(newName,username);
+                ChangeDataOutput changeDataOutput = new ChangeDataOutput(newName,username, bio);
                 homepagePresenter.prepareSuccessView(changeDataOutput);
             }
 
@@ -36,7 +37,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         } else{
             // Make changes to user's name and bio
             changeDataAccessInterface.modifyUser(newName,username);
-            ChangeDataOutput changeDataOutput = new ChangeDataOutput(newName, username);
+            ChangeDataOutput changeDataOutput = new ChangeDataOutput(newName, username, bio);
             homepagePresenter.prepareSuccessView(changeDataOutput);
         }
     }

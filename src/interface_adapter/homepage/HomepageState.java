@@ -24,7 +24,7 @@ public class HomepageState {
     }
 
     public String getBio() {
-        return bio;
+        return this.bio;
     }
 
     public void setUsername(String username) {

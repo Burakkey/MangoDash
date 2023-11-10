@@ -5,9 +5,12 @@ public class ChangeDataOutput {
 
     private final String name;
 
-    public ChangeDataOutput(String username, String name) {
+    private final String bio;
+
+    public ChangeDataOutput(String username, String name, String bio) {
         this.username = username;
         this.name = name;
+        this.bio = bio;
     }
 
     public String getUsername() {
@@ -16,5 +19,9 @@ public class ChangeDataOutput {
 
     public String getName() {
         return name;
+    }
+
+    public String getBio() {
+        return bio;
     }
 }

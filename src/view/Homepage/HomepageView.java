@@ -1,5 +1,6 @@
 package view.Homepage;
 
+import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
 

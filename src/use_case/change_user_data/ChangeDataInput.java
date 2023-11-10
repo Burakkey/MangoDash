@@ -46,4 +46,8 @@ public class ChangeDataInput {
     public String getRepeateNewPassword() {
         return repeateNewPassword;
     }
+
+    public String getBio() {
+        return bio;
+    }
 }
