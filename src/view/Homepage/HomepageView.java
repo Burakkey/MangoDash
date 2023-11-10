@@ -21,9 +21,12 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
     private final SettingsPanelComponent settingsPanelComponent;
 
+    private final HomepageController homepageController;
+
 
     public HomepageView(HomepageViewModel homepageViewModel, HomePanelComponent homePanelComponent,
-                        RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents, SettingsPanelComponent settingsPanelComponent) {
+                        RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents, SettingsPanelComponent settingsPanelComponent, HomepageController homepageController) {
+        this.homepageController = homepageController;
         this.setPreferredSize(new Dimension(1200, 600));
 
         this.homepageViewModel = homepageViewModel;
@@ -42,7 +45,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, HomePanelComponent.getPanel());
         tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());
         tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel());
-        tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel));
+        tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController));
 
         this.add(tabbedPane);
 

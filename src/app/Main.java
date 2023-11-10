@@ -71,8 +71,8 @@ public class Main {
         RankingPanelComponent rankingPanelComponent = new RankingPanelComponent();
         ExtensionPanelComponents extensionPanelComponents = new ExtensionPanelComponents();
         SettingsPanelComponent settingsPanelComponent = new SettingsPanelComponent();
-        HomepageView homepageView = new HomepageView(homepageViewModel, homePanelComponent, rankingPanelComponent,
-                extensionPanelComponents, settingsPanelComponent);
+        HomepageView homepageView = HomepageUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, homePanelComponent, rankingPanelComponent,
+                extensionPanelComponents, settingsPanelComponent, userDataAccessObject);
         views.add(homepageView, homepageView.viewName);
 
 
