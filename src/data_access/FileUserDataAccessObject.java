@@ -2,6 +2,7 @@ package data_access;
 
 import entity.User;
 import entity.UserFactory;
+import use_case.change_user_data.ChangeDataAccessInterface;
 import use_case.clear_users.ClearUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
@@ -16,7 +17,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 
-public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface, ClearUserDataAccessInterface {
+public class FileUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface,
+        ClearUserDataAccessInterface, ChangeDataAccessInterface {
 
     private final File csvFile;
 
@@ -33,7 +35,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         headers.put("name", 0);
         headers.put("username", 1);
         headers.put("password", 2);
-        headers.put("creation_time", 3);
+        headers.put("bio", 3);
+        headers.put("creation_time", 4);
 
         if (csvFile.length() == 0) {
             save();
@@ -43,7 +46,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                 String header = reader.readLine();
 
                 // For later: clean this up by creating a new Exception subclass and handling it in the UI.
-                assert header.equals("name,username,password,creation_time");
+                assert header.equals("name,username,password,bio,creation_time");
 
                 String row;
                 while ((row = reader.readLine()) != null) {
@@ -51,9 +54,10 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     String name = String.valueOf(col[headers.get("name")]);
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
+                    String bio = String.valueOf(col[headers.get("bio")]);
                     String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
                     LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    User user = userFactory.create(name, username, password, ldt);
+                    User user = userFactory.create(name, username, password, bio, ldt);
                     accounts.put(username, user);
                 }
             }
@@ -80,8 +84,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
             for (User user : accounts.values()) {
                 String creationTime = user.getCreationTime().toString(); // Format LocalDateTime as a string
-                String line = String.format("%s,%s,%s,%s",
-                        user.getName(), user.getUserName(), user.getPassword(), creationTime);
+                String line = String.format("%s,%s,%s,%s,%s",
+                        user.getName(), user.getUserName(), user.getPassword(), user.getBio(), creationTime);
                 writer.write(line);
                 writer.newLine();
             }
@@ -111,6 +115,24 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         return accounts.containsKey(identifier);
     }
 
+    @Override
+    public void modifyUser(String name, String username, String password) {
+        User user = accounts.get(username);
+        if (user != null) {
+            user.setPassword(password);
+            user.setName(name);
+            save(); // Save the updated user information to the CSV file
+        }
+    }
+
+    @Override
+    public void modifyUser(String name, String username) {
+        User user = accounts.get(username);
+        if (user != null) {
+            user.setName(name);
+            save(); // Save the updated user information to the CSV file
+        }
+    }
 
 
 }

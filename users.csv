@@ -1,2 +1,3 @@
-name,username,password,creation_time
-as,as2,123,2023-11-09T19:05:30.295469
+name,username,password,bio,creation_time
+as,as2,123, ,2023-11-10T17:26:00.309622900
+asd,asd,123, ,2023-11-10T17:28:01.524566800

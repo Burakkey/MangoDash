@@ -21,7 +21,7 @@ public class SettingsPanelComponent {
 
     public void updatePanel(HomepageState newState){
 
-        // these are updated without re-creating a new instance add component that can change here!
+        // these are updated without re-creating a new instance, add component that can change here!
         nameInputField.setText(newState.getName());
         usernameInputField.setText(newState.getUsername());
         bioInputField.setText(newState.getBio());
@@ -139,15 +139,35 @@ public class SettingsPanelComponent {
             }
         });
 
+        usernameInputField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                HomepageState currentState = homepageViewModel.getState();
+                String text = usernameInputField.getText() + e.getKeyChar();
+                currentState.setUsername(text);
+                HomepageViewModel viewModel = new HomepageViewModel();
+                viewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
         bioInputField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-//                HomepageState currentState = HomepageViewModel.getState();
-//                String text = bioInputField.getText() + e.getKeyChar();
-//                currentState.setBio(text);
-//                // Update the state in the view model
-//                HomepageViewModel viewModel = new HomepageViewModel();
-//                viewModel.setState(currentState);
+                HomepageState currentState = homepageViewModel.getState();
+                String text = bioInputField.getText() + e.getKeyChar();
+                currentState.setBio(text);
+                HomepageViewModel viewModel = new HomepageViewModel();
+                viewModel.setState(currentState);
             }
 
             @Override
@@ -177,7 +197,7 @@ public class SettingsPanelComponent {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(changePasswordButton)) {
-                            // do something
+
                         }
                     }
                 }

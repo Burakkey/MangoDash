@@ -11,4 +11,12 @@ public interface User {
     String getPassword();
 
     LocalDateTime getCreationTime();
+
+    void setPassword(String password);
+
+    void setName(String name);
+
+    void setBio(String bio);
+
+    String getBio();
 }
