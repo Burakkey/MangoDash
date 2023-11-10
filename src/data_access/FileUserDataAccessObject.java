@@ -62,7 +62,7 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
     @Override
     public void save(User user) {
-        accounts.put(user.getName(), user);
+        accounts.put(user.getUserName(), user);
         this.save();
     }
 
@@ -79,8 +79,9 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             writer.newLine();
 
             for (User user : accounts.values()) {
-                String line = String.format("%s,%s,%s",
-                        user.getName(), user.getUserName(), user.getPassword(), user.getCreationTime());
+                String creationTime = user.getCreationTime().toString(); // Format LocalDateTime as a string
+                String line = String.format("%s,%s,%s,%s",
+                        user.getName(), user.getUserName(), user.getPassword(), creationTime);
                 writer.write(line);
                 writer.newLine();
             }
