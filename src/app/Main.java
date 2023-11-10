@@ -10,7 +10,7 @@ import interface_adapter.login_home.LoginHomeViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.*;
-import view.Homepage.HomepageView;
+import view.Homepage.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,6 +46,7 @@ public class Main {
         HomepageViewModel homepageViewModel = new HomepageViewModel();
         LoginHomeViewModel loginHomeViewModel = new LoginHomeViewModel();
 
+
         FileUserDataAccessObject userDataAccessObject;
         FileUserDataAccessObject userDataAccessObject2;
         try {
@@ -64,7 +65,12 @@ public class Main {
         LoggedInView loggedInView = new LoggedInView(loggedInViewModel, viewManagerModel);
         views.add(loggedInView, loggedInView.viewName);
 
-        HomepageView homepageView = new HomepageView(homepageViewModel);
+        HomePanelComponent homePanelComponent = new HomePanelComponent();
+        RankingPanelComponent rankingPanelComponent = new RankingPanelComponent();
+        ExtensionPanelComponents extensionPanelComponents = new ExtensionPanelComponents();
+        SettingsPanelComponent settingsPanelComponent = new SettingsPanelComponent();
+        HomepageView homepageView = new HomepageView(homepageViewModel, homePanelComponent, rankingPanelComponent,
+                extensionPanelComponents, settingsPanelComponent);
         views.add(homepageView, homepageView.viewName);
 
 

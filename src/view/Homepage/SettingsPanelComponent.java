@@ -1,5 +1,4 @@
 package view.Homepage;
-import interface_adapter.homepage.HomepagePresenter;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
 
@@ -11,14 +10,26 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class SettingsPanelComponent {
+
+    public SettingsPanelComponent() {
+    }
+
+    public static JTextField nameInputField = new JTextField(15);
+    public static JTextField bioInputField = new JTextField(15);
+    public static JTextField usernameInputField = new JTextField(15);
+
+
+    public void updatePanel(HomepageState newState){
+
+        // these are updated without re-creating a new instance add component that can change here!
+        nameInputField.setText(newState.getName());
+        usernameInputField.setText(newState.getUsername());
+        bioInputField.setText(newState.getBio());
+    }
+
     public static JPanel getPanel(HomepageViewModel homepageViewModel) {
 
-
-        final JTextField nameInputField = new JTextField(15);
-
-        final JTextField bioInputField = new JTextField(15);
-
-        final JTextField usernameTextField = new JTextField(15);
+        // Below are how components are place (visuals) feel free to do whatever here
 
         JPanel settingsPanel = new JPanel();
         settingsPanel.setLayout(new GridBagLayout());
@@ -27,9 +38,7 @@ public class SettingsPanelComponent {
         // Create a panel for the text fields and labels
         JPanel fieldsPanel = new JPanel(new GridBagLayout());
 
-        // Create text fields
-
-        usernameTextField.setPreferredSize(new Dimension(200, 30));
+        settingsPanel.setPreferredSize(new Dimension(200, 30));
 
         // Create and configure JLabels with right alignment
         JLabel usernameLabel = new JLabel(HomepageViewModel.USERNAME_JLABEL);
@@ -53,7 +62,7 @@ public class SettingsPanelComponent {
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 0, 5, 0);
-        fieldsPanel.add(usernameTextField, gbc);
+        fieldsPanel.add(usernameInputField, gbc);
 
         // Update gridy to position the next component below
         gbc.gridy = 1;
@@ -113,8 +122,6 @@ public class SettingsPanelComponent {
             @Override
             public void keyTyped(KeyEvent e) {
                 HomepageState currentState = homepageViewModel.getState();
-                System.out.println(currentState.getName());
-                nameInputField.setText(currentState.getName());
                 String text = nameInputField.getText() + e.getKeyChar();
                 currentState.setName(text);
                 HomepageViewModel viewModel = new HomepageViewModel();

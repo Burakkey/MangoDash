@@ -13,34 +13,35 @@ import java.beans.PropertyChangeListener;
 public class HomepageView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "homepage";
     private final HomepageViewModel homepageViewModel;
-    private final JPanel homePanel;
-    private final JPanel rankingPanel;
+    private final HomePanelComponent homePanelComponent;
+    private final RankingPanelComponent rankingPanelComponent;
 
-    private final JPanel extensionPanel;
+    private final ExtensionPanelComponents extensionPanelComponents;
 
-    private final JPanel settingsPanel;
+    private final SettingsPanelComponent settingsPanelComponent;
 
 
-    public HomepageView(HomepageViewModel homepageViewModel) {
+    public HomepageView(HomepageViewModel homepageViewModel, HomePanelComponent homePanelComponent,
+                        RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents, SettingsPanelComponent settingsPanelComponent) {
         this.setPreferredSize(new Dimension(1200, 600));
 
         this.homepageViewModel = homepageViewModel;
         this.homepageViewModel.addPropertyChangeListener(this);
+        this.homePanelComponent = homePanelComponent;
+        this.rankingPanelComponent = rankingPanelComponent;
+        this.extensionPanelComponents = extensionPanelComponents;
+        this.settingsPanelComponent = settingsPanelComponent;
+
 
         JLabel title = new JLabel("Homepage View");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        homePanel = HomePanelComponent.getPanel();
-        rankingPanel = RankingPanelComponent.getPanel();
-        extensionPanel = ExtensionPanelComponents.getPanel();
-        settingsPanel = SettingsPanelComponent.getPanel(homepageViewModel);
-
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setPreferredSize(new Dimension(1200, 600));
-        tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, homePanel);
-        tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, rankingPanel);
-        tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, extensionPanel);
-        tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, settingsPanel);
+        tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, HomePanelComponent.getPanel());
+        tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());
+        tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel());
+        tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel));
 
         this.add(tabbedPane);
 
@@ -51,6 +52,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
     public void updateView(HomepageState newHomepageState) {
         // Update the view based on the new state of homepageViewModel
         this.homepageViewModel.setState(newHomepageState);
+        this.settingsPanelComponent.updatePanel(newHomepageState);
     }
 
     @Override
