@@ -14,7 +14,7 @@ public class SignupController {
 
     public void execute(String name, String username, String password1, String password2) {
         LocalDateTime currentDateTime = LocalDateTime.now();
-        System.out.println(currentDateTime); //TODO: Remove this later @Hisham
+        System.out.println(currentDateTime);
         SignupInputData signupInputData = new SignupInputData(
                 name, username, password1, password2, currentDateTime);
         userSignupUseCaseInteractor.execute(signupInputData);
