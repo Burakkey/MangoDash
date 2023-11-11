@@ -5,9 +5,9 @@ import entity.User;
 public interface ChangeDataAccessInterface {
     boolean existsByName(String identifier);
 
-    void modifyUser(String name, String username, String password);
+    void modifyUser(String name, String username, String password, String bio);
 
-    void modifyUser(String name, String username);
+    void modifyUser(String name, String username, String bio);
 
     User get(String username);
 }

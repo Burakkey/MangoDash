@@ -116,21 +116,24 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
     }
 
     @Override
-    public void modifyUser(String name, String username, String password) {
+    public void modifyUser(String username, String name, String password, String bio) {
         User user = accounts.get(username);
         if (user != null) {
             user.setPassword(password);
             user.setName(name);
-            save(); // Save the updated user information to the CSV file
+            user.setBio(bio);
+            this.save(); // Save the updated user information to the CSV file
         }
     }
 
     @Override
-    public void modifyUser(String name, String username) {
+    public void modifyUser(String username, String name, String bio) {
         User user = accounts.get(username);
         if (user != null) {
             user.setName(name);
-            save(); // Save the updated user information to the CSV file
+            user.setBio(bio);
+            System.out.println("Success till here"); //TODO: Remove this when checked @Hisham
+            this.save(); // Save the updated user information to the CSV file
         }
     }
 

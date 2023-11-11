@@ -209,9 +209,10 @@ public class SettingsPanelComponent {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(changePasswordButton)) {
+                        if (e.getSource().equals(saveChangesButton)) {
                             HomepageState currentState = homepageViewModel.getState();
                             homepageController.executeSaveChanges(currentState.getName(), currentState.getUsername(), currentState.getBio());
+
                         }
                     }
                 }
