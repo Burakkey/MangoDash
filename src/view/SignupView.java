@@ -25,7 +25,7 @@ import java.io.IOException;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final Color LIGHT_ORANGE = new Color(255, 200, 100);
+
 
     public final String viewName = "sign up";
 
@@ -45,6 +45,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
 
     public SignupView(SignupController controller, SignupViewModel signupViewModel, ViewManagerModel viewManagerModel) {
+
+        final Color LIGHT_ORANGE = signupViewModel.BACKGROUND_COLOR;
 
         Font medFont = signupViewModel.getComfortaaMedium();
         this.setPreferredSize(new Dimension(1200, 600)); // set window size
