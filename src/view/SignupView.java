@@ -13,6 +13,9 @@ import interface_adapter.signup.SignupViewModel;
 
 import interface_adapter.clear_users.ClearController;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,8 +24,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
+
+    public final Color LIGHT_ORANGE = new Color(255, 200, 100);
+
     public final String viewName = "sign up";
 
     private final SignupViewModel signupViewModel;
@@ -37,7 +44,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton cancel;
 
     private final JButton clear;
-    // TODO
+
     private final JButton back;
     private final ViewManagerModel viewManagerModel;
 
@@ -45,18 +52,27 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public SignupView(SignupController controller, SignupViewModel signupViewModel, ClearController controller2, ClearViewModel clearViewModel, ViewManagerModel viewManagerModel) {
 
+        Font medFont = signupViewModel.getComfortaaMedium();
+        this.setPreferredSize(new Dimension(1200, 600)); // set window size
+        this.setBackground(LIGHT_ORANGE); //set colour
+
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
         this.clearController = controller2;
         this.clearViewModel = clearViewModel;
         this.viewManagerModel = viewManagerModel;
 
+        try {
+            BufferedImage titlePicture = ImageIO.read(new File("src/assets/signup_view/SignUpViewTitle.png"));
+            JLabel picLabel = new JLabel(new ImageIcon(titlePicture));
+            picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            add(picLabel);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         signupViewModel.addPropertyChangeListener(this);
         clearViewModel.addPropertyChangeListener(this);
-
-
-        JLabel title = new JLabel(SignupViewModel.TITLE_LABEL);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         LabelTextPanel usernameInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.USERNAME_LABEL), usernameInputField);
@@ -180,7 +196,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.add(title);
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);
