@@ -1,8 +1,9 @@
-package view.Homepage;
+package view.homepage;
 
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
+import interface_adapter.switchview.SwitchViewController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,10 +24,14 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
     private final HomepageController homepageController;
 
+    private final SwitchViewController switchViewController;
+
 
     public HomepageView(HomepageViewModel homepageViewModel, HomePanelComponent homePanelComponent,
-                        RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents, SettingsPanelComponent settingsPanelComponent, HomepageController homepageController) {
+                        RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
+                        SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, SwitchViewController switchViewController) {
         this.homepageController = homepageController;
+        this.switchViewController = switchViewController;
         this.setPreferredSize(new Dimension(1200, 600));
 
         this.homepageViewModel = homepageViewModel;
@@ -45,7 +50,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, HomePanelComponent.getPanel());
         tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());
         tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel());
-        tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController));
+        tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController, switchViewController));
 
         this.add(tabbedPane);
 

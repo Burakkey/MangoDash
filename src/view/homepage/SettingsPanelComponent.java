@@ -1,8 +1,8 @@
-package view.Homepage;
+package view.homepage;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
-import use_case.change_user_data.ChangeDataInteractor;
+import interface_adapter.switchview.SwitchViewController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +29,7 @@ public class SettingsPanelComponent {
         bioInputField.setText(newState.getBio());
     }
 
-    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController) {
+    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
 
         // Below are how components are place (visuals) feel free to do whatever here
 
@@ -183,23 +183,76 @@ public class SettingsPanelComponent {
             }
         });
 
-        changePasswordButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(changePasswordButton)) {
-                            // do something
+        changePasswordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(changePasswordButton)) {
+                    // Create a custom JDialog as the parent of the OptionDialog
+                    JDialog customDialog = new JDialog();
+                    customDialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                    // Create an array of JComponents (text fields and labels)
+                    JTextField currentPasswordField = new JPasswordField();
+                    JTextField newPasswordField = new JPasswordField();
+                    JTextField reenterNewPasswordField = new JPasswordField();
+
+                    Object[] message = {
+                            "Current Password:", currentPasswordField,
+                            "New Password:", newPasswordField,
+                            "Re-enter New Password:", reenterNewPasswordField
+                    };
+
+                    // Show the option dialog with the custom dialog as the parent
+                    int option = JOptionPane.showOptionDialog(
+                            customDialog,
+                            message,
+                            "Change Password",
+                            JOptionPane.OK_CANCEL_OPTION,
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            new Object[]{"Okay", "Cancel"},
+                            "default");
+
+                    // Check the user's choice
+                    if (option == JOptionPane.OK_OPTION) {
+                        // User clicked "Okay", handle the input
+                        String currentPassword = currentPasswordField.getText();
+                        String newPassword = newPasswordField.getText();
+                        String reenterNewPassword = reenterNewPasswordField.getText();
+
+                        if (!reenterNewPassword.equals(newPassword)) {
+                            JOptionPane.showMessageDialog(
+                                    customDialog,
+                                    "New passwords do not match!",
+                                    "Error",
+                                    JOptionPane.INFORMATION_MESSAGE
+                            );
+                        } else {
+                            HomepageState currentState = homepageViewModel.getState();
+                            homepageController.executeSaveChanges(
+                                    currentState.getUsername(), currentState.getName(), currentState.getBio(),
+                                    currentPassword, newPassword, reenterNewPassword);
+
+                            // Close the custom dialog, which will also close the OptionDialog
+                            customDialog.dispose();
                         }
+                    } else {
+                        // User clicked "Cancel" or closed the dialog
+                        // Close the custom dialog, which will also close the OptionDialog
+                        customDialog.dispose();
                     }
                 }
-        );
+            }
+        });
+
+
 
         logoutButton.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        if (e.getSource().equals(changePasswordButton)) {
-
+                        if (e.getSource().equals(logoutButton)) {
+                            switchViewController.execute(logoutButton.getText());
                         }
                     }
                 }

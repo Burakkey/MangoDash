@@ -3,16 +3,14 @@ package app;
 import data_access.FileUserDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapter.clear_users.ClearViewModel;
-import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login_home.LoginHomeViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
-import use_case.change_user_data.ChangeDataInputBoundary;
 import view.*;
-import view.Homepage.*;
+import view.homepage.*;
 
 import javax.swing.*;
 import java.awt.*;

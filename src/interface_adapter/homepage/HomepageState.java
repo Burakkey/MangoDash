@@ -1,10 +1,10 @@
 package interface_adapter.homepage;
 
 public class HomepageState {
-    private String name = ""; // Add name field
+    private String name; // Add name field
 
-    private String username = "";
-    private String bio = ""; // Add bio field
+    private String username;
+    private String bio; // Add bio field
 
     public HomepageState(HomepageState copy) {
         name = copy.name;

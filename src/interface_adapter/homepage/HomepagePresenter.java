@@ -29,7 +29,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         HomepageState homepageState = new HomepageState();
         homepageState.setName(changeDataOutput.getName());
         homepageState.setUsername(changeDataOutput.getUsername());
-        homepageState.getBio();
+        homepageState.setBio(changeDataOutput.getBio());
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.homepageViewModel.firePropertyChanged();

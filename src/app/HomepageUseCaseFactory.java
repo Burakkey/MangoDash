@@ -7,11 +7,16 @@ import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepagePresenter;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.switchview.SwitchViewController;
+import interface_adapter.switchview.SwitchViewPresenter;
 import use_case.change_user_data.ChangeDataAccessInterface;
 import use_case.change_user_data.ChangeDataInputBoundary;
 import use_case.change_user_data.ChangeDataInteractor;
 import use_case.change_user_data.ChangeDataOutputBoundary;
-import view.Homepage.*;
+import use_case.switchView.SwitchViewInputBoundary;
+import use_case.switchView.SwitchViewInteractor;
+import use_case.switchView.SwitchViewOutputBoundary;
+import view.homepage.*;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -24,7 +29,8 @@ public class HomepageUseCaseFactory {
         try {
             HomepageController homepageController = createHomepageUseCase(viewManagerModel, loginViewModel,
                     homepageViewModel, changeDataAccessInterface);
-            return new HomepageView(homepageViewModel, homePanelComponent, rankingPanelComponent, extensionPanelComponents, settingsPanelComponent, homepageController);
+            SwitchViewController switchViewController = createSwitchViewController(viewManagerModel, loginViewModel);
+            return new HomepageView(homepageViewModel, homePanelComponent, rankingPanelComponent, extensionPanelComponents, settingsPanelComponent, homepageController, switchViewController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -40,5 +46,11 @@ public class HomepageUseCaseFactory {
         UserFactory userFactory = new CommonUserFactory();
         ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary);
         return new HomepageController(changeDataInteractor);
+    }
+
+    private static SwitchViewController createSwitchViewController(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel){
+        SwitchViewOutputBoundary switchViewOutputBoundary = new SwitchViewPresenter(loginViewModel, viewManagerModel);
+        SwitchViewInputBoundary switchViewInteractor = new SwitchViewInteractor(switchViewOutputBoundary);
+        return new SwitchViewController(switchViewInteractor);
     }
 }
