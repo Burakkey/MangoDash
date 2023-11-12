@@ -39,6 +39,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public LoginView(LoginViewModel loginViewModel, LoginController controller, ViewManagerModel viewManagerModel) {
         Font medFont = loginViewModel.getComfortaaMedium();
+        this.setBackground(LIGHT_ORANGE); //set colour
 
         this.setPreferredSize(new Dimension(1200, 600)); // set window size
         this.setBackground(LIGHT_ORANGE); //set colour
