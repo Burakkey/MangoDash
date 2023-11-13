@@ -1,4 +1,4 @@
-package view.Homepage;
+package view.homepage;
 
 import interface_adapter.homepage.HomepageViewModel;
 

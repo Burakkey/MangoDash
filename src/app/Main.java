@@ -10,7 +10,7 @@ import interface_adapter.login_home.LoginHomeViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.ViewManagerModel;
 import view.*;
-import view.Homepage.HomepageView;
+import view.homepage.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,6 +46,7 @@ public class Main {
         HomepageViewModel homepageViewModel = new HomepageViewModel();
         LoginHomeViewModel loginHomeViewModel = new LoginHomeViewModel();
 
+
         FileUserDataAccessObject userDataAccessObject;
         FileUserDataAccessObject userDataAccessObject2;
         try {
@@ -58,13 +59,18 @@ public class Main {
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, clearViewModel, userDataAccessObject2);
         views.add(signupView, signupView.viewName);
 
-        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, loggedInViewModel, userDataAccessObject);
+        LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
         LoggedInView loggedInView = new LoggedInView(loggedInViewModel, viewManagerModel);
         views.add(loggedInView, loggedInView.viewName);
 
-        HomepageView homepageView = new HomepageView(homepageViewModel);
+        HomePanelComponent homePanelComponent = new HomePanelComponent();
+        RankingPanelComponent rankingPanelComponent = new RankingPanelComponent();
+        ExtensionPanelComponents extensionPanelComponents = new ExtensionPanelComponents();
+        SettingsPanelComponent settingsPanelComponent = new SettingsPanelComponent();
+        HomepageView homepageView = HomepageUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, homePanelComponent, rankingPanelComponent,
+                extensionPanelComponents, settingsPanelComponent, userDataAccessObject);
         views.add(homepageView, homepageView.viewName);
 
 

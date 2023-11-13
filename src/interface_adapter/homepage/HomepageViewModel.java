@@ -30,31 +30,29 @@ public class HomepageViewModel extends ViewModel {
 
     public static final Color BACKGROUND_COLOR = Color.ORANGE;
 
-    private static HomepageState state = new HomepageState();
+    private static HomepageState homepageState = new HomepageState();
 
     public HomepageViewModel() {
-        super("homepage menu");
+        super("homepage");
     }
 
     public void setState(HomepageState state) {
-        this.state = state;
+        homepageState = state;
     }
 
-
+    public HomepageState getState(){
+        return homepageState;
+    }
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     // This is what the Signup Presenter will call to let the ViewModel know
     // to alert the View
     public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
+        support.firePropertyChange("state", null, this.homepageState);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
-    }
-
-    public static HomepageState getState() {
-        return state;
     }
 }

@@ -3,6 +3,8 @@ package interface_adapter.signup;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInputData;
 
+import java.time.LocalDateTime;
+
 public class SignupController {
 
     final SignupInputBoundary userSignupUseCaseInteractor;
@@ -10,10 +12,11 @@ public class SignupController {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
     }
 
-    public void execute(String username, String password1, String password2) {
+    public void execute(String name, String username, String password1, String password2) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        System.out.println(currentDateTime);
         SignupInputData signupInputData = new SignupInputData(
-                username, password1, password2);
-
+                name, username, password1, password2, currentDateTime);
         userSignupUseCaseInteractor.execute(signupInputData);
     }
 }

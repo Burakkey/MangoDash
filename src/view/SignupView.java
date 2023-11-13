@@ -30,9 +30,15 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public final String viewName = "sign up";
 
     private final SignupViewModel signupViewModel;
+    private final ClearViewModel clearViewModel;
+
+    private final JTextField nameInputField = new JTextField(15);
+
     private final JTextField usernameInputField = new JTextField(15);
     private final JPasswordField passwordInputField = new JPasswordField(15);
     private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+
+
     private final SignupController signupController;
 
     private final JButton signUp;
@@ -79,6 +85,14 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         LabelTextPanel passwordInfo = new LabelTextPanel(passwordLabel, passwordInputField);
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(repeatPasswordLabel, repeatPasswordInputField);
 
+        LabelTextPanel nameInfo = new LabelTextPanel(
+                new JLabel(SignupViewModel.NAME_LABEL), nameInputField);
+        LabelTextPanel usernameInfo = new LabelTextPanel(
+                new JLabel(SignupViewModel.USERNAME_LABEL), usernameInputField);
+        LabelTextPanel passwordInfo = new LabelTextPanel(
+                new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
+        LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
+                new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
         usernameInfo.setBackground(LIGHT_ORANGE);
         passwordInfo.setBackground(LIGHT_ORANGE);
         repeatPasswordInfo.setBackground(LIGHT_ORANGE);
@@ -105,6 +119,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                             SignupState currentState = signupViewModel.getState();
 
                             signupController.execute(
+                                    currentState.getName(),
                                     currentState.getUsername(),
                                     currentState.getPassword(),
                                     currentState.getRepeatPassword()
@@ -116,6 +131,32 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         cancel.addActionListener(this);
         back.addActionListener(this);
+
+        // This makes a new KeyListener implementing class, instantiates it, and
+        // makes it listen to keystrokes in the usernameInputField.
+        //
+        // Notice how it has access to instance variables in the enclosing class!
+        nameInputField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent e) {
+                        SignupState currentState = signupViewModel.getState();
+                        String text = nameInputField.getText() + e.getKeyChar();
+                        currentState.setName(text);
+                        signupViewModel.setState(currentState);
+                    }
+
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+
+                    }
+
+                    @Override
+                    public void keyReleased(KeyEvent e) {
+
+                    }
+                }
+        );
 
         usernameInputField.addKeyListener(
                 new KeyListener() {
@@ -180,6 +221,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
+
+        this.add(title);
+        this.add(nameInfo);
         this.add(usernameInfo);
         this.add(passwordInfo);
         this.add(repeatPasswordInfo);

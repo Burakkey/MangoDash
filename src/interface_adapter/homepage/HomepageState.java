@@ -1,19 +1,19 @@
 package interface_adapter.homepage;
 
 public class HomepageState {
-    private String username = "";
-    private String name = ""; // Add name field
-    private String bio = ""; // Add bio field
+    private String name; // Add name field
+
+    private String username;
+    private String bio; // Add bio field
 
     public HomepageState(HomepageState copy) {
-        username = copy.username;
         name = copy.name;
+        username = copy.username;
         bio = copy.bio;
     }
 
     // Explicit default constructor
-    public HomepageState() {
-    }
+    public HomepageState(){}
 
     public String getUsername() {
         return username;
@@ -24,7 +24,7 @@ public class HomepageState {
     }
 
     public String getBio() {
-        return bio;
+        return this.bio;
     }
 
     public void setUsername(String username) {
