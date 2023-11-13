@@ -23,7 +23,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
     private final ViewManagerModel viewManagerModel;
-    public final Color LIGHT_ORANGE = new Color(255, 200, 100);
 
     final JTextField usernameInputField = new JTextField(15);
 
@@ -39,6 +38,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public LoginView(LoginViewModel loginViewModel, LoginController controller, ViewManagerModel viewManagerModel) {
         Font medFont = loginViewModel.getComfortaaMedium();
+        final Color LIGHT_ORANGE = loginViewModel.BACKGROUND_COLOR;
+
         this.setBackground(LIGHT_ORANGE); //set colour
 
         this.setPreferredSize(new Dimension(1200, 600)); // set window size
