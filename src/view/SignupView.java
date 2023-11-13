@@ -30,7 +30,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public final String viewName = "sign up";
 
     private final SignupViewModel signupViewModel;
-    private final ClearViewModel clearViewModel;
 
     private final JTextField nameInputField = new JTextField(15);
 
@@ -80,10 +79,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         usernameLabel.setFont(medFont);
         passwordLabel.setFont(medFont);
         repeatPasswordLabel.setFont(medFont);
-
-        LabelTextPanel usernameInfo = new LabelTextPanel(usernameLabel, usernameInputField);
-        LabelTextPanel passwordInfo = new LabelTextPanel(passwordLabel, passwordInputField);
-        LabelTextPanel repeatPasswordInfo = new LabelTextPanel(repeatPasswordLabel, repeatPasswordInputField);
 
         LabelTextPanel nameInfo = new LabelTextPanel(
                 new JLabel(SignupViewModel.NAME_LABEL), nameInputField);
@@ -222,7 +217,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 
-        this.add(title);
+//        this.add(title);
         this.add(nameInfo);
         this.add(usernameInfo);
         this.add(passwordInfo);
