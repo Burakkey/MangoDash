@@ -264,7 +264,7 @@ public class SettingsPanelComponent {
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(saveChangesButton)) {
                             HomepageState currentState = homepageViewModel.getState();
-                            homepageController.executeSaveChanges(currentState.getName(), currentState.getUsername(), currentState.getBio());
+                            homepageController.executeSaveChanges(currentState.getUsername(), currentState.getName(), currentState.getBio());
 
                         }
                     }

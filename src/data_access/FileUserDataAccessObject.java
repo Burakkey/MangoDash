@@ -132,7 +132,6 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         if (user != null) {
             user.setName(name);
             user.setBio(bio);
-            System.out.println("Success till here"); //TODO: Remove this when checked @Hisham
             this.save(); // Save the updated user information to the CSV file
         }
     }
