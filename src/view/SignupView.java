@@ -43,8 +43,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton signUp;
     private final JButton cancel;
 
-
-    private final JButton back;
     private final ViewManagerModel viewManagerModel;
 
 
@@ -95,15 +93,12 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
-        back = new JButton((SignupViewModel.BACK_BUTTON_LABEL));
 
         signUp.setFont(medFont);
         cancel.setFont(medFont);
-        back.setFont(medFont);
 
         buttons.add(signUp);
         buttons.add(cancel);
-        buttons.add(back);
         buttons.setBackground(LIGHT_ORANGE);
 
 
@@ -124,8 +119,15 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        cancel.addActionListener(this);
-        back.addActionListener(this);
+        cancel.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(cancel)) {
+                            System.exit(0);
+                        }
+                    }
+                }
+        );
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the usernameInputField.
@@ -229,14 +231,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-
-        if (evt.getActionCommand() == cancel.getActionCommand()){
-            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
-        }
-        else if (evt.getActionCommand() == back.getActionCommand()){
-            viewManagerModel.setActiveView("Home");
-            viewManagerModel.firePropertyChanged();
-        }
         System.out. println("Click " + evt.getActionCommand());
     }
 
