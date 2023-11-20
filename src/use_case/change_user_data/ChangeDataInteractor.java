@@ -35,9 +35,10 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
 
         } else{
+
             // Make changes to user's name and bio
             changeDataAccessInterface.modifyUser(newName,username, bio);
-            ChangeDataOutput changeDataOutput = new ChangeDataOutput(newName, username, bio);
+            ChangeDataOutput changeDataOutput = new ChangeDataOutput(username, newName, bio);
             homepagePresenter.prepareSuccessView(changeDataOutput);
         }
     }

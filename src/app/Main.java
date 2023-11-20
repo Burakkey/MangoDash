@@ -1,6 +1,7 @@
 package app;
 
 import data_access.FileUserDataAccessObject;
+import data_access.SQLiteUserDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapter.clear_users.ClearViewModel;
 import interface_adapter.homepage.HomepageViewModel;
@@ -17,7 +18,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
 
@@ -47,14 +48,12 @@ public class Main {
         LoginHomeViewModel loginHomeViewModel = new LoginHomeViewModel();
 
 
-        FileUserDataAccessObject userDataAccessObject;
-        FileUserDataAccessObject userDataAccessObject2;
-        try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
-            userDataAccessObject2 = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        FileUserDataAccessObject userDataAccessObject;
+//        FileUserDataAccessObject userDataAccessObject2;
+        SQLiteUserDataAccessObject userDataAccessObject;
+        SQLiteUserDataAccessObject userDataAccessObject2;
+        userDataAccessObject = new SQLiteUserDataAccessObject("users.db", new CommonUserFactory());
+        userDataAccessObject2 = new SQLiteUserDataAccessObject("users.db", new CommonUserFactory());
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, clearViewModel, userDataAccessObject2);
         views.add(signupView, signupView.viewName);
