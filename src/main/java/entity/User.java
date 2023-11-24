@@ -19,4 +19,10 @@ public interface User {
     void setBio(String bio);
 
     String getBio();
+
+    void setApiKey(String apiKey);
+
+    String getApiKey();
+
+
 }

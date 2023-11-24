@@ -22,7 +22,7 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
     private final ViewManagerModel viewManagerModel;
     public LoginHomeView(LoginHomeViewModel loginHomeViewModel, ViewManagerModel viewManagerModel) {
         // This is the code that modifies the color
-        this.setBackground(Color.ORANGE);
+        this.setBackground(LoginHomeViewModel.LIGHT_ORANGE);
         setPreferredSize(new Dimension(1200,600));
 
 
@@ -45,7 +45,7 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
 
 
         JPanel buttons = new JPanel();
-        buttons.setBackground(Color.ORANGE);
+        buttons.setBackground(LoginHomeViewModel.LIGHT_ORANGE);
         signupButton = new JButton(loginHomeViewModel.SIGNUP_BUTTON_LABEL);
         signupButton.setPreferredSize(new Dimension(200, 50));
         signupButton.setFont(loginHomeViewModel.getComfortaaMedium());

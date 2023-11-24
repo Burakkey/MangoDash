@@ -10,7 +10,7 @@ import java.beans.PropertyChangeSupport;
 public class LoginHomeViewModel extends ViewModel {
     public static final String LOGIN_BUTTON_LABEL = "Log In";
     public static final String SIGNUP_BUTTON_LABEL = "Sign Up";
-    public static final Color BACKGROUND_COLOR = Color.ORANGE;
+    public static final Color LIGHT_ORANGE = new Color(255, 200, 100);;
     private LoginHomeState state = new LoginHomeState();
     public LoginHomeViewModel() {
         super("login home menu");
