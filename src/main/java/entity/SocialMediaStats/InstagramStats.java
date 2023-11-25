@@ -11,12 +11,12 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-public class InstragramStats implements SocialMediaStats{
+public class InstagramStats implements SocialMediaStats{
     private String apiKey;
     private HashMap<String, JSONArray> stats;
 
-    public InstragramStats() {
-        stats = new HashMap<String, JSONArray>();
+    public InstagramStats() {
+        stats = new HashMap<>();
         stats.put("followers", new JSONArray().put(0));
         stats.put("posts", new JSONArray());
     }
