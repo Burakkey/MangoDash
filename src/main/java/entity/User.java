@@ -1,5 +1,7 @@
 package entity;
 
+import org.json.JSONArray;
+
 import java.time.LocalDateTime;
 
 public interface User {
@@ -19,4 +21,7 @@ public interface User {
     void setBio(String bio);
 
     String getBio();
+
+    void setApiKey(String socialMedia, String apiKey);
+
 }
