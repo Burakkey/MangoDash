@@ -4,14 +4,18 @@ public class ChangeDataInput {
     final private String username;
     final private String name;
 
-    final private String bio;
+    private String bio;
     private String oldPassword;
 
     private String newPassword;
 
     private String repeateNewPassword;
 
-    public ChangeDataInput(String username, String name, String bio) {
+    private String facebookAPIToken;
+
+    private String instagramAPIToken;
+
+    public ChangeDataInput(String username, String name, String bio, String instagramAPI) {
         this.username = username;
         this.name = name;
         this.bio = bio;
@@ -25,6 +29,13 @@ public class ChangeDataInput {
         this.newPassword = newPassword;
         this.repeateNewPassword = repeatNewPassword;
 
+    }
+
+    public ChangeDataInput(String username, String name, String bio, String facebookAPIToken, String instagramAPIToken){
+        this.username = username;
+        this.name = name;
+        this.facebookAPIToken = facebookAPIToken;
+        this.instagramAPIToken = instagramAPIToken;
     }
 
     public String getUsername() {
@@ -49,5 +60,13 @@ public class ChangeDataInput {
 
     public String getBio() {
         return bio;
+    }
+
+    public String getFacebookAPIToken() {
+        return facebookAPIToken;
+    }
+
+    public String getInstagramAPIToken() {
+        return instagramAPIToken;
     }
 }

@@ -62,6 +62,8 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         // Update the view based on the new state of homepageViewModel
         this.homepageViewModel.setState(newHomepageState);
         this.settingsPanelComponent.updatePanel(newHomepageState);
+        this.extensionPanelComponents.updatePanel(newHomepageState);
+//        this.rankingPanelComponent.updatePanel(newHomepageState);
     }
 
     @Override

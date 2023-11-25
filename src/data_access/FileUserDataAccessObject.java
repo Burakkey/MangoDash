@@ -36,7 +36,9 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
         headers.put("username", 1);
         headers.put("password", 2);
         headers.put("bio", 3);
-        headers.put("creation_time", 4);
+        headers.put("facebookAPI", 4);
+        headers.put("instagramAPI", 5);
+        headers.put("creation_time", 6);
 
         if (csvFile.length() == 0) {
             save();
@@ -55,9 +57,11 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
                     String username = String.valueOf(col[headers.get("username")]);
                     String password = String.valueOf(col[headers.get("password")]);
                     String bio = String.valueOf(col[headers.get("bio")]);
+                    String facebookAPI = String.valueOf(col[headers.get("facebookAPI")]);
+                    String instagramAPI = String.valueOf(col[headers.get("instagramAPI")]);
                     String creationTimeText = String.valueOf(col[headers.get("creation_time")]);
                     LocalDateTime ldt = LocalDateTime.parse(creationTimeText);
-                    User user = userFactory.create(name, username, password, bio, ldt);
+                    User user = userFactory.create(name, username, password, bio, facebookAPI, instagramAPI,ldt);
                     accounts.put(username, user);
                 }
             }
@@ -84,8 +88,8 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
 
             for (User user : accounts.values()) {
                 String creationTime = user.getCreationTime().toString(); // Format LocalDateTime as a string
-                String line = String.format("%s,%s,%s,%s,%s",
-                        user.getName(), user.getUserName(), user.getPassword(), user.getBio(), creationTime);
+                String line = String.format("%s,%s,%s,%s,%s,%s,%s",
+                        user.getName(), user.getUserName(), user.getPassword(), user.getBio(), user.getApiKey().get(0), user.getApiKey().get(1),creationTime);
                 writer.write(line);
                 writer.newLine();
             }
@@ -134,6 +138,16 @@ public class FileUserDataAccessObject implements SignupUserDataAccessInterface, 
             user.setBio(bio);
             this.save(); // Save the updated user information to the CSV file
         }
+    }
+
+    @Override
+    public void modifyUserAPI(String username, String facebookAPI, String instagramAPI) {
+        User user = accounts.get(username);
+        if (user != null) {
+            user.setApiKey("Facebook", facebookAPI);
+            user.setApiKey("Instagram", instagramAPI);
+        }
+
     }
 
 

@@ -2,17 +2,11 @@ package entity;
 
 import entity.SocialMediaStats.InstagramStats;
 import entity.SocialMediaStats.SocialMediaStats;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 class CommonUser implements User {
 
@@ -29,7 +23,7 @@ class CommonUser implements User {
      * @param name
      * @param password
      */
-    CommonUser(String name, String username, String password, String bio, LocalDateTime creationTime) {
+    CommonUser(String name, String username, String password, String bio, String facebookAPI, String instagramAPI, LocalDateTime creationTime) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -86,6 +80,22 @@ class CommonUser implements User {
             socialMedias.get(socialMedia).setApiKey(apiKey);
         }
     }
+
+    @Override
+    public List<String> getApiKey() {
+        List<String> apiKeys = new ArrayList<>();
+        for (SocialMediaStats stats : socialMedias.values()) {
+            String apiKey = stats.getApiKey(); // Assuming getApiKey() method exists in SocialMediaStats
+            if (apiKey != null && !apiKey.isEmpty()) {
+                apiKeys.add(apiKey);
+            }else{
+                apiKeys.add("");
+            }
+        }
+        return apiKeys;
+    }
+
+
 
     public static void main(String[] args) {
 //        CommonUser commonUser = new CommonUser("Richard", "RickShaltz", "111", "empty", null);

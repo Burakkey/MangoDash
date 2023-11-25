@@ -14,22 +14,24 @@ import java.awt.event.KeyListener;
 
 public class ExtensionPanelComponents {
     public static JTextField facebookAPIaccesstoken = new JTextField(15);
-    public static JTextField spotifyAPIaccesstoken = new JTextField(15);
     public static JTextField instagramAPIaccesstoken = new JTextField(15);
 
 
-    public void updatePanel(){
+
+
+    public void updatePanel(HomepageState newState){
 
         // these are updated without re-creating a new instance, add component that can change here!
-        facebookAPIaccesstoken.setText("Facebook Acces Token:");
-        instagramAPIaccesstoken.setText("Instagram Acces Token:");
-        spotifyAPIaccesstoken.setText("Spotify Acces Token:");
+        facebookAPIaccesstoken.setText(newState.getFacebookToken());
+        instagramAPIaccesstoken.setText(newState.getInstagramToken());
+
     }
 
     public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
 
         // Below are how components are place (visuals) feel free to do whatever here
-
+        facebookAPIaccesstoken.setText("Facebook Access Token:");
+        instagramAPIaccesstoken.setText("Instagram Access Token:");
         JPanel settingsPanel = new JPanel();
         settingsPanel.setLayout(new GridBagLayout());
         settingsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
@@ -89,7 +91,7 @@ public class ExtensionPanelComponents {
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 0, 0, 0);
-        fieldsPanel.add(spotifyAPIaccesstoken, gbc);
+        fieldsPanel.add(instagramAPIaccesstoken, gbc);
 
         // Create a nested panel for buttons using FlowLayout (horizontal layout)
         JPanel buttonsPanel = new JPanel(new FlowLayout());
@@ -119,7 +121,7 @@ public class ExtensionPanelComponents {
             public void keyTyped(KeyEvent e) {
                 HomepageState currentState = homepageViewModel.getState();
                 String text = facebookAPIaccesstoken.getText() + e.getKeyChar();
-                currentState.setName(text);
+                currentState.setFacebookToken(text);
                 HomepageViewModel viewModel = new HomepageViewModel();
                 viewModel.setState(currentState);
             }
@@ -140,7 +142,7 @@ public class ExtensionPanelComponents {
             public void keyTyped(KeyEvent e) {
                 HomepageState currentState = homepageViewModel.getState();
                 String text = instagramAPIaccesstoken.getText() + e.getKeyChar();
-                currentState.setUsername(text);
+                currentState.setInstagramToken(text);
                 HomepageViewModel viewModel = new HomepageViewModel();
                 viewModel.setState(currentState);
             }
@@ -153,27 +155,6 @@ public class ExtensionPanelComponents {
             @Override
             public void keyReleased(KeyEvent e) {
 
-            }
-        });
-
-        spotifyAPIaccesstoken.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                HomepageState currentState = homepageViewModel.getState();
-                String text = spotifyAPIaccesstoken.getText() + e.getKeyChar();
-                currentState.setBio(text);
-                HomepageViewModel viewModel = new HomepageViewModel();
-                viewModel.setState(currentState);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // Handle key pressed event if needed
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                // Handle key released event if needed
             }
         });
 
@@ -184,7 +165,8 @@ public class ExtensionPanelComponents {
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(saveChangesButton)) {
                             HomepageState currentState = homepageViewModel.getState();
-                            homepageController.executeSaveChanges(currentState.getUsername(), currentState.getName(), currentState.getBio());
+                            homepageController.executeAPIChanges(currentState.getUsername(), currentState.getName(),
+                                    currentState.getBio(), currentState.getFacebookToken(), currentState.getInstagramToken());
 
                         }
                     }

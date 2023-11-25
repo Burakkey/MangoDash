@@ -9,5 +9,7 @@ public interface ChangeDataAccessInterface {
 
     void modifyUser(String name, String username, String bio);
 
+    void modifyUserAPI(String username, String facebookAPI, String instagramAPI);
+
     User get(String username);
 }

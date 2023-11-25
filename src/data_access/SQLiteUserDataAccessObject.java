@@ -33,6 +33,8 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
                             "username TEXT PRIMARY KEY, " +
                             "password TEXT, " +
                             "bio TEXT, " +
+                            "facebookAPI TEXT, " +
+                            "instagramAPI TEXT, " +
                             "creation_time TEXT)";
                     stmt.execute(sql);
                 }
@@ -46,8 +48,10 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
                         String username = result.getString("username");
                         String password = result.getString("password");
                         String bio = result.getString("bio");
+                        String facebookAPI = result.getString("facebookAPI");
+                        String instagramAPI = result.getString("instagramAPI");
                         LocalDateTime creationTime = LocalDateTime.parse(result.getString("creation_time"));
-                        User user = userFactory.create(name, username, password, bio, creationTime);
+                        User user = userFactory.create(name, username, password, bio, facebookAPI, instagramAPI,creationTime);
                         accounts.put(username, user);
                     }
                 }
@@ -79,7 +83,9 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
                 statement.setString(2, user.getUserName());
                 statement.setString(3, user.getPassword());
                 statement.setString(4, user.getBio());
-                statement.setString(5, user.getCreationTime().toString());
+                statement.setString(5, user.getApiKey().get(0));
+                statement.setString(6, user.getApiKey().get(1));
+                statement.setString(7, user.getCreationTime().toString());
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
@@ -105,7 +111,17 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
         if (user != null) {
             user.setName(name);
             user.setBio(bio);
-            this.save(); // Save the updated user information to the CSV file
+            this.save();
+        }
+    }
+
+    @Override
+    public void modifyUserAPI(String username, String facebookAPI, String instagramAPI) {
+        User user = accounts.get(username);
+        if (user != null) {
+            user.setApiKey("Facebook", facebookAPI);
+            user.setApiKey("Instagram", instagramAPI);
+            this.save();
         }
     }
 

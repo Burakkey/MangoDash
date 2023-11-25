@@ -11,4 +11,6 @@ public interface SocialMediaStats {
     void setApiKey(String apiKey);
 
     void updateStats() throws MalformedURLException;
+
+    String getApiKey();
 }

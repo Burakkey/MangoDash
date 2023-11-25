@@ -112,4 +112,9 @@ public class InstagramStats implements SocialMediaStats{
             System.out.println("Error with API call to getting user info");
         }
     }
+
+    @Override
+    public String getApiKey() {
+        return apiKey;
+    }
 }

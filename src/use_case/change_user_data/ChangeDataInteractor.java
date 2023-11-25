@@ -47,4 +47,12 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
     public void executeLogout(ChangeDataInput changeDataInput) {
 
     }
+
+    @Override
+    public void executeAPIChanges(ChangeDataInput changeDataInput) {
+        String username = changeDataInput.getUsername();
+        String facebookAPIToken = changeDataInput.getFacebookAPIToken();
+        String instagramAPIToken = changeDataInput.getInstagramAPIToken();
+        changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
+    }
 }
