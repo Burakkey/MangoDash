@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="InstagramCallTest" />
+        <module name="MangoDash" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="MangoDash" target="1.8" />
+      <module name="InstagramCallTest" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
