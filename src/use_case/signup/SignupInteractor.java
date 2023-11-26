@@ -3,6 +3,8 @@ package use_case.signup;
 import entity.User;
 import entity.UserFactory;
 
+import java.util.HashMap;
+
 public class SignupInteractor implements SignupInputBoundary {
     final SignupUserDataAccessInterface userDataAccessObject;
     final SignupOutputBoundary userPresenter;
@@ -23,7 +25,8 @@ public class SignupInteractor implements SignupInputBoundary {
         } else if (!signupInputData.getPassword().equals(signupInputData.getRepeatPassword())) {
             userPresenter.prepareFailView("Passwords don't match.");
         } else {
-            User user = userFactory.create(signupInputData.getName() ,signupInputData.getUsername(), signupInputData.getPassword(), " ", " ", " " ,signupInputData.getCreationTime());
+            HashMap<String, String> emptyApiKeys = new HashMap<>();
+            User user = userFactory.create(signupInputData.getName() ,signupInputData.getUsername(), signupInputData.getPassword(), "", emptyApiKeys, signupInputData.getCreationTime());
             userDataAccessObject.save(user);
 
             SignupOutputData signupOutputData = new SignupOutputData(user.getName(), signupInputData.getCreationTime().toString(), false);

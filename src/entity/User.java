@@ -1,7 +1,7 @@
 package entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashMap;
 
 public interface User {
 
@@ -21,9 +21,9 @@ public interface User {
 
     String getBio();
 
-    void setApiKey(String socialMedia, String apiKey);
+    void setApiKeys(String socialMedia, String apiKey);
 
-    List<String> getApiKey();
+    HashMap<String,String> getApiKeys();
 
 
 }

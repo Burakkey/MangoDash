@@ -14,7 +14,7 @@ import java.awt.event.KeyListener;
 
 public class ExtensionPanelComponents {
     public static JTextField facebookAPIaccesstoken = new JTextField(15);
-    public static JTextField instagramAPIaccesstoken = new JTextField(15);
+    public static JTextField instagramAPIAccessToken = new JTextField(15);
 
 
 
@@ -23,15 +23,13 @@ public class ExtensionPanelComponents {
 
         // these are updated without re-creating a new instance, add component that can change here!
         facebookAPIaccesstoken.setText(newState.getFacebookToken());
-        instagramAPIaccesstoken.setText(newState.getInstagramToken());
+        instagramAPIAccessToken.setText(newState.getInstagramToken());
 
     }
 
     public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
 
         // Below are how components are place (visuals) feel free to do whatever here
-        facebookAPIaccesstoken.setText("Facebook Access Token:");
-        instagramAPIaccesstoken.setText("Instagram Access Token:");
         JPanel settingsPanel = new JPanel();
         settingsPanel.setLayout(new GridBagLayout());
         settingsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
@@ -42,12 +40,10 @@ public class ExtensionPanelComponents {
         settingsPanel.setPreferredSize(new Dimension(200, 30));
 
         // Create and configure JLabels with right alignment
-        JLabel usernameLabel = new JLabel("Facebook Acces Token:");
-        usernameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        JLabel nameLabel = new JLabel("Instagram Acces Token:");
-        nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        JLabel bioLabel = new JLabel("Spotify Acces Token:");
-        bioLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        JLabel facebookAPILabel = new JLabel("Facebook Access Token:");
+        facebookAPILabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        JLabel instagramAPILabel = new JLabel("Instagram Access Token:");
+        instagramAPILabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
         // Create a GridBagConstraints object for layout control
         GridBagConstraints gbc = new GridBagConstraints();
@@ -57,21 +53,7 @@ public class ExtensionPanelComponents {
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(0, 0, 5, 5);
-        fieldsPanel.add(usernameLabel, gbc);
-
-        gbc.gridx = 1; // Right column
-        gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 0, 5, 0);
-        fieldsPanel.add(instagramAPIaccesstoken, gbc);
-
-        // Update gridy to position the next component below
-        gbc.gridy = 1;
-
-        gbc.gridx = 0; // Left column
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.insets = new Insets(0, 0, 5, 5);
-        fieldsPanel.add(nameLabel, gbc);
+        fieldsPanel.add(facebookAPILabel, gbc);
 
         gbc.gridx = 1; // Right column
         gbc.weightx = 1.0;
@@ -80,18 +62,21 @@ public class ExtensionPanelComponents {
         fieldsPanel.add(facebookAPIaccesstoken, gbc);
 
         // Update gridy to position the next component below
-        gbc.gridy = 2;
+        gbc.gridy = 1;
 
         gbc.gridx = 0; // Left column
         gbc.anchor = GridBagConstraints.EAST;
-        gbc.insets = new Insets(0, 0, 0, 5);
-        fieldsPanel.add(bioLabel, gbc);
+        gbc.insets = new Insets(0, 0, 5, 5);
+        fieldsPanel.add(instagramAPILabel, gbc);
 
         gbc.gridx = 1; // Right column
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 0, 0, 0);
-        fieldsPanel.add(instagramAPIaccesstoken, gbc);
+        gbc.insets = new Insets(0, 0, 5, 0);
+        fieldsPanel.add(instagramAPIAccessToken, gbc);
+
+        // Update gridy to position the next component below
+        gbc.gridy = 2;
 
         // Create a nested panel for buttons using FlowLayout (horizontal layout)
         JPanel buttonsPanel = new JPanel(new FlowLayout());
@@ -137,11 +122,11 @@ public class ExtensionPanelComponents {
             }
         });
 
-        instagramAPIaccesstoken.addKeyListener(new KeyListener() {
+        instagramAPIAccessToken.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
                 HomepageState currentState = homepageViewModel.getState();
-                String text = instagramAPIaccesstoken.getText() + e.getKeyChar();
+                String text = instagramAPIAccessToken.getText() + e.getKeyChar();
                 currentState.setInstagramToken(text);
                 HomepageViewModel viewModel = new HomepageViewModel();
                 viewModel.setState(currentState);
@@ -166,7 +151,7 @@ public class ExtensionPanelComponents {
                         if (e.getSource().equals(saveChangesButton)) {
                             HomepageState currentState = homepageViewModel.getState();
                             homepageController.executeAPIChanges(currentState.getUsername(), currentState.getName(),
-                                    currentState.getBio(), currentState.getFacebookToken(), currentState.getInstagramToken());
+                                    currentState.getFacebookToken(), currentState.getInstagramToken());
 
                         }
                     }

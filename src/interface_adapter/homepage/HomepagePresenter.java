@@ -35,4 +35,12 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         this.homepageViewModel.firePropertyChanged();
         this.viewManagerModel.firePropertyChanged();
     }
+
+    public void prepareFailAPIView(ChangeDataOutput changeDataOutput){
+        HomepageState homepageState = new HomepageState();
+        homepageState.setName(changeDataOutput.getName());
+        homepageState.setUsername(changeDataOutput.getUsername());
+        homepageState.setBio(changeDataOutput.getBio());
+        this.homepageViewModel.setState(homepageState);
+    }
 }

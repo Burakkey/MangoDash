@@ -15,7 +15,7 @@ public class ChangeDataInput {
 
     private String instagramAPIToken;
 
-    public ChangeDataInput(String username, String name, String bio, String instagramAPI) {
+    public ChangeDataInput(String username, String name, String bio) {
         this.username = username;
         this.name = name;
         this.bio = bio;
@@ -31,7 +31,7 @@ public class ChangeDataInput {
 
     }
 
-    public ChangeDataInput(String username, String name, String bio, String facebookAPIToken, String instagramAPIToken){
+    public ChangeDataInput(String username, String name, String facebookAPIToken, String instagramAPIToken){
         this.username = username;
         this.name = name;
         this.facebookAPIToken = facebookAPIToken;

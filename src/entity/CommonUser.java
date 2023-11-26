@@ -1,12 +1,7 @@
 package entity;
 
-import entity.SocialMediaStats.InstagramStats;
-import entity.SocialMediaStats.SocialMediaStats;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 class CommonUser implements User {
 
@@ -16,22 +11,20 @@ class CommonUser implements User {
     private final String username;
     private String password;
     private final LocalDateTime creationTime;
-    private HashMap<String, SocialMediaStats> socialMedias;
+    private HashMap<String, String> apiKeys;
 
     /**
      * Requires: password is valid.
      * @param name
      * @param password
      */
-    CommonUser(String name, String username, String password, String bio, String facebookAPI, String instagramAPI, LocalDateTime creationTime) {
+    CommonUser(String name, String username, String password, String bio, HashMap<String, String> apiKeys, LocalDateTime creationTime) {
         this.name = name;
         this.username = username;
         this.password = password;
         this.bio = bio;
         this.creationTime = creationTime;
-
-        this.socialMedias = new HashMap<>();
-        socialMedias.put("Instagram", new InstagramStats());
+        this.apiKeys = apiKeys;
     }
 
     @Override
@@ -75,23 +68,15 @@ class CommonUser implements User {
     }
 
     @Override
-    public void setApiKey(String socialMedia, String apiKey) {
-        if (socialMedias.containsKey(socialMedia)) {
-            socialMedias.get(socialMedia).setApiKey(apiKey);
+    public void setApiKeys(String socialMedia, String apiKey) {
+        if (apiKeys == null) {
+            apiKeys = new HashMap<>();
         }
+        apiKeys.put(socialMedia, apiKey);
     }
 
     @Override
-    public List<String> getApiKey() {
-        List<String> apiKeys = new ArrayList<>();
-        for (SocialMediaStats stats : socialMedias.values()) {
-            String apiKey = stats.getApiKey(); // Assuming getApiKey() method exists in SocialMediaStats
-            if (apiKey != null && !apiKey.isEmpty()) {
-                apiKeys.add(apiKey);
-            }else{
-                apiKeys.add("");
-            }
-        }
+    public HashMap<String,String> getApiKeys() {
         return apiKeys;
     }
 
