@@ -7,13 +7,19 @@ public class LoginOutputData {
     private final String name;
 
     private final String bio;
+
+    private final String facebookAPI;
+
+    private final String instagramAPI;
     private boolean useCaseFailed;
 
-    public LoginOutputData(String name, String username, String bio, boolean useCaseFailed) {
+    public LoginOutputData(String name, String username, String bio, String facebookAPI, String instagramAPI, boolean useCaseFailed) {
         this.name = name;
         this.username = username;
         this.bio = bio;
+        this.facebookAPI = facebookAPI;
         this.useCaseFailed = useCaseFailed;
+        this.instagramAPI = instagramAPI;
     }
 
     public String getUsername() {
@@ -28,4 +34,11 @@ public class LoginOutputData {
         return bio;
     }
 
+    public String getFacebookAPI() {
+        return facebookAPI;
+    }
+
+    public String getInstagramAPI() {
+        return instagramAPI;
+    }
 }

@@ -1,5 +1,8 @@
 package entity;
 
+import entity.SocialMediaStats.InstagramStats;
+import entity.SocialMediaStats.SocialMediaStats;
+
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
@@ -13,6 +16,8 @@ class CommonUser implements User {
     private final LocalDateTime creationTime;
     private HashMap<String, String> apiKeys;
 
+    private HashMap<String, SocialMediaStats> socialMedias;
+
     /**
      * Requires: password is valid.
      * @param name
@@ -24,7 +29,8 @@ class CommonUser implements User {
         this.password = password;
         this.bio = bio;
         this.creationTime = creationTime;
-        this.apiKeys = apiKeys;
+        this.socialMedias = new HashMap<>();
+        socialMedias.put("Instagram", new InstagramStats());
     }
 
     @Override
