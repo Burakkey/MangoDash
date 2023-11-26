@@ -1,14 +1,21 @@
 package use_case.change_user_data;
 
+import org.json.JSONArray;
+
+import java.net.MalformedURLException;
+
 public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
     final ChangeDataAccessInterface changeDataAccessInterface;
 
     final ChangeDataOutputBoundary homepagePresenter;
 
-    public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter) {
+    final InstagramAPIIDataAccessInterface instagramAPIIDataAccessInterface;
+
+    public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter, InstagramAPIIDataAccessInterface instagramAPIIDataAccessInterface) {
         this.changeDataAccessInterface = changeDataAccessInterface;
         this.homepagePresenter = homepagePresenter;
+        this.instagramAPIIDataAccessInterface = instagramAPIIDataAccessInterface;
     }
 
     @Override
@@ -54,7 +61,16 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String facebookAPIToken = changeDataInput.getFacebookAPIToken();
         String instagramAPIToken = changeDataInput.getInstagramAPIToken();
         changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
-
+        instagramAPIIDataAccessInterface.setAPI(instagramAPIToken);
+        try {
+            instagramAPIIDataAccessInterface.fetchData();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        JSONArray followers = instagramAPIIDataAccessInterface.getInstagramStats().getFollowers();
+        JSONArray posts = instagramAPIIDataAccessInterface.getInstagramStats().getPosts();
+        ChangeDataOutput changeDataOutput = new ChangeDataOutput(followers, posts);
+        homepagePresenter.prepareAPIView(changeDataOutput);
 
 
     }

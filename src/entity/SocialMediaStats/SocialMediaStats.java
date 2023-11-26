@@ -2,13 +2,15 @@ package entity.SocialMediaStats;
 
 import org.json.JSONArray;
 
-import java.net.MalformedURLException;
-import java.util.HashMap;
-
 public interface SocialMediaStats {
-    HashMap<String, JSONArray> getStats();
 
-    void setApiKey(String apiKey);
+    void setFollowers(JSONArray followers);
 
-    void updateStats() throws MalformedURLException;
+    JSONArray getFollowers();
+
+    void setPosts(JSONArray posts);
+
+
+
+    JSONArray getPosts();
 }

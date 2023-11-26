@@ -1,5 +1,7 @@
 package interface_adapter.homepage;
 
+import java.util.HashMap;
+
 public class HomepageState {
     private String name; // Add name field
 
@@ -10,12 +12,15 @@ public class HomepageState {
 
     private String facebookToken;
 
+    private HashMap<String, Object> instagramStatsHashMap;
+
     public HomepageState(HomepageState copy) {
         name = copy.name;
         username = copy.username;
         bio = copy.bio;
         instagramToken = copy.instagramToken;
         facebookToken = copy.facebookToken;
+        instagramStatsHashMap = copy.instagramStatsHashMap;
     }
 
     // Explicit default constructor
@@ -23,6 +28,14 @@ public class HomepageState {
 
     public String getUsername() {
         return username;
+    }
+
+    public void setInstagramStatsHashMap(HashMap<String, Object> instagramStatsHashMap) {
+        this.instagramStatsHashMap = instagramStatsHashMap;
+    }
+
+    public HashMap<String, Object> getInstagramStatsHashMap() {
+        return instagramStatsHashMap;
     }
 
     public String getName() {

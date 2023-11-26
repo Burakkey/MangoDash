@@ -1,6 +1,8 @@
 package app;
 
+import data_access.InstagramAPIDataAccessObject;
 import entity.CommonUserFactory;
+import entity.SocialMediaStats.InstagramStats;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.homepage.HomepageController;
@@ -9,10 +11,8 @@ import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.switchview.SwitchViewController;
 import interface_adapter.switchview.SwitchViewPresenter;
-import use_case.change_user_data.ChangeDataAccessInterface;
-import use_case.change_user_data.ChangeDataInputBoundary;
-import use_case.change_user_data.ChangeDataInteractor;
-import use_case.change_user_data.ChangeDataOutputBoundary;
+import use_case.change_user_data.InstagramAPIIDataAccessInterface;
+import use_case.change_user_data.*;
 import use_case.switchView.SwitchViewInputBoundary;
 import use_case.switchView.SwitchViewInteractor;
 import use_case.switchView.SwitchViewOutputBoundary;
@@ -44,7 +44,9 @@ public class HomepageUseCaseFactory {
             ) throws IOException  {
         ChangeDataOutputBoundary changeDataOutputBoundary = new HomepagePresenter(loginViewModel, homepageViewModel, viewManagerModel);
         UserFactory userFactory = new CommonUserFactory();
-        ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary);
+        InstagramStats instagramStats = new InstagramStats();
+        InstagramAPIIDataAccessInterface instagramAPIIDataAccessInterface = new InstagramAPIDataAccessObject(" ", instagramStats);
+        ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary, instagramAPIIDataAccessInterface);
         return new HomepageController(changeDataInteractor);
     }
 
