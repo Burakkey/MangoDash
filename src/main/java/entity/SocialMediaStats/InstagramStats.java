@@ -21,9 +21,6 @@ public class InstagramStats implements SocialMediaStats{
         stats.put("posts", new JSONArray());
     }
 
-    public static void main(String[] args) {
-
-    }
 
     @Override
     public HashMap<String, JSONArray> getStats() {
@@ -103,7 +100,7 @@ public class InstagramStats implements SocialMediaStats{
                 JSONObject businessDiscovery = (JSONObject) object.get("business_discovery");
                 stats.get("followers").put(0, (int) businessDiscovery.get("followers_count"));
 
-                JSONObject media = (JSONObject) businessDiscovery.get("media");
+                JSONObject media = (JSONObject) businessDiscovery.get( checkout "media");
                 stats.put("posts", (JSONArray) media.get("data"));
                 System.out.println(stats);
             }
