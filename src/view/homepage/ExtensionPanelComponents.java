@@ -36,6 +36,7 @@ public class ExtensionPanelComponents {
 
         // Create a panel for the text fields and labels
         JPanel fieldsPanel = new JPanel(new GridBagLayout());
+        fieldsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
 
         settingsPanel.setPreferredSize(new Dimension(200, 30));
 
@@ -80,10 +81,12 @@ public class ExtensionPanelComponents {
 
         // Create a nested panel for buttons using FlowLayout (horizontal layout)
         JPanel buttonsPanel = new JPanel(new FlowLayout());
+        buttonsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
 
         // Create buttons using constants
 
         JButton saveChangesButton = new JButton(HomepageViewModel.SAVE_CHANGES_BUTTON_LABEL);
+        saveChangesButton.setBackground(HomepageViewModel.BUTTON_ORANGE);
 
         // Add buttons to the buttonsPanel
         buttonsPanel.add(saveChangesButton);

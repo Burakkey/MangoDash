@@ -71,7 +71,7 @@ public class Main {
         views.add(homepageView, homepageView.viewName);
 
 
-        LoginHomeView loginHomeView = new LoginHomeView(loginHomeViewModel, viewManagerModel); // TODO CHANGE IN PARAMETERS
+        LoginHomeView loginHomeView = new LoginHomeView(loginHomeViewModel, viewManagerModel);
         views.add(loginHomeView, loginHomeView.viewName);
 
         viewManagerModel.setActiveView(loginHomeView.viewName);
