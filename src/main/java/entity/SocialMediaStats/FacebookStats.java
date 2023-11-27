@@ -13,4 +13,9 @@ public class FacebookStats implements SocialMediaStats {
         stats.put("posts", new JSONArray());
         stats.put("posts_data", new JSONArray());
     }
+
+    @Override
+    public HashMap<String, JSONArray> getStats() {
+        return stats;
+    }
 }
