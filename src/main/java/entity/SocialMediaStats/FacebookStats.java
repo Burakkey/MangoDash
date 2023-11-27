@@ -18,18 +18,10 @@ public class FacebookStats implements SocialMediaStats {
     public FacebookStats() {
         stats = new HashMap<>();
         stats.put("friends", new JSONArray().put(0));
-        stats.put("posts", new JSONArray());
-        stats.put("posts_data", new JSONArray());
+        stats.put("posts_raw", new JSONArray());
+        stats.put("posts_cleaned", new JSONArray());
     }
-
-    public static void main(String[] args) throws MalformedURLException {
-        FacebookStats facebook = new FacebookStats();
-        String key = "EAAE1wmc7D2IBOzhnp8Y4GlGZACmqvPmXaCI6WzLwctdNYpwp0uYE3XmgGFKVe3rhwBa0DNDZCwxJOcZCJOqg9h53L4MwRO0UcmxFEZBxw3YqOmfL4kLxFWO3ZBO6ltLClQrLtDkCuMjWZB8weZAAnorf0axciB3YXaZCgsdtD4ROSDU6IKhCzEd11iaZCUZCtROwSJ09f55Wv0U7TErW0gzLaXGMbNsXgtEfV7dPnXNitQor0LCi3awhmHN2WyPK5HzooZD";
-        facebook.setApiKey(key);
-        facebook.getPostData();
-        System.out.println(facebook.stats);
-    }
-
+    
     @Override
     public HashMap<String, JSONArray> getStats() {
         return stats;
@@ -47,7 +39,7 @@ public class FacebookStats implements SocialMediaStats {
     }
 
     public void getPostData() throws MalformedURLException {
-        JSONArray posts = stats.get("posts");
+        JSONArray posts = stats.get("posts_raw");
         JSONArray postsdata = new JSONArray();
         for (int i = 0; i < posts.length(); i++) {
             JSONObject post = posts.getJSONObject(i);
@@ -80,7 +72,7 @@ public class FacebookStats implements SocialMediaStats {
                 System.out.println("Error with API call to get user posts summary");
             }
         }
-        stats.put("posts_data", postsdata); // array with hashmaps for each post
+        stats.put("posts_cleaned", postsdata); // array with hashmaps for each post
     }
 
     @Override
@@ -155,7 +147,7 @@ public class FacebookStats implements SocialMediaStats {
             for (String line; (line = reader.readLine()) != null;) {
                 JSONObject object = new JSONObject(line);
                 JSONObject userPosts = (JSONObject) object.get("posts");
-                stats.put("posts", (JSONArray) userPosts.get("data"));
+                stats.put("posts_raw", (JSONArray) userPosts.get("data"));
             }
         } catch (IOException e) {
             System.out.println("Error with API call to getting user posts info");
