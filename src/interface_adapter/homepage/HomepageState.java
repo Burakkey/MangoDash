@@ -12,7 +12,7 @@ public class HomepageState {
 
     private String facebookToken;
 
-    private HashMap<String, Object> instagramStatsHashMap;
+    private HashMap<String, Integer> instagramStatsHashMap;
 
     public HomepageState(HomepageState copy) {
         name = copy.name;
@@ -30,11 +30,11 @@ public class HomepageState {
         return username;
     }
 
-    public void setInstagramStatsHashMap(HashMap<String, Object> instagramStatsHashMap) {
+    public void setInstagramStatsHashMap(HashMap<String, Integer> instagramStatsHashMap) {
         this.instagramStatsHashMap = instagramStatsHashMap;
     }
 
-    public HashMap<String, Object> getInstagramStatsHashMap() {
+    public HashMap<String, Integer> getInstagramStatsHashMap() {
         return instagramStatsHashMap;
     }
 

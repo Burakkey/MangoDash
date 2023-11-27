@@ -77,7 +77,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         int totalPosts = arrayPosts.length();
         double averageLikes = totalPosts > 0 ? (double) totalLikes / totalPosts : 0;
         double averageComments = totalPosts > 0 ? (double) totalComments / totalPosts : 0;
-        HashMap<String, Object> instagramStatsHashMap = new HashMap<>();
+        HashMap<String, Integer> instagramStatsHashMap = new HashMap<>();
 
         // Add the calculated statistics to the hashmap
         instagramStatsHashMap.put("followersCount", followersCount);
@@ -85,10 +85,10 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         instagramStatsHashMap.put("maxComments", maxComments);
         instagramStatsHashMap.put("totalLikes", totalLikes);
         instagramStatsHashMap.put("totalComments", totalComments);
-        instagramStatsHashMap.put("averageLikes", averageLikes);
-        instagramStatsHashMap.put("averageComments", averageComments);
-        instagramStatsHashMap.put("likesPerPost", likesPerPost);
-        instagramStatsHashMap.put("commentsPerPost", commentsPerPost);
+//        instagramStatsHashMap.put("averageLikes", averageLikes); TODO BURAK CHANGED TO THE <STRING, INTEGER>
+//        instagramStatsHashMap.put("averageComments", averageComments);
+//        instagramStatsHashMap.put("likesPerPost", likesPerPost);
+//        instagramStatsHashMap.put("commentsPerPost", commentsPerPost);
         instagramStatsHashMap.put("totalPosts", totalPosts);
 
         HomepageState homepageState = homepageViewModel.getState();

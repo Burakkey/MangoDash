@@ -1,9 +1,11 @@
 package view.homepage;
 
+import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.switchview.SwitchViewController;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -17,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HomePanelComponent {
-    public static JPanel getPanel(){
+    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController){
         JPanel homePanel = new JPanel();
         homePanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
         JButton instagramGraph = new JButton(HomepageViewModel.SHOW_INSTAGRAM_GRAPH_LABEL);
@@ -26,7 +28,9 @@ public class HomePanelComponent {
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(instagramGraph)) {
-//                            HomepageState currentState = homepagestate.getInstagramStatsHashMap();
+                            HomepageState currentState = homepageViewModel.getState();
+
+
 //
 //                            currentState.executeInstagramGraphing(
 //                                    currentState.getName(),
@@ -41,7 +45,7 @@ public class HomePanelComponent {
                                 HashMap<String, Object> example_data = new HashMap<>();
                                 example_data.put("followers", "234"); //TODO How WILL i GET THE DATA
 
-                                CategoryDataset dataset = createDataset(example_data);
+                                CategoryDataset dataset = createDataset(currentState.getInstagramStatsHashMap());
                                 JFreeChart chart = createBarChart(
                                         "Bar Graph",
                                         "Category",
@@ -62,13 +66,14 @@ public class HomePanelComponent {
         );
         return homePanel;
     }
-    public static CategoryDataset createDataset(HashMap<String, Object> instagramStatsHashMap) {
+    public static CategoryDataset createDataset(HashMap<String, Integer> instagramStatsHashMap) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         int index = 0;
-        for (Map.Entry<String, Object> entry : instagramStatsHashMap.entrySet()) {
+        for (Map.Entry<String, Integer> entry : instagramStatsHashMap.entrySet()) {
             String key = entry.getKey();
 //            Object value = entry.getValue();
-            int value = Integer.parseInt((String) entry.getValue());
+//            int value = Integer.parseInt((String) entry.getValue());
+            int value = entry.getValue();
             /*TODO Change value to INTEGER*/
             dataset.addValue(value, "Series" + String.valueOf(index), key);
 

@@ -51,7 +51,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setPreferredSize(new Dimension(1200, 600));
-        tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, HomePanelComponent.getPanel());
+        tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, HomePanelComponent.getPanel(homepageViewModel, homepageController, switchViewController));
         tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());
         tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel(homepageViewModel, homepageController, switchViewController));
         tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController, switchViewController));
