@@ -160,20 +160,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         if (evt.getNewValue() instanceof LoginState) {
             LoginState state = (LoginState) evt.getNewValue();
             setFields(state);
-            if (state.getUsernameError() != null) {
-                JOptionPane.showMessageDialog(this, state.getUsernameError());
-            } else if (state.getPasswordError() != null) {
-                JOptionPane.showMessageDialog(this,state.getPasswordError());
+            if (state.getError() != null) {
+                JOptionPane.showMessageDialog(this, state.getError());
             }
         }
-//        LoginState state = (LoginState) evt.getNewValue();
-//        setFields(state);
-//        if (evt.getNewValue() instanceof SignupState) {
-//            LoginState state = (LoginState) evt.getNewValue();
-//            if (state.getUsernameError() != null) {
-//                JOptionPane.showMessageDialog(this, state.getUsernameError());
-//            }
-//        }
     }
 
     private void setFields(LoginState state) {
