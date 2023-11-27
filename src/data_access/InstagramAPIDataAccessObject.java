@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 
 public class InstagramAPIDataAccessObject implements InstagramAPIIDataAccessInterface {
     private String apiKey;
@@ -23,6 +24,10 @@ public class InstagramAPIDataAccessObject implements InstagramAPIIDataAccessInte
 
     @Override
     public void fetchData() throws MalformedURLException {
+        HashMap<String, JSONArray> stats = new HashMap<>();
+        stats.put("followers", new JSONArray());
+        stats.put("posts", new JSONArray());
+
         String userAccountId = null;
         String userAccountUsername = null;
 
@@ -73,16 +78,23 @@ public class InstagramAPIDataAccessObject implements InstagramAPIIDataAccessInte
                 JSONObject businessDiscovery = object.getJSONObject("business_discovery");
 
                 JSONArray followers = new JSONArray().put(businessDiscovery.getInt("followers_count"));
-                instagramStats.setFollowers(followers);
+                stats.put("followers", followers);
 
                 JSONArray posts = businessDiscovery.getJSONObject("media").getJSONArray("data");
-                instagramStats.setPosts(posts);
+                stats.put("posts",posts);
             }
         } catch (IOException e) {
             System.out.println("Error with API call to getting user info");
         }
-        System.out.println(instagramStats.getFollowers());
-        System.out.println(instagramStats.getPosts());
+        System.out.println(stats.get("posts"));
+        System.out.println(stats.get("followers"));
+
+        instagramStats.setStats(stats);
+    }
+
+    public static void main(String[] args) throws MalformedURLException {
+        InstagramAPIDataAccessObject accessObject = new InstagramAPIDataAccessObject("EAAMw2YKsBFwBO9Ha4ZABqKjEp3ZCR717k2EUaUBehbXHvY59D4G8Fk6C1TFEReMTmsBLYGqDfzVpCzqQ5gZBh9A5dgsdL7XtSCzopXJNViXNVjDVvIBZALtY8gMLIXh5AuSROJUVRdSHKzHQCB9xN2jz8HspLdRB7jPxidBMRhlaXRtUr93McAkz", new InstagramStats());
+        accessObject.fetchData();
     }
 
     @Override
