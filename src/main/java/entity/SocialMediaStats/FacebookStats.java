@@ -106,5 +106,21 @@ public class FacebookStats implements SocialMediaStats {
         } catch (IOException e) {
             System.out.println("Error with API call to getting user friends info");
         }
+
+        // Retrieve User's Posts
+        URL urlGetAccountInfo = new URL(
+                "https://graph.facebook.com/v18.0/" + userAccountId + "?fields=posts&access_token="
+                        + apiKey);
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlGetAccountInfo.openStream(),
+                StandardCharsets.UTF_8))) {
+            for (String line; (line = reader.readLine()) != null;) {
+                JSONObject object = new JSONObject(line);
+                JSONObject userPosts = (JSONObject) object.get("posts");
+                stats.put("posts", (JSONArray) userPosts.get("data"));
+            }
+        } catch (IOException e) {
+            System.out.println("Error with API call to getting user posts info");
+        }
     }
 }
