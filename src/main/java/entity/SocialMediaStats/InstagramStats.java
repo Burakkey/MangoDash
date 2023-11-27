@@ -2,7 +2,7 @@ package entity.SocialMediaStats;
 
 import org.json.JSONArray;
 import java.util.HashMap;
-
+ 
 public class InstagramStats implements SocialMediaStats {
 
     private HashMap<String, JSONArray> stats;
