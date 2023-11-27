@@ -11,7 +11,8 @@ public class LoginViewModel extends ViewModel {
     public final String TITLE_LABEL = "Log In View";
     public final String USERNAME_LABEL = "Enter username";
     public final String PASSWORD_LABEL = "Enter password";
-    public static final Color BACKGROUND_COLOR = new Color(255, 200, 100);
+    public static final Color BACKGROUND_COLOR = new Color(255,215,181);
+    public static final Color BUTTON_ORANGE = new Color(255,179,138);
     public static final String LOGIN_BUTTON_LABEL = "Log in";
     public static final String CANCEL_BUTTON_LABEL = "Cancel";
     public static final String BACK_BUTTON_LABEL = "Back";

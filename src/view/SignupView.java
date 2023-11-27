@@ -88,11 +88,14 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
         usernameInfo.setBackground(LIGHT_ORANGE);
         passwordInfo.setBackground(LIGHT_ORANGE);
+        nameInfo.setBackground(LIGHT_ORANGE);
         repeatPasswordInfo.setBackground(LIGHT_ORANGE);
 
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
+        signUp.setBackground(SignupViewModel.BUTTON_ORANGE);
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
+        cancel.setBackground(SignupViewModel.BUTTON_ORANGE);
 
         signUp.setFont(medFont);
         cancel.setFont(medFont);
@@ -123,7 +126,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(cancel)) {
-                            System.exit(0);
+                            viewManagerModel.setActiveView("Home");
+                            viewManagerModel.firePropertyChanged();
                         }
                     }
                 }

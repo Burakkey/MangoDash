@@ -75,16 +75,18 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         JPanel buttons = new JPanel();
         buttons.setBackground(LIGHT_ORANGE); //set colour
 
-        logIn = new JButton(loginViewModel.LOGIN_BUTTON_LABEL);
+        logIn = new JButton(LoginViewModel.LOGIN_BUTTON_LABEL);
         logIn.setFont(medFont);
+        logIn.setBackground(LoginViewModel.BUTTON_ORANGE);
         buttons.add(logIn);
 
 //        cancel = new JButton(loginViewModel.CANCEL_BUTTON_LABEL);
 //        cancel.setFont(medFont);
 //        buttons.add(cancel);
 
-        back = new JButton(loginViewModel.BACK_BUTTON_LABEL);
+        back = new JButton(LoginViewModel.BACK_BUTTON_LABEL);
         back.setFont(medFont);
+        back.setBackground(LoginViewModel.BUTTON_ORANGE);
         buttons.add(back);
 
 
