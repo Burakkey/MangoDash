@@ -3,97 +3,138 @@ package view.homepage;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
-import interface_adapter.signup.SignupState;
-import interface_adapter.signup.SignupViewModel;
 import interface_adapter.switchview.SwitchViewController;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HomePanelComponent {
-    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController){
+
+    private InstagramDataSet instagramDataSet;
+
+    public HomePanelComponent() {
+        instagramDataSet = new InstagramDataSet();
+        // Initialize other components
+    }
+
+    public void updatePanel(HomepageState newState) {
+        instagramDataSet.updateStats(newState.getInstagramStatsHashMap());
+        System.out.println("This is pressed " + newState.getInstagramStatsHashMap());
+    }
+
+    public JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
         JPanel homePanel = new JPanel();
-        homePanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
-        JButton instagramGraph = new JButton(HomepageViewModel.SHOW_INSTAGRAM_GRAPH_LABEL);
-        homePanel.add(instagramGraph);
-        instagramGraph.addActionListener(
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(instagramGraph)) {
-                            HomepageState currentState = homepageViewModel.getState();
+        homePanel.setLayout(new BorderLayout());
+        instagramDataSet.updateStats(homepageViewModel.getState().getInstagramStatsHashMap());
+        homePanel.add(instagramDataSet, BorderLayout.CENTER);
 
-
-//
-//                            currentState.executeInstagramGraphing(
-//                                    currentState.getName(),
-//                                    currentState.getUsername(),
-//                                    currentState.getPassword(),
-//                                    currentState.getRepeatPassword()
-//                            );
-                            SwingUtilities.invokeLater(() -> {
-                                JFrame frame = new JFrame("Bar Graph Example");
-                                frame.setSize(800, 600);
-                                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                                HashMap<String, Object> example_data = new HashMap<>();
-                                example_data.put("followers", "234"); //TODO How WILL i GET THE DATA
-
-                                CategoryDataset dataset = createDataset(currentState.getInstagramStatsHashMap());
-                                JFreeChart chart = createBarChart(
-                                        "Bar Graph",
-                                        "Category",
-                                        "Number",
-                                        dataset
-                                );
-
-                                ChartPanel chartPanel = new ChartPanel(chart);
-                                frame.getContentPane().add(chartPanel);
-
-                                frame.setVisible(true);
-                            });
-
-
-                        }
-                    }
-                }
-        );
+        // Configure facebookDataSet just like this pls
         return homePanel;
     }
-    public static CategoryDataset createDataset(HashMap<String, Integer> instagramStatsHashMap) {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        int index = 0;
-        for (Map.Entry<String, Integer> entry : instagramStatsHashMap.entrySet()) {
-            String key = entry.getKey();
-//            Object value = entry.getValue();
-//            int value = Integer.parseInt((String) entry.getValue());
-            int value = entry.getValue();
-            /*TODO Change value to INTEGER*/
-            dataset.addValue(value, "Series" + String.valueOf(index), key);
 
+}
+
+class InstagramDataSet extends JPanel {
+
+    private int followersCount;
+    private int maxLikes;
+    private int maxComments;
+    private int totalLikes;
+    private int totalComments;
+    private double averageLikes;
+    private double averageComments;
+    private List<Integer> likesPerPost;
+    private List<Integer> commentsPerPost;
+
+    public InstagramDataSet() {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+    }
+
+    public void updateStats(HashMap<String, Object> stats) {
+        if (stats == null) {
+            // Reset all fields to default values
+            followersCount = 0;
+            maxLikes = 0;
+            maxComments = 0;
+            totalLikes = 0;
+            totalComments = 0;
+            averageLikes = 0.0;
+            averageComments = 0.0;
+            likesPerPost = Collections.emptyList();
+            commentsPerPost = Collections.emptyList();
+        } else {
+            // Set fields from stats
+            this.followersCount = (int) stats.get("followersCount");
+            this.maxLikes = (int) stats.get("maxLikes");
+            this.maxComments = (int) stats.get("maxComments");
+            this.totalLikes = (int) stats.get("totalLikes");
+            this.totalComments = (int) stats.get("totalComments");
+            this.maxComments = (int) stats.get("maxComments");
+            this.averageLikes = (double) stats.get("averageLikes");
+            this.averageComments = (double) stats.get("averageComments");
+            this.likesPerPost = (List<Integer>) stats.get("likesPerPost");
+            this.commentsPerPost = (List<Integer>) stats.get("commentsPerPost");
         }
-        // Add more data points or series as needed
-        return dataset;
+
+        refreshDisplay();
     }
 
-    public static JFreeChart createBarChart(
-            String title,
-            String categoryAxisLabel,
-            String valueAxisLabel,
-            CategoryDataset dataset) {
+    private void refreshDisplay() {
+        removeAll(); // Clear existing components
 
-        return ChartFactory.createBarChart(
+        if (!likesPerPost.isEmpty() || !commentsPerPost.isEmpty()) {
+            add(createStatPanel("Followers Count", followersCount));
+            add(createStatPanel("Max Likes", maxLikes));
+            add(createStatPanel("Total Likes", totalLikes));
+            add(createStatPanel("Total Comments", totalComments));
+            add(createStatPanel("Average Likes", averageLikes));
+            add(createStatPanel("Average Comments", averageComments));
+            add(createStatPanel("Max Comments", maxComments));
+
+            if (!likesPerPost.isEmpty()) {
+                add(createBarChart("Likes Per Post", likesPerPost));
+            }
+            if (!commentsPerPost.isEmpty()) {
+                add(createBarChart("Comments Per Post", commentsPerPost));
+            }
+        }
+
+        revalidate();
+        repaint();
+    }
+
+
+    private JPanel createStatPanel(String label, Object value) {
+        JPanel panel = new JPanel();
+        panel.add(new JLabel(label + ": " + value));
+        return panel;
+    }
+
+    private ChartPanel createBarChart(String title, List<Integer> data) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (int i = 0; i < data.size(); i++) {
+            dataset.addValue(data.get(i), title, "Post " + (i + 1));
+        }
+        JFreeChart barChart = ChartFactory.createBarChart(
                 title,
-                categoryAxisLabel,
-                valueAxisLabel,
-                dataset
-        );
-    }
+                "Post",
+                "Count",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true, true, false);
 
+        return new ChartPanel(barChart);
+    }
 }
