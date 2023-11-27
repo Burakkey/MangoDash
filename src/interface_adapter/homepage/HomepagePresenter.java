@@ -94,6 +94,8 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         HomepageState homepageState = homepageViewModel.getState();
         homepageState.setInstagramStatsHashMap(instagramStatsHashMap);
         System.out.println(homepageState.getInstagramStatsHashMap());
+        this.homepageViewModel.firePropertyChanged();
+        this.viewManagerModel.firePropertyChanged();
     }
 
 
