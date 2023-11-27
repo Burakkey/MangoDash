@@ -64,6 +64,9 @@ public class FacebookStats implements SocialMediaStats {
                     JSONObject postReactions = (JSONObject) object.get("reactions");
                     JSONObject postSummaryReactions = (JSONObject) postReactions.get("summary");
 //                    System.out.println(postSummaryReactions);
+
+                    JSONObject postComments = (JSONObject) object.get("comments");
+                    JSONObject postSummaryComments = (JSONObject) postComments.get("summary");
                 }
             } catch (IOException e) {
                 System.out.println("Error with API call to get user posts summary");
