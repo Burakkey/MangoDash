@@ -47,14 +47,17 @@ public class FacebookStats implements SocialMediaStats {
     @Override
     public void updateStats() throws MalformedURLException {
         String userAccountId = null;
+        String userAccountName = null;
 
+        // Retrieve User's ID
         URL urlGetId = new URL(
                 "https://graph.facebook.com/v18.0/me?fields=id%2Cname%2Cemail&access_token=" + apiKey);
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlGetId.openStream(), "UTF-8"))) {
-            for (String line; (line = reader.readLine()) != null; ) {
+            for (String line; (line = reader.readLine()) != null;) {
                 JSONObject object = new JSONObject(line);
                 userAccountId = (String) object.get("id");
+//                System.out.println(userAccountId);
             }
         } catch (IOException e) {
             System.out.println("Error with API call to get user account ID");
@@ -63,5 +66,23 @@ public class FacebookStats implements SocialMediaStats {
         if (userAccountId == null) {
             return;
         }
-    }
+
+        // Retrieve User's Full Name
+        URL urlGetName = new URL(
+                "https://graph.facebook.com/v18.0/" + userAccountId + "?fields=name&access_token="
+                        + apiKey);
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlGetName.openStream(), "UTF-8"))) {
+            for (String line; (line = reader.readLine()) != null;) {
+                JSONObject object = new JSONObject(line);
+                userAccountName = (String) object.get("name");
+//                System.out.println(userAccountName);
+            }
+        } catch (IOException e) {
+            System.out.println("Error with API call to get user account name");
+        }
+
+        if (userAccountName == null) {
+            return;
+        }
 }
