@@ -1,6 +1,8 @@
 package entity.SocialMediaStats;
 
 import org.json.JSONArray;
+
+import java.net.MalformedURLException;
 import java.util.HashMap;
 
 public class FacebookStats implements SocialMediaStats {
@@ -17,5 +19,16 @@ public class FacebookStats implements SocialMediaStats {
     @Override
     public HashMap<String, JSONArray> getStats() {
         return stats;
+    }
+
+    @Override
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+
+        try {
+            updateStats();
+        } catch (MalformedURLException exception) {
+            System.out.println("API call failed, possible expired token");
+        }
     }
 }
