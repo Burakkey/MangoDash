@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 public class FacebookStats implements SocialMediaStats {
@@ -57,7 +58,6 @@ public class FacebookStats implements SocialMediaStats {
             for (String line; (line = reader.readLine()) != null;) {
                 JSONObject object = new JSONObject(line);
                 userAccountId = (String) object.get("id");
-//                System.out.println(userAccountId);
             }
         } catch (IOException e) {
             System.out.println("Error with API call to get user account ID");
@@ -66,6 +66,7 @@ public class FacebookStats implements SocialMediaStats {
         if (userAccountId == null) {
             return;
         }
+
 
         // Retrieve User's Full Name
         URL urlGetName = new URL(
@@ -76,7 +77,6 @@ public class FacebookStats implements SocialMediaStats {
             for (String line; (line = reader.readLine()) != null;) {
                 JSONObject object = new JSONObject(line);
                 userAccountName = (String) object.get("name");
-//                System.out.println(userAccountName);
             }
         } catch (IOException e) {
             System.out.println("Error with API call to get user account name");
@@ -84,5 +84,26 @@ public class FacebookStats implements SocialMediaStats {
 
         if (userAccountName == null) {
             return;
+        }
+
+
+        // Retrieve User Friend Count
+        URL urlGetFriendsInfo = new URL(
+                "https://graph.facebook.com/v18.0/" + userAccountId + "?fields=friends&access_token="
+                        + apiKey);
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlGetFriendsInfo.openStream(),
+                StandardCharsets.UTF_8))) {
+            for (String line; (line = reader.readLine()) != null;) {
+                JSONObject object = new JSONObject(line);
+                JSONObject userFriends = (JSONObject) object.get("friends");
+                JSONObject userFriendsSummary = (JSONObject) userFriends.get("summary");
+
+                JSONArray jsonFriendCount = new JSONArray();
+                jsonFriendCount.put(userFriendsSummary.get("total_count"));
+                stats.put("friends", (JSONArray) jsonFriendCount);
+            }
+        } catch (IOException e) {
+            System.out.println("Error with API call to getting user friends info");
         }
 }
