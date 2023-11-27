@@ -27,4 +27,10 @@ public class HomepageController {
         changeDataInputBoundary.executeAPIChanges(changeDataInput);
 
     }
+//    public void executeInstagrmGraphing(String username, String name, String facebookAPI, String instagramAPI){
+//        ChangeDataInput changeDataInput = new ChangeDataInput(username, name, facebookAPI, instagramAPI);
+//        changeDataInputBoundary.executeAPIChanges(changeDataInput);
+//
+//    }
+
 }

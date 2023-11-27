@@ -3,6 +3,7 @@ package view.homepage;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
+import interface_adapter.signup.SignupViewModel;
 import interface_adapter.switchview.SwitchViewController;
 
 import javax.swing.*;
@@ -27,6 +28,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
     private final SwitchViewController switchViewController;
 
 
+
     public HomepageView(HomepageViewModel homepageViewModel, HomePanelComponent homePanelComponent,
                         RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
                         SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, SwitchViewController switchViewController) {
@@ -44,6 +46,8 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
         JLabel title = new JLabel("Homepage View");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setPreferredSize(new Dimension(1200, 600));
