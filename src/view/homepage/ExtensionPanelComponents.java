@@ -5,12 +5,16 @@ import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.switchview.SwitchViewController;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ExtensionPanelComponents {
     public static JTextField facebookAPIaccesstoken = new JTextField(15);
@@ -37,8 +41,9 @@ public class ExtensionPanelComponents {
         // Create a panel for the text fields and labels
         JPanel fieldsPanel = new JPanel(new GridBagLayout());
         fieldsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
-
         settingsPanel.setPreferredSize(new Dimension(200, 30));
+
+
 
         // Create and configure JLabels with right alignment
         JLabel facebookAPILabel = new JLabel("Facebook Access Token:");
@@ -49,9 +54,26 @@ public class ExtensionPanelComponents {
         // Create a GridBagConstraints object for layout control
         GridBagConstraints gbc = new GridBagConstraints();
 
+        try {
+            gbc.gridx = 0; // Left column
+            gbc.gridy = 0;
+            gbc.anchor = GridBagConstraints.NORTH;
+            gbc.gridheight = 3;
+            gbc.gridwidth = 3;
+            gbc.insets = new Insets(5, 5, 0, 0);
+            BufferedImage settingsPicture=
+                    ImageIO.read(new File("src/assets/homepage/ApiKey.png"));
+            JLabel picLabel = new JLabel(new ImageIcon(settingsPicture));
+            picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            fieldsPanel.add(picLabel, gbc);
+        } catch (IOException ex) {
+            System.out.println("Image not found!");
+        }
         // Add JLabel and JTextField pairs to the fieldsPanel
         gbc.gridx = 0; // Left column
-        gbc.gridy = 0;
+        gbc.gridy = 3;
+        gbc.gridheight = 1;
+        gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(0, 0, 5, 5);
         fieldsPanel.add(facebookAPILabel, gbc);
@@ -63,7 +85,7 @@ public class ExtensionPanelComponents {
         fieldsPanel.add(facebookAPIaccesstoken, gbc);
 
         // Update gridy to position the next component below
-        gbc.gridy = 1;
+        gbc.gridy = 4;
 
         gbc.gridx = 0; // Left column
         gbc.anchor = GridBagConstraints.EAST;
