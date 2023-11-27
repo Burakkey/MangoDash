@@ -55,7 +55,7 @@ public class FacebookStats implements SocialMediaStats {
                 "https://graph.facebook.com/v18.0/me?fields=id%2Cname%2Cemail&access_token=" + apiKey);
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlGetId.openStream(), "UTF-8"))) {
-            for (String line; (line = reader.readLine()) != null;) {
+            for (String line; (line = reader.readLine()) != null; ) {
                 JSONObject object = new JSONObject(line);
                 userAccountId = (String) object.get("id");
             }
@@ -74,7 +74,7 @@ public class FacebookStats implements SocialMediaStats {
                         + apiKey);
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlGetName.openStream(), "UTF-8"))) {
-            for (String line; (line = reader.readLine()) != null;) {
+            for (String line; (line = reader.readLine()) != null; ) {
                 JSONObject object = new JSONObject(line);
                 userAccountName = (String) object.get("name");
             }
@@ -94,7 +94,7 @@ public class FacebookStats implements SocialMediaStats {
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlGetFriendsInfo.openStream(),
                 StandardCharsets.UTF_8))) {
-            for (String line; (line = reader.readLine()) != null;) {
+            for (String line; (line = reader.readLine()) != null; ) {
                 JSONObject object = new JSONObject(line);
                 JSONObject userFriends = (JSONObject) object.get("friends");
                 JSONObject userFriendsSummary = (JSONObject) userFriends.get("summary");
@@ -106,4 +106,5 @@ public class FacebookStats implements SocialMediaStats {
         } catch (IOException e) {
             System.out.println("Error with API call to getting user friends info");
         }
+    }
 }
