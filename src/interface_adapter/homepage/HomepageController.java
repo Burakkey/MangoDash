@@ -19,5 +19,12 @@ public class HomepageController {
     public void executeSaveChanges(String username, String name, String bio){
         ChangeDataInput changeDataInput = new ChangeDataInput(username, name, bio);
         changeDataInputBoundary.executeSaveChanges(changeDataInput);
+
+    }
+
+    public void executeAPIChanges(String username, String name, String facebookAPI, String instagramAPI){
+        ChangeDataInput changeDataInput = new ChangeDataInput(username, name, facebookAPI, instagramAPI);
+        changeDataInputBoundary.executeAPIChanges(changeDataInput);
+
     }
 }

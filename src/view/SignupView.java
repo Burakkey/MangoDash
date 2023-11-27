@@ -43,8 +43,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     private final JButton signUp;
     private final JButton cancel;
 
-
-    private final JButton back;
     private final ViewManagerModel viewManagerModel;
 
 
@@ -90,20 +88,20 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
         usernameInfo.setBackground(LIGHT_ORANGE);
         passwordInfo.setBackground(LIGHT_ORANGE);
+        nameInfo.setBackground(LIGHT_ORANGE);
         repeatPasswordInfo.setBackground(LIGHT_ORANGE);
 
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
+        signUp.setBackground(SignupViewModel.BUTTON_ORANGE);
         cancel = new JButton(SignupViewModel.CANCEL_BUTTON_LABEL);
-        back = new JButton((SignupViewModel.BACK_BUTTON_LABEL));
+        cancel.setBackground(SignupViewModel.BUTTON_ORANGE);
 
         signUp.setFont(medFont);
         cancel.setFont(medFont);
-        back.setFont(medFont);
 
         buttons.add(signUp);
         buttons.add(cancel);
-        buttons.add(back);
         buttons.setBackground(LIGHT_ORANGE);
 
 
@@ -124,8 +122,16 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        cancel.addActionListener(this);
-        back.addActionListener(this);
+        cancel.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(cancel)) {
+                            viewManagerModel.setActiveView("Home");
+                            viewManagerModel.firePropertyChanged();
+                        }
+                    }
+                }
+        );
 
         // This makes a new KeyListener implementing class, instantiates it, and
         // makes it listen to keystrokes in the usernameInputField.
@@ -229,14 +235,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-
-        if (evt.getActionCommand() == cancel.getActionCommand()){
-            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
-        }
-        else if (evt.getActionCommand() == back.getActionCommand()){
-            viewManagerModel.setActiveView("Home");
-            viewManagerModel.firePropertyChanged();
-        }
         System.out. println("Click " + evt.getActionCommand());
     }
 

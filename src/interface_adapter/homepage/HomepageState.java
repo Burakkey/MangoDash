@@ -1,15 +1,26 @@
 package interface_adapter.homepage;
 
+import java.util.HashMap;
+
 public class HomepageState {
     private String name; // Add name field
 
     private String username;
     private String bio; // Add bio field
 
+    private String instagramToken;
+
+    private String facebookToken;
+
+    private HashMap<String, Object> instagramStatsHashMap;
+
     public HomepageState(HomepageState copy) {
         name = copy.name;
         username = copy.username;
         bio = copy.bio;
+        instagramToken = copy.instagramToken;
+        facebookToken = copy.facebookToken;
+        instagramStatsHashMap = copy.instagramStatsHashMap;
     }
 
     // Explicit default constructor
@@ -17,6 +28,14 @@ public class HomepageState {
 
     public String getUsername() {
         return username;
+    }
+
+    public void setInstagramStatsHashMap(HashMap<String, Object> instagramStatsHashMap) {
+        this.instagramStatsHashMap = instagramStatsHashMap;
+    }
+
+    public HashMap<String, Object> getInstagramStatsHashMap() {
+        return instagramStatsHashMap;
     }
 
     public String getName() {
@@ -37,6 +56,22 @@ public class HomepageState {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public void setInstagramToken(String instagramToken){
+        this.instagramToken = instagramToken;
+    }
+
+    public void setFacebookToken(String facebookToken){
+        this.facebookToken = facebookToken;
+    }
+
+    public String getInstagramToken(){
+        return this.instagramToken;
+    }
+
+    public String getFacebookToken(){
+        return this.facebookToken;
     }
 
     @Override

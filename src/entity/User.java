@@ -1,6 +1,7 @@
 package entity;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 public interface User {
 
@@ -19,4 +20,10 @@ public interface User {
     void setBio(String bio);
 
     String getBio();
+
+    void setApiKeys(String socialMedia, String apiKey);
+
+    HashMap<String,String> getApiKeys();
+
+
 }

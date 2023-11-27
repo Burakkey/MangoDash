@@ -4,12 +4,16 @@ import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.switchview.SwitchViewController;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class SettingsPanelComponent {
 
@@ -34,11 +38,13 @@ public class SettingsPanelComponent {
         // Below are how components are place (visuals) feel free to do whatever here
 
         JPanel settingsPanel = new JPanel();
+
         settingsPanel.setLayout(new GridBagLayout());
         settingsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
 
         // Create a panel for the text fields and labels
         JPanel fieldsPanel = new JPanel(new GridBagLayout());
+        fieldsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
 
         settingsPanel.setPreferredSize(new Dimension(200, 30));
 
@@ -53,9 +59,28 @@ public class SettingsPanelComponent {
         // Create a GridBagConstraints object for layout control
         GridBagConstraints gbc = new GridBagConstraints();
 
+
+        try {
+            gbc.gridx = 0; // Left column
+            gbc.gridy = 0;
+            gbc.anchor = GridBagConstraints.NORTH;
+            gbc.gridheight = 3;
+            gbc.gridwidth = 3;
+            gbc.insets = new Insets(5, 5, 0, 0);
+            BufferedImage settingsPicture=
+                    ImageIO.read(new File("src/assets/homepage/Settings.png"));
+            JLabel picLabel = new JLabel(new ImageIcon(settingsPicture));
+            picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            fieldsPanel.add(picLabel, gbc);
+        } catch (IOException ex) {
+            System.out.println("Image not found!");
+        }
+
         // Add JLabel and JTextField pairs to the fieldsPanel
         gbc.gridx = 0; // Left column
-        gbc.gridy = 0;
+        gbc.gridy = 3;
+        gbc.gridheight = 1;
+        gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(0, 0, 5, 5);
         fieldsPanel.add(usernameLabel, gbc);
@@ -67,7 +92,7 @@ public class SettingsPanelComponent {
         fieldsPanel.add(usernameInputField, gbc);
 
         // Update gridy to position the next component below
-        gbc.gridy = 1;
+        gbc.gridy = 4;
 
         gbc.gridx = 0; // Left column
         gbc.anchor = GridBagConstraints.EAST;
@@ -81,7 +106,7 @@ public class SettingsPanelComponent {
         fieldsPanel.add(nameInputField, gbc);
 
         // Update gridy to position the next component below
-        gbc.gridy = 2;
+        gbc.gridy = 5;
 
         gbc.gridx = 0; // Left column
         gbc.anchor = GridBagConstraints.EAST;
@@ -102,10 +127,15 @@ public class SettingsPanelComponent {
         JButton changePasswordButton = new JButton(HomepageViewModel.CHANGE_PASSWORD_BUTTON_LABEL);
         JButton saveChangesButton = new JButton(HomepageViewModel.SAVE_CHANGES_BUTTON_LABEL);
 
+        logoutButton.setBackground(HomepageViewModel.BUTTON_ORANGE);
+        changePasswordButton.setBackground(HomepageViewModel.BUTTON_ORANGE);
+        saveChangesButton.setBackground(HomepageViewModel.BUTTON_ORANGE);
+
         // Add buttons to the buttonsPanel
         buttonsPanel.add(logoutButton);
         buttonsPanel.add(changePasswordButton);
         buttonsPanel.add(saveChangesButton);
+        buttonsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
 
         // Create a top-level GridBagConstraints object for layout control
         gbc.gridx = 0; // Centered
@@ -264,7 +294,7 @@ public class SettingsPanelComponent {
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(saveChangesButton)) {
                             HomepageState currentState = homepageViewModel.getState();
-                            homepageController.executeSaveChanges(currentState.getName(), currentState.getUsername(), currentState.getBio());
+                            homepageController.executeSaveChanges(currentState.getUsername(), currentState.getName(), currentState.getBio());
 
                         }
                     }

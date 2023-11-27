@@ -22,7 +22,7 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
     private final ViewManagerModel viewManagerModel;
     public LoginHomeView(LoginHomeViewModel loginHomeViewModel, ViewManagerModel viewManagerModel) {
         // This is the code that modifies the color
-        this.setBackground(Color.ORANGE);
+        this.setBackground(LoginHomeViewModel.LIGHT_ORANGE);
         setPreferredSize(new Dimension(1200,600));
 
 
@@ -32,7 +32,6 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
 
 //        JLabel title = new JLabel("Login Home View");
 //        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // TODO RICHARD'S PAGE CUSTOMIZATION HERE
         try {
             BufferedImage titlePicture =
                     ImageIO.read(new File("src/assets/login_home_view/MangoDashLoginHomeTitle.png"));
@@ -40,24 +39,23 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
             picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             add(picLabel);
         } catch (IOException ex) {
-            // Handle Exception ... do nothing.
+            System.out.println("Image not found!");
         }
 
 
         JPanel buttons = new JPanel();
-        buttons.setBackground(Color.ORANGE);
+        buttons.setBackground(LoginHomeViewModel.LIGHT_ORANGE);
         signupButton = new JButton(loginHomeViewModel.SIGNUP_BUTTON_LABEL);
         signupButton.setPreferredSize(new Dimension(200, 50));
         signupButton.setFont(loginHomeViewModel.getComfortaaMedium());
-        signupButton.setBackground(Color.YELLOW);
+        signupButton.setBackground(LoginHomeViewModel.BUTTON_ORANGE);
         buttons.add(signupButton);
         loginButton = new JButton(loginHomeViewModel.LOGIN_BUTTON_LABEL);
         loginButton.setPreferredSize(new Dimension(200, 50));
         loginButton.setFont(loginHomeViewModel.getComfortaaMedium());
-        loginButton.setBackground(Color.YELLOW);
+        loginButton.setBackground(LoginHomeViewModel.BUTTON_ORANGE);
 
         buttons.add(loginButton);
-        // TODO COPY AND PASTE IF CONFLICT
 //
         signupButton.addActionListener(this);
         loginButton.addActionListener(this);

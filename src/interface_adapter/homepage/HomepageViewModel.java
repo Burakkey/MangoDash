@@ -28,7 +28,9 @@ public class HomepageViewModel extends ViewModel {
 
     public static final String BIO_JLABEL = "Bio";
 
-    public static final Color BACKGROUND_COLOR = Color.ORANGE;
+    public static final Color BACKGROUND_COLOR = new Color(255,245,220);
+    public static final Color BUTTON_ORANGE = new Color(255,179,138);
+
 
     private static HomepageState homepageState = new HomepageState();
 

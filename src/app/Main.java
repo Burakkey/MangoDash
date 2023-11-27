@@ -1,23 +1,22 @@
 package app;
 
-import data_access.FileUserDataAccessObject;
+import data_access.SQLiteUserDataAccessObject;
 import entity.CommonUserFactory;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.clear_users.ClearViewModel;
 import interface_adapter.homepage.HomepageViewModel;
-import interface_adapter.login.LoginViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
+import interface_adapter.login.LoginViewModel;
 import interface_adapter.login_home.LoginHomeViewModel;
 import interface_adapter.signup.SignupViewModel;
-import interface_adapter.ViewManagerModel;
 import view.*;
 import view.homepage.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
         // Build the main program window, the main panel containing the
         // various cards, and the layout, and stitch them together.
 
@@ -47,14 +46,12 @@ public class Main {
         LoginHomeViewModel loginHomeViewModel = new LoginHomeViewModel();
 
 
-        FileUserDataAccessObject userDataAccessObject;
-        FileUserDataAccessObject userDataAccessObject2;
-        try {
-            userDataAccessObject = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
-            userDataAccessObject2 = new FileUserDataAccessObject("./users.csv", new CommonUserFactory());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//        FileUserDataAccessObject userDataAccessObject;
+//        FileUserDataAccessObject userDataAccessObject2;
+        SQLiteUserDataAccessObject userDataAccessObject;
+        SQLiteUserDataAccessObject userDataAccessObject2;
+        userDataAccessObject = new SQLiteUserDataAccessObject("users.db", new CommonUserFactory());
+        userDataAccessObject2 = new SQLiteUserDataAccessObject("users.db", new CommonUserFactory());
 
         SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, clearViewModel, userDataAccessObject2);
         views.add(signupView, signupView.viewName);
@@ -74,7 +71,7 @@ public class Main {
         views.add(homepageView, homepageView.viewName);
 
 
-        LoginHomeView loginHomeView = new LoginHomeView(loginHomeViewModel, viewManagerModel); // TODO CHANGE IN PARAMETERS
+        LoginHomeView loginHomeView = new LoginHomeView(loginHomeViewModel, viewManagerModel);
         views.add(loginHomeView, loginHomeView.viewName);
 
         viewManagerModel.setActiveView(loginHomeView.viewName);

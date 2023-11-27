@@ -29,6 +29,8 @@ public class LoginPresenter implements LoginOutputBoundary {
         homepageState.setName(response.getName());
         homepageState.setUsername(response.getUsername());
         homepageState.setBio(response.getBio());
+        homepageState.setFacebookToken(response.getFacebookAPI());
+        homepageState.setInstagramToken(response.getInstagramAPI());
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.homepageViewModel.firePropertyChanged();

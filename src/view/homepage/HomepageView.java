@@ -49,7 +49,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         tabbedPane.setPreferredSize(new Dimension(1200, 600));
         tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, HomePanelComponent.getPanel());
         tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());
-        tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel());
+        tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel(homepageViewModel, homepageController, switchViewController));
         tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController, switchViewController));
 
         this.add(tabbedPane);
@@ -62,6 +62,8 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         // Update the view based on the new state of homepageViewModel
         this.homepageViewModel.setState(newHomepageState);
         this.settingsPanelComponent.updatePanel(newHomepageState);
+        this.extensionPanelComponents.updatePanel(newHomepageState);
+//        this.rankingPanelComponent.updatePanel(newHomepageState);
     }
 
     @Override
