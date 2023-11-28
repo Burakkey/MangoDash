@@ -40,8 +40,7 @@ public class SignupViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
-     * the SignupPresenter calls firePropertyChanged to let the SignupViewModel know to alert the SignupView that
-     * a property has been changed
+     * the SignupPresenter calls firePropertyChanged to let the SignupViewModel know to alert the SignupView that a property has been changed
      */
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);

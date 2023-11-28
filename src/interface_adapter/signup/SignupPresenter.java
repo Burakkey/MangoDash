@@ -22,7 +22,7 @@ public class SignupPresenter implements SignupOutputBoundary {
     /**
      * Creates a new SignupPresenter object.
      * @param viewManagerModel contains all the different views, changes the active view when needed
-     *      *                         (in response to user)
+     *                               (in response to user)
      * @param signupViewModel data structure that contains the data in the appropriate format for the
      *                        signupView to display
      * @param loginViewModel data structure that contains the data in the appropriate format for the
@@ -37,9 +37,7 @@ public class SignupPresenter implements SignupOutputBoundary {
     }
 
     /**
-     * If the input data does not have any errors, then the signup is successful and prepareSuccessView is called.
-     * prepareSuccessView switches to the login view, with the username text field already filled in with the username
-     * the user chose during signup.
+     * If the input data does not have any errors, then the signup is successful and prepareSuccessView is called prepareSuccessView switches to the login view, with the username text field already filled in with the username the user chose during signup.
      * @param response the output data that is required after the user has signed up
      */
     @Override

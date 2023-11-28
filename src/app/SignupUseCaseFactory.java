@@ -38,8 +38,7 @@ public class SignupUseCaseFactory {
     private SignupUseCaseFactory() {}
 
     /**
-     * create creates a SignupView and connects the different parameters to the View, so that the SignupView can
-     * communicate with the other classes necessary for signing a user up.
+     * create creates a SignupView and connects the different parameters to the View, so that the SignupView can communicate with the other classes necessary for signing a user up.
      * @param viewManagerModel
      * @param loginViewModel
      * @param signupViewModel

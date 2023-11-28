@@ -12,8 +12,7 @@ public class SignupOutputData {
 
     /**
      * Creates a new SignupOutputData object.
-     * @param username the username that the user has chosen, used to display on the login screen after
-     *                 successful signup.
+     * @param username the username that the user has chosen, used to display on the login screen after successful signup.
      * @param creationTime the time this SignupOutputData was created
      * @param useCaseFailed whether the signup was successful or not
      */

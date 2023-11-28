@@ -24,8 +24,7 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
 /**
- * The SignupView displays information to the user, is responsible for the signup page UI, and observes/reacts to
- * events that are triggered by the user.
+ * The SignupView displays information to the user, is responsible for the signup page UI, and observes/reacts to events that are triggered by the user.
  */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
 
@@ -249,8 +248,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     }
 
     /**
-     * If the evt property's new value is related to the SignUpState, then an error panel will
-     * pop up if there is an error with the values the user has inputted into the text fields.
+     * If the evt property's new value is related to the SignUpState, then an error panel will pop up if there is an error with the values the user has inputted into the text fields.
      * @param evt A PropertyChangeEvent object describing the event source
      *          and the property that has changed.
      */

@@ -6,8 +6,7 @@ import entity.UserFactory;
 import java.util.HashMap;
 
 /**
- * SignupInteractor takes the signup info data and uses it to sign a new user up. If there is an error with the input
- * data, the user will not be signed up.
+ * SignupInteractor takes the signup info data and uses it to sign a new user up. If there is an error with the input data, the user will not be signed up.
  */
 public class SignupInteractor implements SignupInputBoundary {
     final SignupUserDataAccessInterface userDataAccessObject;
@@ -16,10 +15,8 @@ public class SignupInteractor implements SignupInputBoundary {
 
     /**
      * Creates a new SignupInteractor.
-     * @param signupDataAccessInterface interface that defines methods of data access objects related to the
-     *                                  action of signing up
-     * @param signupOutputBoundary interface that defines methods that describe how output data is transferred to
-     *                             outer layers, related to the action of signing up
+     * @param signupDataAccessInterface interface that defines methods of data access objects related to the action of signing up
+     * @param signupOutputBoundary interface that defines methods that describe how output data is transferred to outer layers, related to the action of signing up
      * @param userFactory interface that defines methods of how new users are created when signing up
      */
     public SignupInteractor(SignupUserDataAccessInterface signupDataAccessInterface,
@@ -32,9 +29,8 @@ public class SignupInteractor implements SignupInputBoundary {
 
     /**
      * Given the signup input data, decides whether to allow the user to sign up with this data or not:
-     * The user will be able to successfully sign up if their chosen Name only contains letters, their chosen Username
-     * does not already exist, and the chosen Password in both password fields matches. Otherwise, a window will appear
-     * showing the corresponding error.
+     * The user will be able to successfully sign up if their chosen Name only contains letters, their chosen Username does not already exist, and the chosen Password in both password fields matches.
+     * Otherwise, a window will appear showing the corresponding error.
      * @param signupInputData data structure that contains the data needed to sign a user up
      */
     @Override

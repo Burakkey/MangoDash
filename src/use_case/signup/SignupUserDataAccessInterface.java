@@ -8,8 +8,7 @@ import entity.User;
  */
 public interface SignupUserDataAccessInterface {
     /**
-     * existsByName takes the given String and checks the database to see if there is another user that is already
-     * using that username.
+     * existsByName takes the given String and checks the database to see if there is another user that is already using that username.
      * @param identifier the username the user has chosen when signing up
      * @return true if the username is already taken, false if the username is not already taken
      */
