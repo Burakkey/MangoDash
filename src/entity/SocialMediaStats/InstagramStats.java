@@ -1,6 +1,8 @@
 package entity.SocialMediaStats;
 
 import org.json.JSONArray;
+
+import java.net.MalformedURLException;
 import java.util.HashMap;
 
 public class InstagramStats implements SocialMediaStats {
@@ -12,24 +14,21 @@ public class InstagramStats implements SocialMediaStats {
         stats.put("followers", new JSONArray());
         stats.put("posts", new JSONArray());
     }
-
     @Override
-    public void setFollowers(JSONArray followers) {
-        stats.put("followers", followers);
+    public HashMap<String, JSONArray> getStats() {
+        return stats;
     }
 
     @Override
-    public JSONArray getFollowers() {
-        return stats.getOrDefault("followers", new JSONArray());
+    public void setStats(HashMap<String, JSONArray> stats) {
+        this.stats = stats;
     }
 
-    @Override
-    public void setPosts(JSONArray posts) {
-        stats.put("posts", posts);
-    }
-
-    @Override
     public JSONArray getPosts() {
-        return stats.getOrDefault("posts", new JSONArray());
+        return this.stats.get("posts");
+    }
+
+    public JSONArray getFollowers() {
+        return this.stats.get("followers");
     }
 }

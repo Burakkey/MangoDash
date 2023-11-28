@@ -2,15 +2,11 @@ package entity.SocialMediaStats;
 
 import org.json.JSONArray;
 
+import java.util.HashMap;
+
 public interface SocialMediaStats {
 
-    void setFollowers(JSONArray followers);
+    HashMap<String, JSONArray> getStats();
 
-    JSONArray getFollowers();
-
-    void setPosts(JSONArray posts);
-
-
-
-    JSONArray getPosts();
+    void setStats(HashMap<String, JSONArray> stats);
 }
