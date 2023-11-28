@@ -23,6 +23,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
+/**
+ * The SignupView displays information to the user, is responsible for the signup page UI, and observes/reacts to
+ * events that are triggered by the user.
+ */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
 
 
@@ -47,8 +51,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
 
     /**
-     * The SignupView displays information to the user, is responsible for the signup page UI, and observes
-     * events that are triggered by the user.
+     * Constructs a new SignupView.
      * @param controller the signup controller, receives the info that the user inputs
      * @param signupViewModel data structure that contains the info for the view to display
      * @param viewManagerModel contains all the different views, changes the active view when needed
