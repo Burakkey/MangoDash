@@ -1,7 +1,7 @@
 package use_case.signup;
 
 /**
- * SignupOutputBoundary is an interface with methods that detail how the program will respond to
+ * SignupOutputBoundary is an interface with methods that detail how the program will respond to the input data
  */
 public interface SignupOutputBoundary {
     /**
