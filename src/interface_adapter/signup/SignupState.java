@@ -1,8 +1,5 @@
 package interface_adapter.signup;
 
-/**
- * SignupState contains the current condition/status of values of the signup process
- */
 public class SignupState {
     private String name = "";
     private String username = "";
@@ -22,9 +19,6 @@ public class SignupState {
         repeatPasswordError = copy.repeatPasswordError;
     }
 
-    /**
-     * Creates a new SignupState object, with the default instance variables.
-     */
     // Because of the previous copy constructor, the default constructor must be explicit.
     public SignupState() {
     }
@@ -39,10 +33,6 @@ public class SignupState {
 
     public String getError() {
         return error;
-    }
-
-    public void setError(String usernameError) {
-        this.error = usernameError;
     }
 
     public String getPassword() {
@@ -61,9 +51,14 @@ public class SignupState {
         this.username = username;
     }
 
+    public void setError(String usernameError) {
+        this.error = usernameError;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
 
     public void setRepeatPassword(String repeatPassword) {
         this.repeatPassword = repeatPassword;
