@@ -17,7 +17,7 @@ import view.LoginView;
 import javax.swing.*;
 import java.io.IOException;
 /**
- * LoginUseCaseFactory is only called in main, it creates a new SignupView
+ * LoginUseCaseFactory is only called in main, it creates a new LoginView
  */
 public class LoginUseCaseFactory {
 
