@@ -1,8 +1,5 @@
 package use_case.signup;
 
-/**
- * SignupOutputData contains the required data after the user has signed up
- */
 public class SignupOutputData {
 
     private final String username;
@@ -10,12 +7,6 @@ public class SignupOutputData {
 
     private boolean useCaseFailed;
 
-    /**
-     * Creates a new SignupOutputData object.
-     * @param username the username that the user has chosen, used to display on the login screen after successful signup.
-     * @param creationTime the time this SignupOutputData was created
-     * @param useCaseFailed whether the signup was successful or not
-     */
     public SignupOutputData(String username, String creationTime, boolean useCaseFailed) {
         this.username = username;
         this.creationTime = creationTime;
