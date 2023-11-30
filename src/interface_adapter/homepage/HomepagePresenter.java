@@ -46,6 +46,16 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
 
     @Override
     public void prepareAPIView(ChangeDataOutput changeDataOutput) {
+        HashMap<String, Object> instagramStatsHashMap = makeInstagramStatsHashmap(changeDataOutput);
+
+        HomepageState homepageState = homepageViewModel.getState();
+        homepageState.setInstagramStatsHashMap(instagramStatsHashMap);
+        System.out.println(homepageState.getInstagramStatsHashMap());
+        this.homepageViewModel.firePropertyChanged();
+        this.viewManagerModel.firePropertyChanged();
+    }
+
+    private static HashMap<String, Object> makeInstagramStatsHashmap(ChangeDataOutput changeDataOutput) {
         JSONArray arrayFollowers = changeDataOutput.getInstagramFollowers();
         JSONArray arrayPosts = changeDataOutput.getPosts();
 
@@ -92,12 +102,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         instagramStatsHashMap.put("likesPerPost", likesPerPost);
         instagramStatsHashMap.put("commentsPerPost", commentsPerPost);
         instagramStatsHashMap.put("totalPosts", totalPosts);
-
-        HomepageState homepageState = homepageViewModel.getState();
-        homepageState.setInstagramStatsHashMap(instagramStatsHashMap);
-        System.out.println(homepageState.getInstagramStatsHashMap());
-        this.homepageViewModel.firePropertyChanged();
-        this.viewManagerModel.firePropertyChanged();
+        return instagramStatsHashMap;
     }
 
 

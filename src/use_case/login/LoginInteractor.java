@@ -1,17 +1,26 @@
 package use_case.login;
 
 import entity.User;
+import org.json.JSONArray;
+import use_case.change_user_data.InstagramAPIDataAccessInterface;
 
+import java.net.MalformedURLException;
 import java.util.HashMap;
 
 public class LoginInteractor implements LoginInputBoundary {
     final LoginUserDataAccessInterface userDataAccessObject;
     final LoginOutputBoundary loginPresenter;
 
+    final InstagramAPIDataAccessInterface instagramAPIDataAccessInterface;
+
+//    final InstagramAPIDataAccessInterface facebookAPIDataAccessInterface;
+
     public LoginInteractor(LoginUserDataAccessInterface userDataAccessInterface,
-                           LoginOutputBoundary loginOutputBoundary) {
+                           LoginOutputBoundary loginOutputBoundary, InstagramAPIDataAccessInterface instagramAPIDataAccessInterface) {
         this.userDataAccessObject = userDataAccessInterface;
         this.loginPresenter = loginOutputBoundary;
+        this.instagramAPIDataAccessInterface = instagramAPIDataAccessInterface;
+//        this.facebookAPIDataAccessInterface = facebookAPIDataAccessInterface;
     }
 
     @Override
@@ -31,7 +40,17 @@ public class LoginInteractor implements LoginInputBoundary {
                 String facebookApiKey = (apiKeys != null && apiKeys.containsKey("Facebook")) ? apiKeys.get("Facebook") : "";
                 String instagramApiKey = (apiKeys != null && apiKeys.containsKey("Instagram")) ? apiKeys.get("Instagram") : "";
 
-                LoginOutputData loginOutputData = new LoginOutputData(user.getName(), user.getUserName(), user.getBio(), facebookApiKey, instagramApiKey,false);
+                instagramAPIDataAccessInterface.setAPI(instagramApiKey);
+                try {
+                    instagramAPIDataAccessInterface.fetchData();
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
+
+                JSONArray instagramFollowers = instagramAPIDataAccessInterface.getInstagramStats().getFollowers();
+                JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
+
+                LoginOutputData loginOutputData = new LoginOutputData(user.getName(), user.getUserName(), user.getBio(), facebookApiKey, instagramApiKey, instagramPosts, instagramFollowers, false);
                 loginPresenter.prepareSuccessView(loginOutputData);
             }
         }

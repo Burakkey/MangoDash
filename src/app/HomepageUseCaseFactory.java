@@ -11,7 +11,7 @@ import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.switchview.SwitchViewController;
 import interface_adapter.switchview.SwitchViewPresenter;
-import use_case.change_user_data.InstagramAPIIDataAccessInterface;
+import use_case.change_user_data.InstagramAPIDataAccessInterface;
 import use_case.change_user_data.*;
 import use_case.switchView.SwitchViewInputBoundary;
 import use_case.switchView.SwitchViewInteractor;
@@ -45,8 +45,8 @@ public class HomepageUseCaseFactory {
         ChangeDataOutputBoundary changeDataOutputBoundary = new HomepagePresenter(loginViewModel, homepageViewModel, viewManagerModel);
         UserFactory userFactory = new CommonUserFactory();
         InstagramStats instagramStats = new InstagramStats();
-        InstagramAPIIDataAccessInterface instagramAPIIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
-        ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary, instagramAPIIDataAccessInterface);
+        InstagramAPIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
+        ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary, instagramAPIDataAccessInterface);
         return new HomepageController(changeDataInteractor);
     }
 

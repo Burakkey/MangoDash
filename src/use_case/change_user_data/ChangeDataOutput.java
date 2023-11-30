@@ -11,7 +11,7 @@ public class ChangeDataOutput {
 
     private JSONArray instagramFollowers;
 
-    private JSONArray posts;
+    private JSONArray instagramPosts;
 
     private String instagramAPIKey;
 
@@ -23,9 +23,9 @@ public class ChangeDataOutput {
         this.bio = bio;
     }
 
-    public ChangeDataOutput(JSONArray instagramFollowers, JSONArray posts, String instagramAPIKey, String facebookAPIKey){
+    public ChangeDataOutput(JSONArray instagramFollowers, JSONArray instagramPosts, String instagramAPIKey, String facebookAPIKey){
         this.instagramFollowers = instagramFollowers;
-        this.posts = posts;
+        this.instagramPosts = instagramPosts;
         this.instagramAPIKey = instagramAPIKey;
         this.facebookAPIKey = facebookAPIKey;
     }
@@ -51,7 +51,7 @@ public class ChangeDataOutput {
     }
 
     public JSONArray getPosts() {
-        return posts;
+        return instagramPosts;
     }
 
     public String getBio() {

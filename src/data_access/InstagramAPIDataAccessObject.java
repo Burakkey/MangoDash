@@ -3,7 +3,7 @@ package data_access;
 import entity.SocialMediaStats.InstagramStats;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import use_case.change_user_data.InstagramAPIIDataAccessInterface;
+import use_case.change_user_data.InstagramAPIDataAccessInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-public class InstagramAPIDataAccessObject implements InstagramAPIIDataAccessInterface {
+public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInterface {
     private String apiKey;
     private InstagramStats instagramStats;
 
