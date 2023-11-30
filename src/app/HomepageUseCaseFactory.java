@@ -45,7 +45,7 @@ public class HomepageUseCaseFactory {
         ChangeDataOutputBoundary changeDataOutputBoundary = new HomepagePresenter(loginViewModel, homepageViewModel, viewManagerModel);
         UserFactory userFactory = new CommonUserFactory();
         InstagramStats instagramStats = new InstagramStats();
-        InstagramAPIIDataAccessInterface instagramAPIIDataAccessInterface = new InstagramAPIDataAccessObject(" ", instagramStats);
+        InstagramAPIIDataAccessInterface instagramAPIIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
         ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary, instagramAPIIDataAccessInterface);
         return new HomepageController(changeDataInteractor);
     }

@@ -13,15 +13,29 @@ public class ChangeDataOutput {
 
     private JSONArray posts;
 
+    private String instagramAPIKey;
+
+    private String facebookAPIKey;
+
     public ChangeDataOutput(String username, String name, String bio) {
         this.username = username;
         this.name = name;
         this.bio = bio;
     }
 
-    public ChangeDataOutput(JSONArray instagramFollowers, JSONArray posts){
+    public ChangeDataOutput(JSONArray instagramFollowers, JSONArray posts, String instagramAPIKey, String facebookAPIKey){
         this.instagramFollowers = instagramFollowers;
         this.posts = posts;
+        this.instagramAPIKey = instagramAPIKey;
+        this.facebookAPIKey = facebookAPIKey;
+    }
+
+    public String getInstagramAPIKey() {
+        return instagramAPIKey;
+    }
+
+    public String getFacebookAPIKey() {
+        return facebookAPIKey;
     }
 
     public String getUsername() {

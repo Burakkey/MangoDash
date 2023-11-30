@@ -60,8 +60,11 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
                             apiKeys.put(entry.getKey(), entry.getValue().toString());
                         }
 
+
                         User user = userFactory.create(name, username, password, bio, apiKeys, creationTime);
                         accounts.put(username, user);
+
+                        user.getApiKeys();
                     }
                 }
             }

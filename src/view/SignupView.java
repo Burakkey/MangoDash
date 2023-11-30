@@ -1,9 +1,6 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.back_in_signup.BackInSignupController;
-import interface_adapter.back_in_signup.BackInSignupState;
-import interface_adapter.back_in_signup.BackInSignupViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;

@@ -36,6 +36,8 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         homepageState.setName(changeDataOutput.getName());
         homepageState.setUsername(changeDataOutput.getUsername());
         homepageState.setBio(changeDataOutput.getBio());
+        homepageState.setInstagramToken(changeDataOutput.getInstagramAPIKey());
+        homepageState.setFacebookToken(changeDataOutput.getFacebookAPIKey());
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.homepageViewModel.firePropertyChanged();

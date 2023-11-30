@@ -31,7 +31,6 @@ public class HomePanelComponent {
 
     public void updatePanel(HomepageState newState) {
         instagramDataSet.updateStats(newState.getInstagramStatsHashMap());
-        System.out.println("This is pressed " + newState.getInstagramStatsHashMap());
     }
 
     public JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
