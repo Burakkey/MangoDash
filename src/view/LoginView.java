@@ -19,6 +19,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
+/**
+ * The LoginView displays information to the user, is responsible for the login page UI,
+ * and observes/reacts to events that are triggered by the user.
+ */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "log in";
@@ -36,6 +40,13 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     final JButton back;
     private final LoginController loginController;
 
+    /**
+     * Constructs a new LoginView.
+     * @param loginViewModel data structure that contains the info for the view to display
+     * @param controller the login controller, receives the info that the user inputs
+     * @param viewManagerModel contains all the different views, changes the active view when needed
+     *                          (in response to user)
+     */
     public LoginView(LoginViewModel loginViewModel, LoginController controller, ViewManagerModel viewManagerModel) {
         Font medFont = loginViewModel.getComfortaaMedium();
         final Color LIGHT_ORANGE = loginViewModel.BACKGROUND_COLOR;
@@ -162,6 +173,11 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         System.out.println("Click " + evt.getActionCommand());
     }
 
+    /**
+     * If the evt property's new value is related to the LoginState, then an error panel will pop up if there is an error with the values the user has inputted into the text fields.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getNewValue() instanceof LoginState) {

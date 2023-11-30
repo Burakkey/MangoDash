@@ -29,11 +29,24 @@ import view.SignupView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * SignupUseCaseFactory is only called in main, it creates a new SignupView
+ */
 public class SignupUseCaseFactory {
 
     /** Prevent instantiation. */
     private SignupUseCaseFactory() {}
 
+    /**
+     * create creates a SignupView and connects the different parameters to the View, so that the SignupView can communicate with the other classes necessary for signing a user up.
+     * @param viewManagerModel
+     * @param loginViewModel
+     * @param signupViewModel
+     * @param userDataAccessObject
+     * @param clearViewModel
+     * @param userDataAccessObject2
+     * @return a new SignupView that can communicate with the necessary classes to sign a user up
+     */
     public static SignupView create(
             ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject, ClearViewModel clearViewModel, ClearUserDataAccessInterface userDataAccessObject2 ) {
 
