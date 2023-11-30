@@ -1,10 +1,9 @@
 package view.homepage;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
-import interface_adapter.signup.SignupViewModel;
-import interface_adapter.switchview.SwitchViewController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,15 +24,17 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
     private final HomepageController homepageController;
 
-    private final SwitchViewController switchViewController;
+    private final ViewManagerModel viewManagerModel;
+
+
 
 
 
     public HomepageView(HomepageViewModel homepageViewModel, HomePanelComponent homePanelComponent,
                         RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
-                        SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, SwitchViewController switchViewController) {
+                        SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, ViewManagerModel viewManagerModel) {
         this.homepageController = homepageController;
-        this.switchViewController = switchViewController;
+        this.viewManagerModel = viewManagerModel;
         this.setPreferredSize(new Dimension(1200, 600));
 
         this.homepageViewModel = homepageViewModel;
@@ -51,10 +52,10 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setPreferredSize(new Dimension(1200, 600));
-        tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, homePanelComponent.getPanel(homepageViewModel, homepageController, switchViewController));
+        tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, homePanelComponent.getPanel(homepageViewModel, homepageController, viewManagerModel));
         tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());
-        tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel(homepageViewModel, homepageController, switchViewController));
-        tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController, switchViewController));
+        tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel(homepageViewModel, homepageController, viewManagerModel));
+        tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController, viewManagerModel));
 
         this.add(tabbedPane);
 

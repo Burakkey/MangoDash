@@ -45,9 +45,6 @@ public class Main {
         HomepageViewModel homepageViewModel = new HomepageViewModel();
         LoginHomeViewModel loginHomeViewModel = new LoginHomeViewModel();
 
-
-//        FileUserDataAccessObject userDataAccessObject;
-//        FileUserDataAccessObject userDataAccessObject2;
         SQLiteUserDataAccessObject userDataAccessObject;
         SQLiteUserDataAccessObject userDataAccessObject2;
         userDataAccessObject = new SQLiteUserDataAccessObject("users.db", new CommonUserFactory());
@@ -58,9 +55,6 @@ public class Main {
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
-
-        LoggedInView loggedInView = new LoggedInView(loggedInViewModel, viewManagerModel);
-        views.add(loggedInView, loggedInView.viewName);
 
         HomePanelComponent homePanelComponent = new HomePanelComponent();
         RankingPanelComponent rankingPanelComponent = new RankingPanelComponent();

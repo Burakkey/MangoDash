@@ -1,5 +1,6 @@
 package view.homepage;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
@@ -31,7 +32,7 @@ public class ExtensionPanelComponents {
 
     }
 
-    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
+    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel) {
 
         // Below are how components are place (visuals) feel free to do whatever here
         JPanel settingsPanel = new JPanel();
