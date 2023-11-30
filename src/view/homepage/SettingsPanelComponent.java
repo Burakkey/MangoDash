@@ -37,6 +37,8 @@ public class SettingsPanelComponent {
 
         // Below are how components are place (visuals) feel free to do whatever here
 
+        usernameInputField.setEditable(false);
+
         JPanel settingsPanel = new JPanel();
 
         settingsPanel.setLayout(new GridBagLayout());
@@ -175,8 +177,7 @@ public class SettingsPanelComponent {
             @Override
             public void keyTyped(KeyEvent e) {
                 HomepageState currentState = homepageViewModel.getState();
-                String text = usernameInputField.getText() + e.getKeyChar();
-                currentState.setUsername(text);
+                currentState.setUsername(currentState.getUsername());
                 HomepageViewModel viewModel = new HomepageViewModel();
                 viewModel.setState(currentState);
             }

@@ -39,7 +39,6 @@ public class LoginPresenter implements LoginOutputBoundary {
         homepageState.setFacebookToken(response.getFacebookAPI());
         homepageState.setInstagramToken(response.getInstagramAPI());
         homepageState.setInstagramStatsHashMap(makeInstagramStatsHashmap(response));
-        System.out.println("instagram api at presenter" + response.getInstagramAPI()); //@TODO: @Hisham debugging
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.homepageViewModel.firePropertyChanged();
@@ -98,9 +97,5 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareFailView(String error) {
-//        LoginState loginState = loginViewModel.getState();
-//        loginState.setUsernameError(error);
-//        loginViewModel.firePropertyChanged();
-       //  TODO: Check how to implement fail login  @Hisham
     }
 }
