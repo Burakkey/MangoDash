@@ -155,10 +155,5 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
         return accounts.get(username);
     }
 
-    @Override
-    public List clear() {
-        return null;
-    }
-
     // Other methods like clear, existsByName, modifyUser to be implemented similarly
 }

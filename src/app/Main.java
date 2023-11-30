@@ -3,7 +3,6 @@ package app;
 import data_access.SQLiteUserDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.clear_users.ClearViewModel;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
@@ -41,7 +40,6 @@ public class Main {
         LoginViewModel loginViewModel = new LoginViewModel();
         LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
-        ClearViewModel clearViewModel = new ClearViewModel();
         HomepageViewModel homepageViewModel = new HomepageViewModel();
         LoginHomeViewModel loginHomeViewModel = new LoginHomeViewModel();
 
@@ -50,7 +48,7 @@ public class Main {
         userDataAccessObject = new SQLiteUserDataAccessObject("users.db", new CommonUserFactory());
         userDataAccessObject2 = new SQLiteUserDataAccessObject("users.db", new CommonUserFactory());
 
-        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject, clearViewModel, userDataAccessObject2);
+        SignupView signupView = SignupUseCaseFactory.create(viewManagerModel, loginViewModel, signupViewModel, userDataAccessObject);
         views.add(signupView, signupView.viewName);
 
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, userDataAccessObject);
