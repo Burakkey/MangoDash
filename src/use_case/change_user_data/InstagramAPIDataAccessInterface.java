@@ -9,5 +9,7 @@ public interface InstagramAPIDataAccessInterface {
 
     void setAPI(String apiUrl);
 
+    boolean isApiError();
+
     InstagramStats getInstagramStats();
 }

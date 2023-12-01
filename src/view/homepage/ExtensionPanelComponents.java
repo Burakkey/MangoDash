@@ -1,6 +1,5 @@
 package view.homepage;
 
-import interface_adapter.ViewManagerModel;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
@@ -178,9 +177,16 @@ public class ExtensionPanelComponents {
                             HomepageState currentState = homepageViewModel.getState();
                             homepageController.executeAPIChanges(currentState.getUsername(), currentState.getName(),
                                     currentState.getFacebookToken(), currentState.getInstagramToken());
+                            if (currentState.getInstagramKeyError()) {
+                                JOptionPane.showMessageDialog(null, "Invalid Instagram API key", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
 
+                            if (currentState.getFacebookKeyError()){
+                                JOptionPane.showMessageDialog(null, "Invalid Instagram API key", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
                         }
                     }
+
                 }
         );
         return settingsPanel;

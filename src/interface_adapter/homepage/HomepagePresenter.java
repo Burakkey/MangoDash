@@ -47,10 +47,11 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
     @Override
     public void prepareAPIView(ChangeDataOutput changeDataOutput) {
         HashMap<String, Object> instagramStatsHashMap = makeInstagramStatsHashmap(changeDataOutput);
-
         HomepageState homepageState = homepageViewModel.getState();
+        homepageState.setInstagramKeyError(changeDataOutput.getInstagramKeyError());
+        homepageState.setFacebookKeyError(changeDataOutput.getFacebookKeyError());
         homepageState.setInstagramStatsHashMap(instagramStatsHashMap);
-        System.out.println(homepageState.getInstagramStatsHashMap());
+        System.out.println(homepageState.getInstagramStatsHashMap()); //TODO: Remove this @Hisham
         this.homepageViewModel.firePropertyChanged();
         this.viewManagerModel.firePropertyChanged();
     }
@@ -60,7 +61,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         JSONArray arrayPosts = changeDataOutput.getPosts();
 
         // Assuming the first element of arrayFollowers is the total follower count
-        int followersCount = arrayFollowers.length() > 0 ? arrayFollowers.getInt(0) : 0;
+        int followersCount = !arrayFollowers.isEmpty() ? arrayFollowers.getInt(0) : 0;
 
         int maxLikes = 0;
         int maxComments = 0;

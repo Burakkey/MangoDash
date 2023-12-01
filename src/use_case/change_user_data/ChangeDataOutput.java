@@ -17,17 +17,37 @@ public class ChangeDataOutput {
 
     private String facebookAPIKey;
 
+    private Boolean facebookKeyError;
+
+    private Boolean instagramKeyError;
+
     public ChangeDataOutput(String username, String name, String bio) {
         this.username = username;
         this.name = name;
         this.bio = bio;
+        this.instagramKeyError = false;
+        this.facebookKeyError = false;
     }
 
-    public ChangeDataOutput(JSONArray instagramFollowers, JSONArray instagramPosts, String instagramAPIKey, String facebookAPIKey){
+    public ChangeDataOutput(JSONArray instagramFollowers, JSONArray instagramPosts, String instagramAPIKey, String facebookAPIKey, Boolean facebookKeyError, Boolean instagramKeyError){
         this.instagramFollowers = instagramFollowers;
         this.instagramPosts = instagramPosts;
         this.instagramAPIKey = instagramAPIKey;
         this.facebookAPIKey = facebookAPIKey;
+        this.facebookKeyError = facebookKeyError;
+        this.instagramKeyError = instagramKeyError;
+    }
+
+    public JSONArray getInstagramPosts() {
+        return instagramPosts;
+    }
+
+    public Boolean getFacebookKeyError() {
+        return facebookKeyError;
+    }
+
+    public Boolean getInstagramKeyError() {
+        return instagramKeyError;
     }
 
     public String getInstagramAPIKey() {

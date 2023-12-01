@@ -62,14 +62,19 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String instagramAPIToken = changeDataInput.getInstagramAPIToken();
         changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
         instagramAPIDataAccessInterface.setAPI(instagramAPIToken);
+        boolean instagramKeyError = false;
+        boolean facebookKeyError = false;
         try {
             instagramAPIDataAccessInterface.fetchData();
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
+        if (instagramAPIDataAccessInterface.isApiError()){
+            instagramKeyError = true;
+        }
         JSONArray instagramFollowers = instagramAPIDataAccessInterface.getInstagramStats().getFollowers();
         JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
-        ChangeDataOutput changeDataOutput = new ChangeDataOutput(instagramFollowers, instagramPosts, instagramAPIToken, facebookAPIToken);
+        ChangeDataOutput changeDataOutput = new ChangeDataOutput(instagramFollowers, instagramPosts, instagramAPIToken, facebookAPIToken, instagramKeyError, facebookKeyError);
         homepagePresenter.prepareAPIView(changeDataOutput);
     }
 }

@@ -16,10 +16,12 @@ import java.util.HashMap;
 public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInterface {
     private String apiKey;
     private InstagramStats instagramStats;
+    private boolean apiError;
 
     public InstagramAPIDataAccessObject(String apiKey, InstagramStats instagramStats) {
         this.apiKey = apiKey;
         this.instagramStats = instagramStats;
+        this.apiError = false;
     }
 
     @Override
@@ -43,6 +45,7 @@ public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInter
             }
         } catch (IOException e) {
             System.out.println("Error with API call to get user account ID");
+            apiError = true;
             return;
         }
 
@@ -60,6 +63,7 @@ public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInter
             }
         } catch (IOException e) {
             System.out.println("Error with API call to get user account Username");
+            apiError = true;
             return;
         }
 
@@ -85,16 +89,12 @@ public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInter
             }
         } catch (IOException e) {
             System.out.println("Error with API call to getting user info");
+            apiError = true;
         }
         System.out.println(stats.get("posts"));
         System.out.println(stats.get("followers"));
 
         instagramStats.setStats(stats);
-    }
-
-    public static void main(String[] args) throws MalformedURLException {
-        InstagramAPIDataAccessObject accessObject = new InstagramAPIDataAccessObject("EAAMw2YKsBFwBO9Ha4ZABqKjEp3ZCR717k2EUaUBehbXHvY59D4G8Fk6C1TFEReMTmsBLYGqDfzVpCzqQ5gZBh9A5dgsdL7XtSCzopXJNViXNVjDVvIBZALtY8gMLIXh5AuSROJUVRdSHKzHQCB9xN2jz8HspLdRB7jPxidBMRhlaXRtUr93McAkz", new InstagramStats());
-        accessObject.fetchData();
     }
 
     @Override
@@ -107,4 +107,8 @@ public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInter
         return instagramStats;
     }
 
+    @Override
+    public boolean isApiError() {
+        return apiError;
+    }
 }
