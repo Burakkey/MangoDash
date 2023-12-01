@@ -30,15 +30,15 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(LoginOutputData response) {
+    public void prepareSuccessView(LoginOutputData loginOutputData) {
         // On success, switch to the logged in view.
         HomepageState homepageState = new HomepageState();
-        homepageState.setName(response.getName());
-        homepageState.setUsername(response.getUsername());
-        homepageState.setBio(response.getBio());
-        homepageState.setFacebookToken(response.getFacebookAPI());
-        homepageState.setInstagramToken(response.getInstagramAPI());
-        homepageState.setInstagramStatsHashMap(makeInstagramStatsHashmap(response));
+        homepageState.setName(loginOutputData.getName());
+        homepageState.setUsername(loginOutputData.getUsername());
+        homepageState.setBio(loginOutputData.getBio());
+        homepageState.setFacebookToken((String) loginOutputData.getFacebookData().get("apiKey"));
+        homepageState.setInstagramToken((String) loginOutputData.getInstagramData().get("apiKey"));
+        homepageState.setInstagramStatsHashMap(makeInstagramStatsHashmap(loginOutputData));
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.loginViewModel.setState(new LoginState());
@@ -48,8 +48,8 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
 
     private static HashMap<String, Object> makeInstagramStatsHashmap(LoginOutputData loginOutPutData) {
-        JSONArray arrayFollowers = loginOutPutData.getInstagramFollowers();
-        JSONArray arrayPosts = loginOutPutData.getInstagramPosts();
+        JSONArray arrayFollowers = (JSONArray) loginOutPutData.getInstagramData().get("followers");
+        JSONArray arrayPosts = (JSONArray) loginOutPutData.getInstagramData().get("posts");
 
         // Assuming the first element of arrayFollowers is the total follower count
         int followersCount = arrayFollowers.length() > 0 ? arrayFollowers.getInt(0) : 0;
