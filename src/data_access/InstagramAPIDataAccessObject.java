@@ -81,7 +81,7 @@ public class InstagramAPIDataAccessObject implements InstagramAPIIDataAccessInte
                 stats.put("followers", followers);
 
                 JSONArray posts = businessDiscovery.getJSONObject("media").getJSONArray("data");
-                stats.put("posts",posts);
+                stats.put("posts", posts);
             }
         } catch (IOException e) {
             System.out.println("Error with API call to getting user info");
