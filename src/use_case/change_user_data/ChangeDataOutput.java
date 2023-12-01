@@ -13,6 +13,7 @@ public class ChangeDataOutput {
 
     private JSONArray posts;
 
+
     public ChangeDataOutput(String username, String name, String bio) {
         this.username = username;
         this.name = name;
@@ -39,6 +40,8 @@ public class ChangeDataOutput {
     public JSONArray getPosts() {
         return posts;
     }
+
+
 
     public String getBio() {
         return bio;

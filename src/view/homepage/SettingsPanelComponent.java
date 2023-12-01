@@ -6,6 +6,8 @@ import interface_adapter.switchview.SwitchViewController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,12 +51,19 @@ public class SettingsPanelComponent {
         settingsPanel.setPreferredSize(new Dimension(200, 30));
 
         // Create and configure JLabels with right alignment
+        Border border = BorderFactory.createEmptyBorder(0, 50, 0, 10);
         JLabel usernameLabel = new JLabel(HomepageViewModel.USERNAME_JLABEL);
         usernameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        usernameLabel.setFont(homepageViewModel.getComfortaaSmall());
+        usernameLabel.setBorder(border);
         JLabel nameLabel = new JLabel(HomepageViewModel.NAME_JLABEL);
         nameLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        nameLabel.setFont(homepageViewModel.getComfortaaSmall());
+        nameLabel.setBorder(border);
         JLabel bioLabel = new JLabel(HomepageViewModel.BIO_JLABEL);
         bioLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        bioLabel.setFont(homepageViewModel.getComfortaaSmall());
+        bioLabel.setBorder(border);
 
         // Create a GridBagConstraints object for layout control
         GridBagConstraints gbc = new GridBagConstraints();
@@ -70,6 +79,8 @@ public class SettingsPanelComponent {
             BufferedImage settingsPicture=
                     ImageIO.read(new File("src/assets/homepage/Settings.png"));
             JLabel picLabel = new JLabel(new ImageIcon(settingsPicture));
+            Border emptyBorder = BorderFactory.createEmptyBorder(0, 50, 20, 50);
+            picLabel.setBorder(emptyBorder);
             picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             fieldsPanel.add(picLabel, gbc);
         } catch (IOException ex) {
@@ -89,6 +100,7 @@ public class SettingsPanelComponent {
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 0, 5, 0);
+        usernameInputField.setFont(homepageViewModel.getComfortaaSmall());
         fieldsPanel.add(usernameInputField, gbc);
 
         // Update gridy to position the next component below
@@ -103,6 +115,7 @@ public class SettingsPanelComponent {
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 0, 5, 0);
+        nameInputField.setFont(homepageViewModel.getComfortaaSmall());
         fieldsPanel.add(nameInputField, gbc);
 
         // Update gridy to position the next component below
@@ -117,6 +130,7 @@ public class SettingsPanelComponent {
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 0, 0, 0);
+        bioInputField.setFont(homepageViewModel.getComfortaaSmall());
         fieldsPanel.add(bioInputField, gbc);
 
         // Create a nested panel for buttons using FlowLayout (horizontal layout)
@@ -131,11 +145,17 @@ public class SettingsPanelComponent {
         changePasswordButton.setBackground(HomepageViewModel.BUTTON_ORANGE);
         saveChangesButton.setBackground(HomepageViewModel.BUTTON_ORANGE);
 
+        logoutButton.setFont(homepageViewModel.getComfortaaSmall());
+        changePasswordButton.setFont(homepageViewModel.getComfortaaSmall());
+        saveChangesButton.setFont(homepageViewModel.getComfortaaSmall());
+
         // Add buttons to the buttonsPanel
         buttonsPanel.add(logoutButton);
         buttonsPanel.add(changePasswordButton);
         buttonsPanel.add(saveChangesButton);
         buttonsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
+        Border buttonsBorder = BorderFactory.createEmptyBorder(20, 50, 20, 50);
+        buttonsPanel.setBorder(buttonsBorder);
 
         // Create a top-level GridBagConstraints object for layout control
         gbc.gridx = 0; // Centered

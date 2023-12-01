@@ -1,12 +1,15 @@
 package view.homepage;
 
+import interface_adapter.ViewModel;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
+import interface_adapter.login_home.LoginHomeViewModel;
 import interface_adapter.signup.SignupViewModel;
 import interface_adapter.switchview.SwitchViewController;
 
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,6 +53,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
 
         JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.setFont(homepageViewModel.getComfortaaSmall());
         tabbedPane.setPreferredSize(new Dimension(1200, 600));
         tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, homePanelComponent.getPanel(homepageViewModel, homepageController, switchViewController));
         tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());

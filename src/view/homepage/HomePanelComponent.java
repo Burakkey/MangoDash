@@ -7,11 +7,16 @@ import interface_adapter.switchview.SwitchViewController;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
+import org.jfree.chart.renderer.category.StandardBarPainter;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,6 +45,7 @@ public class HomePanelComponent {
         instagramDataSet.updateStats(homepageViewModel.getState().getInstagramStatsHashMap());
         homePanel.add(instagramDataSet, BorderLayout.CENTER);
 
+
         // Configure facebookDataSet just like this pls
         return homePanel;
     }
@@ -57,7 +63,6 @@ class InstagramDataSet extends JPanel {
     private double averageComments;
     private List<Integer> likesPerPost;
     private List<Integer> commentsPerPost;
-
     public InstagramDataSet() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
@@ -95,20 +100,36 @@ class InstagramDataSet extends JPanel {
         removeAll(); // Clear existing components
 
         if (!likesPerPost.isEmpty() || !commentsPerPost.isEmpty()) {
-            add(createStatPanel("Followers Count", followersCount));
-            add(createStatPanel("Max Likes", maxLikes));
-            add(createStatPanel("Total Likes", totalLikes));
-            add(createStatPanel("Total Comments", totalComments));
-            add(createStatPanel("Average Likes", averageLikes));
-            add(createStatPanel("Average Comments", averageComments));
-            add(createStatPanel("Max Comments", maxComments));
+            add(createTitle());
 
+            Border emptyBorder = BorderFactory.createEmptyBorder(0, 300, 50, 300);
+            Border outlineBorder = BorderFactory.createLineBorder(Color.BLACK);
+            Border border = new CompoundBorder(emptyBorder, outlineBorder);
+            GridLayout layout = new GridLayout(0, 2);
+            JPanel stats = new JPanel(layout);
+
+            stats.setBorder(border);
+            stats.setBackground(HomepageViewModel.BACKGROUND_COLOR);
+
+            stats.add(createStatPanel("Followers Count", followersCount));
+            stats.add(createStatPanel("Max Likes", maxLikes));
+            stats.add(createStatPanel("Total Likes", totalLikes));
+            stats.add(createStatPanel("Total Comments", totalComments));
+            stats.add(createStatPanel("Average Likes", averageLikes));
+            stats.add(createStatPanel("Average Comments", averageComments));
+            stats.add(createStatPanel("Max Comments", maxComments));
+            stats.add(createStatPanel());
+
+            add(stats);
+
+            JPanel graphs = new JPanel(new GridLayout(0, 2));
             if (!likesPerPost.isEmpty()) {
-                add(createBarChart("Likes Per Post", likesPerPost));
+                graphs.add(createBarChart("Likes Per Post", likesPerPost));
             }
             if (!commentsPerPost.isEmpty()) {
-                add(createBarChart("Comments Per Post", commentsPerPost));
+                graphs.add(createBarChart("Comments Per Post", commentsPerPost));
             }
+            add(graphs);
         }
 
         revalidate();
@@ -118,15 +139,48 @@ class InstagramDataSet extends JPanel {
 
     private JPanel createStatPanel(String label, Object value) {
         JPanel panel = new JPanel();
-        panel.add(new JLabel(label + ": " + value));
+        JLabel text = new JLabel(label + ": " + value);
+        HomepageViewModel viewModel = new HomepageViewModel();
+        text.setFont(viewModel.getComfortaaSmall());
+        panel.add(text);
+        panel.setBackground(HomepageViewModel.GRAPH_ORANGE);
         return panel;
     }
+
+    // This method overloading, this one will create an empty panel.
+    private JPanel createStatPanel() {
+        JPanel panel = new JPanel();
+        panel.add(new JLabel());
+        panel.setBackground(HomepageViewModel.GRAPH_ORANGE);
+        return panel;
+    }
+
+    private JPanel createTitle() {
+        Border emptyBorder = BorderFactory.createEmptyBorder(50, 300, 50, 300);
+        Border outlineBorder = BorderFactory.createLineBorder(Color.BLACK);
+        Border border = new CompoundBorder(emptyBorder, outlineBorder);
+
+        JPanel panel = new JPanel(new GridLayout());
+        panel.setBorder(border);
+        JPanel titlePanel = new JPanel();
+        JLabel titleLabel = new JLabel("Instagram Stats");
+        titleLabel.setFont(new HomepageViewModel().getComfortaaMedium());
+        titlePanel.add(titleLabel);
+        titlePanel.setBackground(HomepageViewModel.GRAPH_ORANGE);
+
+        panel.add(titlePanel);
+        panel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
+        return panel;
+    }
+
 
     private ChartPanel createBarChart(String title, List<Integer> data) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i = 0; i < data.size(); i++) {
             dataset.addValue(data.get(i), title, "Post " + (i + 1));
         }
+
+
         JFreeChart barChart = ChartFactory.createBarChart(
                 title,
                 "Post",
@@ -134,7 +188,19 @@ class InstagramDataSet extends JPanel {
                 dataset,
                 PlotOrientation.VERTICAL,
                 true, true, false);
+        CategoryPlot plot = barChart.getCategoryPlot();
+        plot.getRenderer().setSeriesPaint(0, HomepageViewModel.BUTTON_ORANGE);
+        barChart.setBackgroundPaint(HomepageViewModel.GRAPH_ORANGE);
+        barChart.getPlot().setBackgroundPaint(HomepageViewModel.OFF_WHITE);
+        barChart.setBorderPaint(Color.BLACK);
+        barChart.setBorderStroke(new BasicStroke(2.0f));
+        barChart.setBorderVisible(true);
 
-        return new ChartPanel(barChart);
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        chartPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
+        Border emptyBorder = BorderFactory.createEmptyBorder(0, 50, 50, 50);
+        chartPanel.setBorder(emptyBorder);
+
+        return chartPanel;
     }
 }

@@ -14,6 +14,8 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,15 +51,17 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public SignupView(SignupController controller, SignupViewModel signupViewModel, ViewManagerModel viewManagerModel) {
 
-        final Color LIGHT_ORANGE = signupViewModel.BACKGROUND_COLOR;
+        final Color LIGHT_ORANGE = SignupViewModel.BACKGROUND_COLOR;
 
         Font medFont = signupViewModel.getComfortaaMedium();
+        Font smallFont = signupViewModel.getComfortaaSmall();
         this.setPreferredSize(new Dimension(1200, 600)); // set window size
-        this.setBackground(LIGHT_ORANGE); //set colour
+        this.setBackground(SignupViewModel.BACKGROUND_COLOR); //set colour
 
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         try {
             BufferedImage titlePicture = ImageIO.read(new File("src/assets/signup_view/SignUpViewTitle.png"));
@@ -70,26 +74,47 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         signupViewModel.addPropertyChangeListener(this);
 
+        JLabel nameLabel = new JLabel(SignupViewModel.NAME_LABEL);
         JLabel usernameLabel = new JLabel(SignupViewModel.USERNAME_LABEL);
         JLabel passwordLabel = new JLabel(SignupViewModel.PASSWORD_LABEL);
         JLabel repeatPasswordLabel = new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL);
 
-        usernameLabel.setFont(medFont);
-        passwordLabel.setFont(medFont);
-        repeatPasswordLabel.setFont(medFont);
+        Border border = BorderFactory.createEmptyBorder(0, 0, 0, 10);
+        nameLabel.setBorder(border);
+        usernameLabel.setBorder(border);
+        passwordLabel.setBorder(border);
+        repeatPasswordLabel.setBorder(border);
+
+        nameLabel.setFont(smallFont);
+        usernameLabel.setFont(smallFont);
+        passwordLabel.setFont(smallFont);
+        repeatPasswordLabel.setFont(smallFont);
+
+        nameInputField.setFont(smallFont);
+        usernameInputField.setFont(smallFont);
+        passwordInputField.setFont(smallFont);
+        repeatPasswordInputField.setFont(smallFont);
 
         LabelTextPanel nameInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.NAME_LABEL), nameInputField);
+                nameLabel, nameInputField);
         LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.USERNAME_LABEL), usernameInputField);
+                usernameLabel, usernameInputField);
         LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
+                passwordLabel, passwordInputField);
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
+                repeatPasswordLabel, repeatPasswordInputField);
         usernameInfo.setBackground(LIGHT_ORANGE);
         passwordInfo.setBackground(LIGHT_ORANGE);
         nameInfo.setBackground(LIGHT_ORANGE);
         repeatPasswordInfo.setBackground(LIGHT_ORANGE);
+
+//        Border border = BorderFactory.createEmptyBorder(0, 0, 0, 0);
+//        usernameInfo.setBorder(border);
+//        passwordInfo.setBorder(border);
+//        nameInfo.setBorder(border);
+//        repeatPasswordInfo.setBorder(border);
+
+
 
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
@@ -219,8 +244,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                     }
                 }
         );
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 
 //        this.add(title);

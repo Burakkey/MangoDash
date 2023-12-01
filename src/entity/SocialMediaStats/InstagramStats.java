@@ -13,6 +13,7 @@ public class InstagramStats implements SocialMediaStats {
         stats = new HashMap<>();
         stats.put("followers", new JSONArray());
         stats.put("posts", new JSONArray());
+        stats.put("username", new JSONArray());
     }
     @Override
     public HashMap<String, JSONArray> getStats() {

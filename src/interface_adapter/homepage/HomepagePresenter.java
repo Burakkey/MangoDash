@@ -46,9 +46,11 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
     public void prepareAPIView(ChangeDataOutput changeDataOutput) {
         JSONArray arrayFollowers = changeDataOutput.getInstagramFollowers();
         JSONArray arrayPosts = changeDataOutput.getPosts();
+//        JSONArray arrayUsername = changeDataOutput.getUsername();
 
         // Assuming the first element of arrayFollowers is the total follower count
         int followersCount = arrayFollowers.length() > 0 ? arrayFollowers.getInt(0) : 0;
+//        String username = arrayFollowers.length() > 0 ? arrayFollowers.getString(0) : null;
 
         int maxLikes = 0;
         int maxComments = 0;
