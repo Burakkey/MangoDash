@@ -5,6 +5,7 @@ import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewModel;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -39,10 +40,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     public LoginView(LoginViewModel loginViewModel, LoginController controller, ViewManagerModel viewManagerModel) {
         Font medFont = loginViewModel.getComfortaaMedium();
-        final Color LIGHT_ORANGE = loginViewModel.BACKGROUND_COLOR;
 
         this.setPreferredSize(new Dimension(1200, 600));
-        this.setBackground(LIGHT_ORANGE);
+        this.setBackground(SignupViewModel.BACKGROUND_COLOR);
 
         this.loginController = controller;
         this.loginViewModel = loginViewModel;
@@ -65,7 +65,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         j.setBorder(inputFieldBorder);
         usernameInputField.setFont(medFont);
         LabelTextPanel usernameInfo = new LabelTextPanel(j, usernameInputField);
-        usernameInfo.setBackground(LIGHT_ORANGE); //set colour
+        usernameInfo.setBackground(SignupViewModel.BACKGROUND_COLOR); //set colour
         usernameInfo.setBorder(inputFieldBorder);
 
 
@@ -74,7 +74,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         k.setBorder(inputFieldBorder);
         passwordInputField.setFont(medFont);
         LabelTextPanel passwordInfo = new LabelTextPanel(k, passwordInputField);
-        passwordInfo.setBackground(LIGHT_ORANGE); //set colour
+        passwordInfo.setBackground(SignupViewModel.BACKGROUND_COLOR); //set colour
         passwordInfo.setBorder(inputFieldBorder);
 
         GridLayout grid = new GridLayout(0, 1);
@@ -86,7 +86,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         add(inputFields);
 
         JPanel buttons = new JPanel();
-        buttons.setBackground(LIGHT_ORANGE);
+        buttons.setBackground(SignupViewModel.BACKGROUND_COLOR);
 
         logIn = new JButton(LoginViewModel.LOGIN_BUTTON_LABEL);
         logIn.setFont(medFont);

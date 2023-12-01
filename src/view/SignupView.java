@@ -48,8 +48,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     public SignupView(SignupController controller, SignupViewModel signupViewModel, ViewManagerModel viewManagerModel) {
 
-        final Color LIGHT_ORANGE = SignupViewModel.BACKGROUND_COLOR;
-
         Font medFont = signupViewModel.getComfortaaMedium();
         Font smallFont = signupViewModel.getComfortaaSmall();
         this.setPreferredSize(new Dimension(1200, 600)); // set window size
@@ -100,10 +98,10 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 passwordLabel, passwordInputField);
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
                 repeatPasswordLabel, repeatPasswordInputField);
-        usernameInfo.setBackground(LIGHT_ORANGE);
-        passwordInfo.setBackground(LIGHT_ORANGE);
-        nameInfo.setBackground(LIGHT_ORANGE);
-        repeatPasswordInfo.setBackground(LIGHT_ORANGE);
+        usernameInfo.setBackground(SignupViewModel.BACKGROUND_COLOR);
+        passwordInfo.setBackground(SignupViewModel.BACKGROUND_COLOR);
+        nameInfo.setBackground(SignupViewModel.BACKGROUND_COLOR);
+        repeatPasswordInfo.setBackground(SignupViewModel.BACKGROUND_COLOR);
 
 //        Border border = BorderFactory.createEmptyBorder(0, 0, 0, 0);
 //        usernameInfo.setBorder(border);
@@ -124,7 +122,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         buttons.add(signUp);
         buttons.add(cancel);
-        buttons.setBackground(LIGHT_ORANGE);
+        buttons.setBackground(SignupViewModel.BACKGROUND_COLOR);
 
 
         signUp.addActionListener(
