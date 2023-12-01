@@ -78,6 +78,16 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
         return accounts.containsKey(identifier);
     }
 
+    @Override
+    public boolean validName(String name) {
+        for (int i = 0; i < name.length(); i++) {
+            if (Character.isLetter(name.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 
     @Override
