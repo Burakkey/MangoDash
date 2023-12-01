@@ -1,5 +1,6 @@
 package view.homepage;
 
+import interface_adapter.ViewManagerModel;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
@@ -32,7 +33,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
     public HomepageView(HomepageViewModel homepageViewModel, HomePanelComponent homePanelComponent,
                         RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
-                        SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, SwitchViewController switchViewController) {
+                        SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, SwitchViewController switchViewController, ViewManagerModel viewManagerModel) {
         this.homepageController = homepageController;
         this.switchViewController = switchViewController;
         this.setPreferredSize(new Dimension(1200, 600));
@@ -55,7 +56,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, homePanelComponent.getPanel(homepageViewModel, homepageController, switchViewController));
         tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());
         tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel(homepageViewModel, homepageController, switchViewController));
-        tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController, switchViewController));
+        tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController, switchViewController, viewManagerModel));
 
         this.add(tabbedPane);
 

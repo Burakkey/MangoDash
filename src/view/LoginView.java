@@ -157,14 +157,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 //        if (evt.getActionCommand() == cancel.getActionCommand()){
 //            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
 //        }
-//        if (evt.getActionCommand() == back.getActionCommand()){
-//            viewManagerModel.setActiveView("Home");
-//            viewManagerModel.firePropertyChanged();
-//        }
-//        else if (evt.getActionCommand() == logIn.getActionCommand()){
-//            viewManagerModel.setActiveView("logged in");
-//            viewManagerModel.firePropertyChanged();
-//        }
+        if (evt.getActionCommand() == back.getActionCommand()){
+            viewManagerModel.setActiveView("Home");
+            viewManagerModel.firePropertyChanged();
+        }
+        else if (evt.getActionCommand() == logIn.getActionCommand()){
+            viewManagerModel.setActiveView("logged in");
+            viewManagerModel.firePropertyChanged();
+        }
 
         System.out.println("Click " + evt.getActionCommand());
     }
