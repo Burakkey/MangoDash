@@ -1,10 +1,13 @@
 package entity.SocialMediaStats;
 
+import org.json.JSONArray;
+import java.util.HashMap;
+
 public class FacebookStats implements SocialMediaStats {
 
     private HashMap<String, JSONArray> stats;
 
-    public InstagramStats() {
+    public FacebookStats() {
         stats = new HashMap<>();
         stats.put("followers", new JSONArray());
         stats.put("posts", new JSONArray());
