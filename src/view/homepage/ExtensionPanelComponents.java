@@ -3,7 +3,6 @@ package view.homepage;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
-import interface_adapter.switchview.SwitchViewController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -31,7 +30,7 @@ public class ExtensionPanelComponents {
 
     }
 
-    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
+    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController) {
 
         // Below are how components are place (visuals) feel free to do whatever here
         JPanel settingsPanel = new JPanel();

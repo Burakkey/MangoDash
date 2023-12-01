@@ -3,7 +3,6 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
-import interface_adapter.switchview.SwitchViewController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -34,7 +33,7 @@ public class SettingsPanelComponent {
         bioInputField.setText(newState.getBio());
     }
 
-    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController, ViewManagerModel viewManagerModel) {
+    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel) {
 
         // Below are how components are place (visuals) feel free to do whatever here
 
@@ -286,7 +285,6 @@ public class SettingsPanelComponent {
                         if (e.getSource().equals(logoutButton)) {
                             viewManagerModel.setActiveView("log in");
                             viewManagerModel.firePropertyChanged();
-                            switchViewController.execute(logoutButton.getText());
                         }
                     }
                 }

@@ -41,6 +41,8 @@ public class LoginPresenter implements LoginOutputBoundary {
         homepageState.setInstagramStatsHashMap(makeInstagramStatsHashmap(response));
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
+        this.loginViewModel.setState(new LoginState());
+        this.loginViewModel.firePropertyChanged();
         this.homepageViewModel.firePropertyChanged();
         this.viewManagerModel.firePropertyChanged();
     }

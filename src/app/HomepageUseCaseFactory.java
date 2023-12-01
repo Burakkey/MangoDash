@@ -9,13 +9,8 @@ import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepagePresenter;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginViewModel;
-import interface_adapter.switchview.SwitchViewController;
-import interface_adapter.switchview.SwitchViewPresenter;
 import use_case.change_user_data.InstagramAPIDataAccessInterface;
 import use_case.change_user_data.*;
-import use_case.switchView.SwitchViewInputBoundary;
-import use_case.switchView.SwitchViewInteractor;
-import use_case.switchView.SwitchViewOutputBoundary;
 import view.homepage.*;
 
 import javax.swing.*;
@@ -29,8 +24,7 @@ public class HomepageUseCaseFactory {
         try {
             HomepageController homepageController = createHomepageUseCase(viewManagerModel, loginViewModel,
                     homepageViewModel, changeDataAccessInterface);
-            SwitchViewController switchViewController = createSwitchViewController(viewManagerModel, loginViewModel);
-            return new HomepageView(homepageViewModel, homePanelComponent, rankingPanelComponent, extensionPanelComponents, settingsPanelComponent, homepageController, switchViewController, viewManagerModel);
+            return new HomepageView(homepageViewModel, homePanelComponent, rankingPanelComponent, extensionPanelComponents, settingsPanelComponent, homepageController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -48,11 +42,5 @@ public class HomepageUseCaseFactory {
         InstagramAPIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
         ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary, instagramAPIDataAccessInterface);
         return new HomepageController(changeDataInteractor);
-    }
-
-    private static SwitchViewController createSwitchViewController(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel){
-        SwitchViewOutputBoundary switchViewOutputBoundary = new SwitchViewPresenter(loginViewModel, viewManagerModel);
-        SwitchViewInputBoundary switchViewInteractor = new SwitchViewInteractor(switchViewOutputBoundary);
-        return new SwitchViewController(switchViewInteractor);
     }
 }

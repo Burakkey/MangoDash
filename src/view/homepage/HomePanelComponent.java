@@ -1,15 +1,11 @@
 package view.homepage;
-
-import interface_adapter.ViewManagerModel;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
-import interface_adapter.switchview.SwitchViewController;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
@@ -34,7 +30,7 @@ public class HomePanelComponent {
         instagramDataSet.updateStats(newState.getInstagramStatsHashMap());
     }
 
-    public JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
+    public JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController) {
         JPanel homePanel = new JPanel();
         homePanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
         homePanel.setLayout(new BorderLayout());

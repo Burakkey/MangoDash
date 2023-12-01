@@ -1,5 +1,5 @@
 package app;
-
+import com.formdev.flatlaf.*;
 import data_access.SQLiteUserDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -20,6 +20,7 @@ public class Main {
         // various cards, and the layout, and stitch them together.
 
         // The main application window.
+        FlatLightLaf.setup();
         JFrame application = new JFrame("Login Example");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
