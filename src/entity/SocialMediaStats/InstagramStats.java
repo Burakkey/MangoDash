@@ -32,4 +32,8 @@ public class InstagramStats implements SocialMediaStats {
     public JSONArray getFollowers() {
         return this.stats.get("followers");
     }
+
+    public JSONArray getUsername() {
+        return this.stats.get("username");
+    }
 }

@@ -58,6 +58,7 @@ class InstagramDataSet extends JPanel {
     private double averageComments;
     private List<Integer> likesPerPost;
     private List<Integer> commentsPerPost;
+    private String username;
     public InstagramDataSet() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
@@ -74,6 +75,7 @@ class InstagramDataSet extends JPanel {
             averageComments = 0.0;
             likesPerPost = Collections.emptyList();
             commentsPerPost = Collections.emptyList();
+            username = null;
         } else {
             // Set fields from stats
             this.followersCount = (int) stats.get("followersCount");
@@ -86,6 +88,7 @@ class InstagramDataSet extends JPanel {
             this.averageComments = (double) stats.get("averageComments");
             this.likesPerPost = (List<Integer>) stats.get("likesPerPost");
             this.commentsPerPost = (List<Integer>) stats.get("commentsPerPost");
+            this.username = (String) stats.get("username");
         }
 
         refreshDisplay();
@@ -151,14 +154,14 @@ class InstagramDataSet extends JPanel {
     }
 
     private JPanel createTitle() {
-        Border emptyBorder = BorderFactory.createEmptyBorder(50, 300, 50, 300);
+        Border emptyBorder = BorderFactory.createEmptyBorder(50, 200, 50, 200);
         Border outlineBorder = BorderFactory.createLineBorder(Color.BLACK);
         Border border = new CompoundBorder(emptyBorder, outlineBorder);
 
         JPanel panel = new JPanel(new GridLayout());
         panel.setBorder(border);
         JPanel titlePanel = new JPanel();
-        JLabel titleLabel = new JLabel("Instagram Stats");
+        JLabel titleLabel = new JLabel(username + "'s Instagram Stats");
         titleLabel.setFont(new HomepageViewModel().getComfortaaMedium());
         titlePanel.add(titleLabel);
         titlePanel.setBackground(HomepageViewModel.GRAPH_ORANGE);

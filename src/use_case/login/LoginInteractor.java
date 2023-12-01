@@ -49,12 +49,15 @@ public class LoginInteractor implements LoginInputBoundary {
 
                 JSONArray instagramFollowers = instagramAPIDataAccessInterface.getInstagramStats().getFollowers();
                 JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
+                JSONArray instagramUsername = instagramAPIDataAccessInterface.getInstagramStats().getUsername();
+
                 // Add getusername function here
                 // Creating a new HashMap
                 HashMap<String, Object> instagramData = new HashMap<>();
                 // Adding the JSONArray objects to the HashMap
                 instagramData.put("followers", instagramFollowers);
                 instagramData.put("posts", instagramPosts);
+                instagramData.put("username", instagramUsername);
                 instagramData.put("apiKey", instagramApiKey);
 
                 HashMap<String, Object> facebookData = new HashMap<>();
