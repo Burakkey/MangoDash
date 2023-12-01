@@ -2,6 +2,8 @@ package use_case.change_user_data;
 
 import org.json.JSONArray;
 
+import java.util.HashMap;
+
 public class ChangeDataOutput {
     private String username;
 
@@ -9,53 +11,27 @@ public class ChangeDataOutput {
 
     private String bio;
 
-    private JSONArray instagramFollowers;
+    private HashMap <String, Object> instagramData;
 
-    private JSONArray instagramPosts;
-
-    private String instagramAPIKey;
-
-    private String facebookAPIKey;
-
-    private Boolean facebookKeyError;
-
-    private Boolean instagramKeyError;
+    private HashMap <String, Object> facebookData;
 
     public ChangeDataOutput(String username, String name, String bio) {
         this.username = username;
         this.name = name;
         this.bio = bio;
-        this.instagramKeyError = false;
-        this.facebookKeyError = false;
     }
 
-    public ChangeDataOutput(JSONArray instagramFollowers, JSONArray instagramPosts, String instagramAPIKey, String facebookAPIKey, Boolean facebookKeyError, Boolean instagramKeyError){
-        this.instagramFollowers = instagramFollowers;
-        this.instagramPosts = instagramPosts;
-        this.instagramAPIKey = instagramAPIKey;
-        this.facebookAPIKey = facebookAPIKey;
-        this.facebookKeyError = facebookKeyError;
-        this.instagramKeyError = instagramKeyError;
+    public ChangeDataOutput(HashMap <String, Object> instagramData, HashMap <String, Object> facebookData){
+        this.instagramData = instagramData;
+        this.facebookData = facebookData;
     }
 
-    public JSONArray getInstagramPosts() {
-        return instagramPosts;
+    public HashMap<String, Object> getInstagramData() {
+        return instagramData;
     }
 
-    public Boolean getFacebookKeyError() {
-        return facebookKeyError;
-    }
-
-    public Boolean getInstagramKeyError() {
-        return instagramKeyError;
-    }
-
-    public String getInstagramAPIKey() {
-        return instagramAPIKey;
-    }
-
-    public String getFacebookAPIKey() {
-        return facebookAPIKey;
+    public HashMap<String, Object> getFacebookData() {
+        return facebookData;
     }
 
     public String getUsername() {
@@ -64,14 +40,6 @@ public class ChangeDataOutput {
 
     public String getName() {
         return name;
-    }
-
-    public JSONArray getInstagramFollowers() {
-        return instagramFollowers;
-    }
-
-    public JSONArray getPosts() {
-        return instagramPosts;
     }
 
     public String getBio() {

@@ -36,8 +36,8 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         homepageState.setName(changeDataOutput.getName());
         homepageState.setUsername(changeDataOutput.getUsername());
         homepageState.setBio(changeDataOutput.getBio());
-        homepageState.setInstagramToken(changeDataOutput.getInstagramAPIKey());
-        homepageState.setFacebookToken(changeDataOutput.getFacebookAPIKey());
+        homepageState.setInstagramToken((String) changeDataOutput.getInstagramData().get("apiKey"));  // Has to cast argument to string from Object
+        homepageState.setFacebookToken((String) changeDataOutput.getFacebookData().get("apiKey"));    // Has to cast argument to string from Object
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.homepageViewModel.firePropertyChanged();
@@ -48,16 +48,16 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
     public void prepareAPIView(ChangeDataOutput changeDataOutput) {
         HashMap<String, Object> instagramStatsHashMap = makeInstagramStatsHashmap(changeDataOutput);
         HomepageState homepageState = homepageViewModel.getState();
-        homepageState.setInstagramKeyError(changeDataOutput.getInstagramKeyError());
-        homepageState.setFacebookKeyError(changeDataOutput.getFacebookKeyError());
+        homepageState.setInstagramKeyError((Boolean) changeDataOutput.getInstagramData().get("keyError"));
+        homepageState.setFacebookKeyError((Boolean) changeDataOutput.getFacebookData().get("keyError"));
         homepageState.setInstagramStatsHashMap(instagramStatsHashMap);
         this.homepageViewModel.firePropertyChanged();
         this.viewManagerModel.firePropertyChanged();
     }
 
     private static HashMap<String, Object> makeInstagramStatsHashmap(ChangeDataOutput changeDataOutput) {
-        JSONArray arrayFollowers = changeDataOutput.getInstagramFollowers();
-        JSONArray arrayPosts = changeDataOutput.getPosts();
+        JSONArray arrayFollowers = (JSONArray) changeDataOutput.getInstagramData().get("followers");
+        JSONArray arrayPosts = (JSONArray) changeDataOutput.getInstagramData().get("posts");
 
         // Assuming the first element of arrayFollowers is the total follower count
         int followersCount = !arrayFollowers.isEmpty() ? arrayFollowers.getInt(0) : 0;

@@ -3,6 +3,7 @@ package use_case.change_user_data;
 import org.json.JSONArray;
 
 import java.net.MalformedURLException;
+import java.util.HashMap;
 
 public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
@@ -74,7 +75,19 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         }
         JSONArray instagramFollowers = instagramAPIDataAccessInterface.getInstagramStats().getFollowers();
         JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
-        ChangeDataOutput changeDataOutput = new ChangeDataOutput(instagramFollowers, instagramPosts, instagramAPIToken, facebookAPIToken, instagramKeyError, facebookKeyError);
+        // Add getusername function here
+        // Creating a new HashMap
+        HashMap<String, Object> instagramData = new HashMap<>();
+        // Adding the JSONArray objects to the HashMap
+        instagramData.put("followers", instagramFollowers);
+        instagramData.put("posts", instagramPosts);
+        instagramData.put("apiKey", instagramAPIToken);
+        instagramData.put("keyError", instagramKeyError);
+
+        HashMap<String, Object> facebookData = new HashMap<>();
+        // Do the same for facebook
+
+        ChangeDataOutput changeDataOutput = new ChangeDataOutput(instagramData, facebookData);
         homepagePresenter.prepareAPIView(changeDataOutput);
     }
 }
