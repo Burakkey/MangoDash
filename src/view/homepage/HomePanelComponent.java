@@ -34,7 +34,7 @@ public class HomePanelComponent {
         instagramDataSet.updateStats(newState.getInstagramStatsHashMap());
     }
 
-    public JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel) {
+    public JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
         JPanel homePanel = new JPanel();
         homePanel.setLayout(new BorderLayout());
         instagramDataSet.updateStats(homepageViewModel.getState().getInstagramStatsHashMap());

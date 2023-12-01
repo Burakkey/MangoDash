@@ -32,7 +32,7 @@ public class ExtensionPanelComponents {
 
     }
 
-    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel) {
+    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
 
         // Below are how components are place (visuals) feel free to do whatever here
         JPanel settingsPanel = new JPanel();

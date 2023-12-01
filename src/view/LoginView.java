@@ -51,9 +51,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         this.loginViewModel.addPropertyChangeListener(this);
         this.viewManagerModel = viewManagerModel;
 
-//        JLabel title = new JLabel("Login");
-//        title.setFont(medFont);
-//        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         try {
             BufferedImage titlePicture = ImageIO.read(new File("src/assets/login_view/LoginViewTitle.png"));
             JLabel picLabel = new JLabel(new ImageIcon(titlePicture));
@@ -160,14 +157,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 //        if (evt.getActionCommand() == cancel.getActionCommand()){
 //            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
 //        }
-        if (evt.getActionCommand() == back.getActionCommand()){
-            viewManagerModel.setActiveView("Home");
-            viewManagerModel.firePropertyChanged();
-        }
-        else if (evt.getActionCommand() == logIn.getActionCommand()){
-            viewManagerModel.setActiveView("logged in");
-            viewManagerModel.firePropertyChanged();
-        }
+//        if (evt.getActionCommand() == back.getActionCommand()){
+//            viewManagerModel.setActiveView("Home");
+//            viewManagerModel.firePropertyChanged();
+//        }
+//        else if (evt.getActionCommand() == logIn.getActionCommand()){
+//            viewManagerModel.setActiveView("logged in");
+//            viewManagerModel.firePropertyChanged();
+//        }
 
         System.out.println("Click " + evt.getActionCommand());
     }
@@ -180,7 +177,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     private void setFields(LoginState state) {
         usernameInputField.setText(state.getUsername());
-        passwordInputField.setText(state.getPassword()); //Added
+        passwordInputField.setText(state.getPassword());
     }
 
 }

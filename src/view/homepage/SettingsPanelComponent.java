@@ -34,7 +34,7 @@ public class SettingsPanelComponent {
         bioInputField.setText(newState.getBio());
     }
 
-    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel) {
+    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
 
         // Below are how components are place (visuals) feel free to do whatever here
 
@@ -284,8 +284,7 @@ public class SettingsPanelComponent {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(logoutButton)) {
-                            viewManagerModel.setActiveView("log in");
-                            System.out.println("logout clicked!");
+                            switchViewController.execute(logoutButton.getText());
                         }
                     }
                 }

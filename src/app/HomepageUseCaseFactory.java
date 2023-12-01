@@ -29,7 +29,8 @@ public class HomepageUseCaseFactory {
         try {
             HomepageController homepageController = createHomepageUseCase(viewManagerModel, loginViewModel,
                     homepageViewModel, changeDataAccessInterface);
-            return new HomepageView(homepageViewModel, homePanelComponent, rankingPanelComponent, extensionPanelComponents, settingsPanelComponent, homepageController, viewManagerModel);
+            SwitchViewController switchViewController = createSwitchViewController(viewManagerModel, loginViewModel);
+            return new HomepageView(homepageViewModel, homePanelComponent, rankingPanelComponent, extensionPanelComponents, settingsPanelComponent, homepageController, switchViewController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
