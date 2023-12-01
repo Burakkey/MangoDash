@@ -1,9 +1,6 @@
 package view;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.back_in_signup.BackInSignupController;
-import interface_adapter.back_in_signup.BackInSignupState;
-import interface_adapter.back_in_signup.BackInSignupViewModel;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
@@ -266,8 +263,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getNewValue() instanceof SignupState) {
             SignupState state = (SignupState) evt.getNewValue();
-            if (state.getUsernameError() != null) {
-                JOptionPane.showMessageDialog(this, state.getUsernameError());
+            if (state.getError() != null) {
+                JOptionPane.showMessageDialog(this, state.getError());
             }
         }
     }

@@ -4,7 +4,6 @@ import entity.User;
 import entity.UserFactory;
 import org.json.JSONObject;
 import use_case.change_user_data.ChangeDataAccessInterface;
-import use_case.clear_users.ClearUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface,
-        ClearUserDataAccessInterface, ChangeDataAccessInterface {
+        ChangeDataAccessInterface {
 
     private final String dbUrl;
     private UserFactory userFactory;
@@ -60,8 +59,11 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
                             apiKeys.put(entry.getKey(), entry.getValue().toString());
                         }
 
+
                         User user = userFactory.create(name, username, password, bio, apiKeys, creationTime);
                         accounts.put(username, user);
+
+                        user.getApiKeys();
                     }
                 }
             }
@@ -74,6 +76,16 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
     @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
+    }
+
+    @Override
+    public boolean validName(String name) {
+        for (int i = 0; i < name.length(); i++) {
+            if (Character.isLetter(name.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -151,11 +163,6 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
     @Override
     public User get(String username) {
         return accounts.get(username);
-    }
-
-    @Override
-    public List clear() {
-        return null;
     }
 
     // Other methods like clear, existsByName, modifyUser to be implemented similarly

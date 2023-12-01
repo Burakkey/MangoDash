@@ -14,6 +14,10 @@ public class HomepageState {
 
     private HashMap<String, Object> instagramStatsHashMap;
 
+    private Boolean instagramKeyError;
+
+    private Boolean facebookKeyError;
+
     public HomepageState(HomepageState copy) {
         name = copy.name;
         username = copy.username;
@@ -21,13 +25,31 @@ public class HomepageState {
         instagramToken = copy.instagramToken;
         facebookToken = copy.facebookToken;
         instagramStatsHashMap = copy.instagramStatsHashMap;
+        instagramKeyError = copy.instagramKeyError;
+        facebookKeyError = copy.facebookKeyError;
     }
 
-    // Explicit default constructor
+
     public HomepageState(){}
 
     public String getUsername() {
         return username;
+    }
+
+    public Boolean getInstagramKeyError() {
+        return instagramKeyError;
+    }
+
+    public void setInstagramKeyError(Boolean instagramKeyError) {
+        this.instagramKeyError = instagramKeyError;
+    }
+
+    public Boolean getFacebookKeyError() {
+        return facebookKeyError;
+    }
+
+    public void setFacebookKeyError(Boolean facebookKeyError) {
+        this.facebookKeyError = facebookKeyError;
     }
 
     public void setInstagramStatsHashMap(HashMap<String, Object> instagramStatsHashMap) {

@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.signup.SignupState;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -33,7 +34,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private final JLabel passwordErrorField = new JLabel();
 
     final JButton logIn;
-    //final JButton cancel;
     final JButton back;
     private final LoginController loginController;
 
@@ -41,20 +41,14 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         Font medFont = loginViewModel.getComfortaaMedium();
         final Color LIGHT_ORANGE = loginViewModel.BACKGROUND_COLOR;
 
-        this.setBackground(LIGHT_ORANGE); //set colour
-
-        this.setPreferredSize(new Dimension(1200, 600)); // set window size
-        this.setBackground(LIGHT_ORANGE); //set colour
-
+        this.setPreferredSize(new Dimension(1200, 600));
+        this.setBackground(LIGHT_ORANGE);
 
         this.loginController = controller;
         this.loginViewModel = loginViewModel;
         this.loginViewModel.addPropertyChangeListener(this);
         this.viewManagerModel = viewManagerModel;
 
-//        JLabel title = new JLabel("Login");
-//        title.setFont(medFont);
-//        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         try {
             BufferedImage titlePicture = ImageIO.read(new File("src/assets/login_view/LoginViewTitle.png"));
             JLabel picLabel = new JLabel(new ImageIcon(titlePicture));
@@ -74,6 +68,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         usernameInfo.setBackground(LIGHT_ORANGE); //set colour
         usernameInfo.setBorder(inputFieldBorder);
 
+
         JLabel k = new JLabel(loginViewModel.PASSWORD_LABEL);
         k.setFont(medFont);
         k.setBorder(inputFieldBorder);
@@ -90,9 +85,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         add(inputFields);
 
-
         JPanel buttons = new JPanel();
-        buttons.setBackground(LIGHT_ORANGE); //set colour
+        buttons.setBackground(LIGHT_ORANGE);
 
         logIn = new JButton(LoginViewModel.LOGIN_BUTTON_LABEL);
         logIn.setFont(medFont);
@@ -104,10 +98,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 //        buttons.add(cancel);
 
         back = new JButton(LoginViewModel.BACK_BUTTON_LABEL);
+
         back.setFont(medFont);
         back.setBackground(LoginViewModel.BUTTON_ORANGE);
         buttons.add(back);
-
 
 
         logIn.addActionListener(                // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -125,7 +119,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 }
         );
 
-        //cancel.addActionListener(this);
         back.addActionListener(this);
 
         usernameInputField.addKeyListener(new KeyListener() {
@@ -175,9 +168,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
      * React to a button click that results in evt.
      */
     public void actionPerformed(ActionEvent evt) {
-//        if (evt.getActionCommand() == cancel.getActionCommand()){
-//            JOptionPane.showConfirmDialog(this, "Cancel not implemented yet.");
-//        }
         if (evt.getActionCommand() == back.getActionCommand()){
             viewManagerModel.setActiveView("Home");
             viewManagerModel.firePropertyChanged();
@@ -192,13 +182,18 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        LoginState state = (LoginState) evt.getNewValue();
-        setFields(state);
+        if (evt.getNewValue() instanceof LoginState) {
+            LoginState state = (LoginState) evt.getNewValue();
+            setFields(state);
+            if (state.getError() != null) {
+                JOptionPane.showMessageDialog(this, state.getError());
+            }
+        }
     }
 
     private void setFields(LoginState state) {
         usernameInputField.setText(state.getUsername());
-        passwordInputField.setText(state.getPassword()); //Added
+        passwordInputField.setText(state.getPassword());
     }
 
 }
