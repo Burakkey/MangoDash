@@ -17,7 +17,6 @@ public class SwitchViewPresenter implements SwitchViewOutputBoundary {
 
     @Override
     public void prepareLogoutView() {
-        System.out.println("Got here");
         viewManagerModel.setActiveView(loginViewModel.getViewName());
         LoginState currentState = loginViewModel.getState();
         currentState.setUsername("");  //removes username from being filled

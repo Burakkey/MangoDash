@@ -36,6 +36,7 @@ public class HomePanelComponent {
 
     public JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
         JPanel homePanel = new JPanel();
+        homePanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
         homePanel.setLayout(new BorderLayout());
         instagramDataSet.updateStats(homepageViewModel.getState().getInstagramStatsHashMap());
         homePanel.add(instagramDataSet, BorderLayout.CENTER);
