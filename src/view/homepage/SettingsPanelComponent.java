@@ -1,8 +1,8 @@
 package view.homepage;
+import interface_adapter.ViewManagerModel;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
-import interface_adapter.switchview.SwitchViewController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -33,9 +33,11 @@ public class SettingsPanelComponent {
         bioInputField.setText(newState.getBio());
     }
 
-    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, SwitchViewController switchViewController) {
+    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel) {
 
         // Below are how components are place (visuals) feel free to do whatever here
+
+        usernameInputField.setEditable(false);
 
         JPanel settingsPanel = new JPanel();
 
@@ -175,8 +177,7 @@ public class SettingsPanelComponent {
             @Override
             public void keyTyped(KeyEvent e) {
                 HomepageState currentState = homepageViewModel.getState();
-                String text = usernameInputField.getText() + e.getKeyChar();
-                currentState.setUsername(text);
+                currentState.setUsername(currentState.getUsername());
                 HomepageViewModel viewModel = new HomepageViewModel();
                 viewModel.setState(currentState);
             }
@@ -282,7 +283,8 @@ public class SettingsPanelComponent {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(logoutButton)) {
-                            switchViewController.execute(logoutButton.getText());
+                            viewManagerModel.setActiveView("log in");
+                            viewManagerModel.firePropertyChanged();
                         }
                     }
                 }

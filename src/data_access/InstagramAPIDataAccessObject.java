@@ -3,7 +3,7 @@ package data_access;
 import entity.SocialMediaStats.InstagramStats;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import use_case.change_user_data.InstagramAPIIDataAccessInterface;
+import use_case.change_user_data.InstagramAPIDataAccessInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,13 +13,15 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-public class InstagramAPIDataAccessObject implements InstagramAPIIDataAccessInterface {
+public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInterface {
     private String apiKey;
     private InstagramStats instagramStats;
+    private boolean apiError;
 
     public InstagramAPIDataAccessObject(String apiKey, InstagramStats instagramStats) {
         this.apiKey = apiKey;
         this.instagramStats = instagramStats;
+        this.apiError = false;
     }
 
     @Override
@@ -43,6 +45,7 @@ public class InstagramAPIDataAccessObject implements InstagramAPIIDataAccessInte
             }
         } catch (IOException e) {
             System.out.println("Error with API call to get user account ID");
+            apiError = true;
             return;
         }
 
@@ -60,6 +63,7 @@ public class InstagramAPIDataAccessObject implements InstagramAPIIDataAccessInte
             }
         } catch (IOException e) {
             System.out.println("Error with API call to get user account Username");
+            apiError = true;
             return;
         }
 
@@ -85,16 +89,12 @@ public class InstagramAPIDataAccessObject implements InstagramAPIIDataAccessInte
             }
         } catch (IOException e) {
             System.out.println("Error with API call to getting user info");
+            apiError = true;
         }
         System.out.println(stats.get("posts"));
         System.out.println(stats.get("followers"));
 
         instagramStats.setStats(stats);
-    }
-
-    public static void main(String[] args) throws MalformedURLException {
-        InstagramAPIDataAccessObject accessObject = new InstagramAPIDataAccessObject("EAAMw2YKsBFwBO9Ha4ZABqKjEp3ZCR717k2EUaUBehbXHvY59D4G8Fk6C1TFEReMTmsBLYGqDfzVpCzqQ5gZBh9A5dgsdL7XtSCzopXJNViXNVjDVvIBZALtY8gMLIXh5AuSROJUVRdSHKzHQCB9xN2jz8HspLdRB7jPxidBMRhlaXRtUr93McAkz", new InstagramStats());
-        accessObject.fetchData();
     }
 
     @Override
@@ -107,4 +107,8 @@ public class InstagramAPIDataAccessObject implements InstagramAPIIDataAccessInte
         return instagramStats;
     }
 
+    @Override
+    public boolean isApiError() {
+        return apiError;
+    }
 }
