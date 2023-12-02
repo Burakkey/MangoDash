@@ -75,12 +75,14 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         }
         JSONArray instagramFollowers = instagramAPIDataAccessInterface.getInstagramStats().getFollowers();
         JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
-        // Add getusername function here
+        JSONArray instagramUsername = instagramAPIDataAccessInterface.getInstagramStats().getUsername();
+
         // Creating a new HashMap
         HashMap<String, Object> instagramData = new HashMap<>();
         // Adding the JSONArray objects to the HashMap
         instagramData.put("followers", instagramFollowers);
         instagramData.put("posts", instagramPosts);
+        instagramData.put("username", instagramUsername);
         instagramData.put("apiKey", instagramAPIToken);
         instagramData.put("keyError", instagramKeyError);
 

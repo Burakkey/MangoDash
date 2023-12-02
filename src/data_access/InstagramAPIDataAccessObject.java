@@ -29,6 +29,7 @@ public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInter
         HashMap<String, JSONArray> stats = new HashMap<>();
         stats.put("followers", new JSONArray());
         stats.put("posts", new JSONArray());
+        stats.put("username", new JSONArray());
 
         String userAccountId = null;
         String userAccountUsername = null;
@@ -60,6 +61,8 @@ public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInter
             for (String line; (line = reader.readLine()) != null;) {
                 JSONObject object = new JSONObject(line);
                 userAccountUsername = object.getString("username");
+
+                stats.get("username").put(userAccountUsername);
             }
         } catch (IOException e) {
             System.out.println("Error with API call to get user account Username");
