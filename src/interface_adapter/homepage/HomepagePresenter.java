@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import use_case.InstagramDataGetter;
 import use_case.change_user_data.ChangeDataOutput;
 import use_case.change_user_data.ChangeDataOutputBoundary;
 
@@ -36,6 +37,8 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         homepageState.setName(changeDataOutput.getName());
         homepageState.setUsername(changeDataOutput.getUsername());
         homepageState.setBio(changeDataOutput.getBio());
+        homepageState.setInstagramToken((String) changeDataOutput.getInstagramData().get("apiKey"));  // Has to cast argument to string from Object
+        homepageState.setFacebookToken((String) changeDataOutput.getFacebookData().get("apiKey"));    // Has to cast argument to string from Object
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.homepageViewModel.firePropertyChanged();
@@ -44,16 +47,32 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
 
     @Override
     public void prepareAPIView(ChangeDataOutput changeDataOutput) {
-        JSONArray arrayFollowers = changeDataOutput.getInstagramFollowers();
-        JSONArray arrayPosts = changeDataOutput.getPosts();
+        HashMap<String, Object> instagramStatsHashMap = makeInstagramStatsHashmap(changeDataOutput);
+        HomepageState homepageState = homepageViewModel.getState();
+        homepageState.setInstagramKeyError((Boolean) changeDataOutput.getInstagramData().get("keyError"));
+        homepageState.setFacebookKeyError((Boolean) changeDataOutput.getFacebookData().get("keyError"));
+        homepageState.setInstagramStatsHashMap(instagramStatsHashMap);
+        this.homepageViewModel.firePropertyChanged();
+        this.viewManagerModel.firePropertyChanged();
+    }
+
+    public static HashMap<String, Object> makeInstagramStatsHashmap(InstagramDataGetter changeDataOutput) {
+        JSONArray arrayFollowers = (JSONArray) changeDataOutput.getInstagramData().get("followers");
+        JSONArray arrayPosts = (JSONArray) changeDataOutput.getInstagramData().get("posts");
+        JSONArray arrayUsername = (JSONArray) changeDataOutput.getInstagramData().get("username");
+        System.out.println(changeDataOutput.getInstagramData());
 
         // Assuming the first element of arrayFollowers is the total follower count
-        int followersCount = arrayFollowers.length() > 0 ? arrayFollowers.getInt(0) : 0;
+        int followersCount = !arrayFollowers.isEmpty() ? arrayFollowers.getInt(0) : 0;
 
         int maxLikes = 0;
         int maxComments = 0;
         int totalLikes = 0;
         int totalComments = 0;
+        String username = null;
+        if (arrayUsername != null && !arrayUsername.isEmpty()) {
+            username = (String) arrayUsername.get(0);
+        }
         List<Integer> likesPerPost = new ArrayList<>();
         List<Integer> commentsPerPost = new ArrayList<>();
 
@@ -77,6 +96,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         int totalPosts = arrayPosts.length();
         double averageLikes = totalPosts > 0 ? (double) totalLikes / totalPosts : 0;
         double averageComments = totalPosts > 0 ? (double) totalComments / totalPosts : 0;
+
         HashMap<String, Object> instagramStatsHashMap = new HashMap<>();
 
         // Add the calculated statistics to the hashmap
@@ -90,12 +110,8 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         instagramStatsHashMap.put("likesPerPost", likesPerPost);
         instagramStatsHashMap.put("commentsPerPost", commentsPerPost);
         instagramStatsHashMap.put("totalPosts", totalPosts);
-
-        HomepageState homepageState = homepageViewModel.getState();
-        homepageState.setInstagramStatsHashMap(instagramStatsHashMap);
-        System.out.println(homepageState.getInstagramStatsHashMap());
-        this.homepageViewModel.firePropertyChanged();
-        this.viewManagerModel.firePropertyChanged();
+        instagramStatsHashMap.put("username", username);
+        return instagramStatsHashMap;
     }
 
 

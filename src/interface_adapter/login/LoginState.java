@@ -1,8 +1,5 @@
 package interface_adapter.login;
 
-/**
- * LoginState contains the current condition/status of values of the login process
- */
 public class LoginState {
     private String username = "";
     private String password = "";
@@ -14,9 +11,6 @@ public class LoginState {
         error = copy.error;
     }
 
-    /**
-     * Creates a new LoginState object, with the default instance variables.
-     */
     // Because of the previous copy constructor, the default constructor must be explicit.
     public LoginState() {}
 

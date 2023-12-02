@@ -5,10 +5,12 @@ import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupState;
+import interface_adapter.signup.SignupViewModel;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,40 +21,28 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
-/**
- * The LoginView displays information to the user, is responsible for the login page UI,
- * and observes/reacts to events that are triggered by the user.
- */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
     public final String viewName = "log in";
     private final LoginViewModel loginViewModel;
     private final ViewManagerModel viewManagerModel;
 
-    final JTextField usernameInputField = new JTextField(15);
+    final JTextField usernameInputField = new JTextField(10);
 
     private final JLabel usernameErrorField = new JLabel();
 
-    final JPasswordField passwordInputField = new JPasswordField(15);
+    final JPasswordField passwordInputField = new JPasswordField(10);
     private final JLabel passwordErrorField = new JLabel();
 
     final JButton logIn;
     final JButton back;
     private final LoginController loginController;
 
-    /**
-     * Constructs a new LoginView.
-     * @param loginViewModel data structure that contains the info for the view to display
-     * @param controller the login controller, receives the info that the user inputs
-     * @param viewManagerModel contains all the different views, changes the active view when needed
-     *                          (in response to user)
-     */
     public LoginView(LoginViewModel loginViewModel, LoginController controller, ViewManagerModel viewManagerModel) {
         Font medFont = loginViewModel.getComfortaaMedium();
-        final Color LIGHT_ORANGE = loginViewModel.BACKGROUND_COLOR;
 
         this.setPreferredSize(new Dimension(1200, 600));
-        this.setBackground(LIGHT_ORANGE);
+        this.setBackground(SignupViewModel.BACKGROUND_COLOR);
 
         this.loginController = controller;
         this.loginViewModel = loginViewModel;
@@ -62,23 +52,41 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         try {
             BufferedImage titlePicture = ImageIO.read(new File("src/assets/login_view/LoginViewTitle.png"));
             JLabel picLabel = new JLabel(new ImageIcon(titlePicture));
+            Border border = BorderFactory.createEmptyBorder(0, 0, 50, 0);
             picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            picLabel.setBorder(border);
             add(picLabel);
         } catch (IOException ignored) {
         }
 
-        JLabel j = new JLabel("Username   ");
+        Border inputFieldBorder = BorderFactory.createEmptyBorder(0, 10, 0, 10);
+        JLabel j = new JLabel(loginViewModel.USERNAME_LABEL);
         j.setFont(medFont);
+        j.setBorder(inputFieldBorder);
+        usernameInputField.setFont(medFont);
         LabelTextPanel usernameInfo = new LabelTextPanel(j, usernameInputField);
-        usernameInfo.setBackground(LIGHT_ORANGE);
+        usernameInfo.setBackground(SignupViewModel.BACKGROUND_COLOR); //set colour
+        usernameInfo.setBorder(inputFieldBorder);
 
-        JLabel k = new JLabel("Password   ");
+
+        JLabel k = new JLabel(loginViewModel.PASSWORD_LABEL);
         k.setFont(medFont);
+        k.setBorder(inputFieldBorder);
+        passwordInputField.setFont(medFont);
         LabelTextPanel passwordInfo = new LabelTextPanel(k, passwordInputField);
-        passwordInfo.setBackground(LIGHT_ORANGE);
+        passwordInfo.setBackground(SignupViewModel.BACKGROUND_COLOR); //set colour
+        passwordInfo.setBorder(inputFieldBorder);
+
+        GridLayout grid = new GridLayout(0, 1);
+        grid.setHgap(0);
+        JPanel inputFields = new JPanel(grid);
+        inputFields.add(usernameInfo);
+        inputFields.add(passwordInfo);
+
+        add(inputFields);
 
         JPanel buttons = new JPanel();
-        buttons.setBackground(LIGHT_ORANGE);
+        buttons.setBackground(SignupViewModel.BACKGROUND_COLOR);
 
         logIn = new JButton(LoginViewModel.LOGIN_BUTTON_LABEL);
         logIn.setFont(medFont);
@@ -150,10 +158,9 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                 });
 
         //this.add(title);
-        this.add(usernameInfo);
-        this.add(usernameErrorField);
-        this.add(passwordInfo);
-        this.add(passwordErrorField);
+//        add(inputFields);
+//        this.add(usernameErrorField);
+//        this.add(passwordErrorField);
         this.add(buttons);
     }
 
@@ -173,11 +180,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         System.out.println("Click " + evt.getActionCommand());
     }
 
-    /**
-     * If the evt property's new value is related to the LoginState, then an error panel will pop up if there is an error with the values the user has inputted into the text fields.
-     * @param evt A PropertyChangeEvent object describing the event source
-     *          and the property that has changed.
-     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getNewValue() instanceof LoginState) {
@@ -191,7 +193,7 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
     private void setFields(LoginState state) {
         usernameInputField.setText(state.getUsername());
-        passwordInputField.setText(state.getPassword()); //Added
+        passwordInputField.setText(state.getPassword());
     }
 
 }

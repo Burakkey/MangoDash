@@ -1,37 +1,51 @@
 package use_case.login;
 
+import org.json.JSONArray;
+import use_case.InstagramDataGetter;
+
+import java.util.HashMap;
+
 /**
  * LoginOutputData contains the required data after the user has logged in
  */
-public class LoginOutputData {
+public class LoginOutputData implements InstagramDataGetter {
 
     private final String username;
 
     private final String name;
 
     private final String bio;
-
-    private final String facebookAPI;
-
-    private final String instagramAPI;
     private boolean useCaseFailed;
+
+    private HashMap <String, Object> instagramData;
+
+    private HashMap <String, Object> facebookData;
+
 
     /**
      * Creates a new LoginOutputData object.
      * @param name the name the user specified during sign up
      * @param username the user's username
      * @param bio the user's chosen biography, if any
-     * @param facebookAPI the user's facebook API key
-     * @param instagramAPI the user's instagram API key
+     * @param facebookData the user's facebook data
+     * @param instagramData the user's instagram data
      * @param useCaseFailed whether the user login was successful
      */
-    public LoginOutputData(String name, String username, String bio, String facebookAPI, String instagramAPI, boolean useCaseFailed) {
+    public LoginOutputData(String name, String username, String bio, HashMap <String, Object> instagramData, HashMap <String, Object> facebookData, boolean useCaseFailed) {
         this.name = name;
         this.username = username;
         this.bio = bio;
-        this.facebookAPI = facebookAPI;
+        this.instagramData = instagramData;
+        this.facebookData = facebookData;
         this.useCaseFailed = useCaseFailed;
-        this.instagramAPI = instagramAPI;
+    }
+
+    public HashMap<String,Object> getInstagramData() {
+        return instagramData;
+    }
+
+    public HashMap<String,Object> getFacebookData() {
+        return facebookData;
     }
 
     public String getUsername() {
@@ -44,13 +58,5 @@ public class LoginOutputData {
 
     public String getBio(){
         return bio;
-    }
-
-    public String getFacebookAPI() {
-        return facebookAPI;
-    }
-
-    public String getInstagramAPI() {
-        return instagramAPI;
     }
 }

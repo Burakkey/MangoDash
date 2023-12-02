@@ -3,6 +3,10 @@ package interface_adapter.homepage;
 import use_case.change_user_data.ChangeDataInput;
 import use_case.change_user_data.ChangeDataInputBoundary;
 
+/**
+ * HomepageController passes the data from the 
+ * LoginView that the user inputted to the loginUseCaseInteractor, which decides what to do with the data
+ */
 public class HomepageController {
 
     private final ChangeDataInputBoundary changeDataInputBoundary;
