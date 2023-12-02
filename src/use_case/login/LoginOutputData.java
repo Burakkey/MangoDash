@@ -21,9 +21,9 @@ public class LoginOutputData {
      * @param name the name the user specified during sign up
      * @param username the user's username
      * @param bio the user's chosen biography, if any
-     * @param facebookAPI
-     * @param instagramAPI
-     * @param useCaseFailed
+     * @param facebookAPI the user's facebook API key
+     * @param instagramAPI the user's instagram API key
+     * @param useCaseFailed whether the user login was successful
      */
     public LoginOutputData(String name, String username, String bio, String facebookAPI, String instagramAPI, boolean useCaseFailed) {
         this.name = name;
