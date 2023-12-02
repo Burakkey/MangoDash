@@ -1,5 +1,6 @@
 package interface_adapter.login;
 
+import interface_adapter.homepage.HomepagePresenter;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.ViewManagerModel;
@@ -38,63 +39,13 @@ public class LoginPresenter implements LoginOutputBoundary {
         homepageState.setBio(loginOutputData.getBio());
         homepageState.setFacebookToken((String) loginOutputData.getFacebookData().get("apiKey"));
         homepageState.setInstagramToken((String) loginOutputData.getInstagramData().get("apiKey"));
-        homepageState.setInstagramStatsHashMap(makeInstagramStatsHashmap(loginOutputData));
+        homepageState.setInstagramStatsHashMap(HomepagePresenter.makeInstagramStatsHashmap(loginOutputData));
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.loginViewModel.setState(new LoginState());
         this.loginViewModel.firePropertyChanged();
         this.homepageViewModel.firePropertyChanged();
         this.viewManagerModel.firePropertyChanged();
-    }
-
-    private static HashMap<String, Object> makeInstagramStatsHashmap(LoginOutputData loginOutPutData) {
-        JSONArray arrayFollowers = (JSONArray) loginOutPutData.getInstagramData().get("followers");
-        JSONArray arrayPosts = (JSONArray) loginOutPutData.getInstagramData().get("posts");
-
-        // Assuming the first element of arrayFollowers is the total follower count
-        int followersCount = arrayFollowers.length() > 0 ? arrayFollowers.getInt(0) : 0;
-
-        int maxLikes = 0;
-        int maxComments = 0;
-        int totalLikes = 0;
-        int totalComments = 0;
-        List<Integer> likesPerPost = new ArrayList<>();
-        List<Integer> commentsPerPost = new ArrayList<>();
-
-        for (int i = 0; i < arrayPosts.length(); i++) {
-            JSONObject post = arrayPosts.getJSONObject(i);
-            int likes = post.getInt("like_count");
-            int comments = post.getInt("comments_count");
-
-            if (likes > maxLikes) {
-                maxLikes = likes;
-            }
-            likesPerPost.add(likes);
-            commentsPerPost.add(comments);
-            if (comments > maxComments) {
-                maxComments = comments;
-            }
-            totalLikes += likes;
-            totalComments += comments;
-        }
-
-        int totalPosts = arrayPosts.length();
-        double averageLikes = totalPosts > 0 ? (double) totalLikes / totalPosts : 0;
-        double averageComments = totalPosts > 0 ? (double) totalComments / totalPosts : 0;
-        HashMap<String, Object> instagramStatsHashMap = new HashMap<>();
-
-        // Add the calculated statistics to the hashmap
-        instagramStatsHashMap.put("followersCount", followersCount);
-        instagramStatsHashMap.put("maxLikes", maxLikes);
-        instagramStatsHashMap.put("maxComments", maxComments);
-        instagramStatsHashMap.put("totalLikes", totalLikes);
-        instagramStatsHashMap.put("totalComments", totalComments);
-        instagramStatsHashMap.put("averageLikes", averageLikes);
-        instagramStatsHashMap.put("averageComments", averageComments);
-        instagramStatsHashMap.put("likesPerPost", likesPerPost);
-        instagramStatsHashMap.put("commentsPerPost", commentsPerPost);
-        instagramStatsHashMap.put("totalPosts", totalPosts);
-        return instagramStatsHashMap;
     }
 
     @Override

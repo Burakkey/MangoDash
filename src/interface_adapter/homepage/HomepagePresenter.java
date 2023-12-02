@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginViewModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import use_case.InstagramDataGetter;
 import use_case.change_user_data.ChangeDataOutput;
 import use_case.change_user_data.ChangeDataOutputBoundary;
 
@@ -55,9 +56,11 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         this.viewManagerModel.firePropertyChanged();
     }
 
-    private static HashMap<String, Object> makeInstagramStatsHashmap(ChangeDataOutput changeDataOutput) {
+    public static HashMap<String, Object> makeInstagramStatsHashmap(InstagramDataGetter changeDataOutput) {
         JSONArray arrayFollowers = (JSONArray) changeDataOutput.getInstagramData().get("followers");
         JSONArray arrayPosts = (JSONArray) changeDataOutput.getInstagramData().get("posts");
+        JSONArray arrayUsername = (JSONArray) changeDataOutput.getInstagramData().get("username");
+        System.out.println(changeDataOutput.getInstagramData());
 
         // Assuming the first element of arrayFollowers is the total follower count
         int followersCount = !arrayFollowers.isEmpty() ? arrayFollowers.getInt(0) : 0;
@@ -66,6 +69,10 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         int maxComments = 0;
         int totalLikes = 0;
         int totalComments = 0;
+        String username = null;
+        if (arrayUsername != null && !arrayUsername.isEmpty()) {
+            username = (String) arrayUsername.get(0);
+        }
         List<Integer> likesPerPost = new ArrayList<>();
         List<Integer> commentsPerPost = new ArrayList<>();
 
@@ -89,6 +96,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         int totalPosts = arrayPosts.length();
         double averageLikes = totalPosts > 0 ? (double) totalLikes / totalPosts : 0;
         double averageComments = totalPosts > 0 ? (double) totalComments / totalPosts : 0;
+
         HashMap<String, Object> instagramStatsHashMap = new HashMap<>();
 
         // Add the calculated statistics to the hashmap
@@ -102,6 +110,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         instagramStatsHashMap.put("likesPerPost", likesPerPost);
         instagramStatsHashMap.put("commentsPerPost", commentsPerPost);
         instagramStatsHashMap.put("totalPosts", totalPosts);
+        instagramStatsHashMap.put("username", username);
         return instagramStatsHashMap;
     }
 

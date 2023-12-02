@@ -16,6 +16,9 @@ import view.homepage.*;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * HomepageUseCaseFactory is only called in main, it creates a new SignupView
+ */
 public class HomepageUseCaseFactory {
     public static HomepageView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
                                       HomepageViewModel homepageViewModel, HomePanelComponent homePanelComponent,

@@ -6,6 +6,7 @@ import interface_adapter.homepage.HomepageViewModel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,10 +46,15 @@ public class ExtensionPanelComponents {
 
 
         // Create and configure JLabels with right alignment
+        Border border =  BorderFactory.createEmptyBorder(0, 50, 0, 10);
         JLabel facebookAPILabel = new JLabel("Facebook Access Token:");
         facebookAPILabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        facebookAPILabel.setFont(homepageViewModel.getComfortaaSmall());
+        facebookAPILabel.setBorder(border);
         JLabel instagramAPILabel = new JLabel("Instagram Access Token:");
         instagramAPILabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        instagramAPILabel.setFont(homepageViewModel.getComfortaaSmall());
+        instagramAPILabel.setBorder(border);
 
         // Create a GridBagConstraints object for layout control
         GridBagConstraints gbc = new GridBagConstraints();
@@ -64,7 +70,10 @@ public class ExtensionPanelComponents {
                     ImageIO.read(new File("src/assets/homepage/ApiKey.png"));
             JLabel picLabel = new JLabel(new ImageIcon(settingsPicture));
             picLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            Border emptyBorder = BorderFactory.createEmptyBorder(0, 50, 50, 50);
+            picLabel.setBorder(emptyBorder);
             fieldsPanel.add(picLabel, gbc);
+
         } catch (IOException ex) {
             System.out.println("Image not found!");
         }
@@ -81,6 +90,7 @@ public class ExtensionPanelComponents {
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 0, 5, 0);
+        facebookAPIaccesstoken.setFont(homepageViewModel.getComfortaaSmall());
         fieldsPanel.add(facebookAPIaccesstoken, gbc);
 
         // Update gridy to position the next component below
@@ -95,6 +105,7 @@ public class ExtensionPanelComponents {
         gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(0, 0, 5, 0);
+        instagramAPIAccessToken.setFont(homepageViewModel.getComfortaaSmall());
         fieldsPanel.add(instagramAPIAccessToken, gbc);
 
         // Update gridy to position the next component below
@@ -108,6 +119,7 @@ public class ExtensionPanelComponents {
 
         JButton saveChangesButton = new JButton(HomepageViewModel.SAVE_CHANGES_BUTTON_LABEL);
         saveChangesButton.setBackground(HomepageViewModel.BUTTON_ORANGE);
+        saveChangesButton.setFont(homepageViewModel.getComfortaaSmall());
 
         // Add buttons to the buttonsPanel
         buttonsPanel.add(saveChangesButton);

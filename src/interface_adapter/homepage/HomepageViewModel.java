@@ -32,6 +32,8 @@ public class HomepageViewModel extends ViewModel {
 
     public static final Color BACKGROUND_COLOR = new Color(255,245,220);
     public static final Color BUTTON_ORANGE = new Color(255,179,138);
+    public static final Color OFF_WHITE = new Color(225,225,225);
+    public static final Color GRAPH_ORANGE = new Color(255, 207, 150);
 
 
     private static HomepageState homepageState = new HomepageState();

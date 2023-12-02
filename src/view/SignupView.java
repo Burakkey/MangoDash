@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +22,9 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
+/**
+ * The SignupView displays information to the user, is responsible for the signup page UI, and observes/reacts to events that are triggered by the user.
+ */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
 
 
@@ -42,19 +47,24 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     private final ViewManagerModel viewManagerModel;
 
-
-
+    /**
+     * Constructs a new SignupView.
+     * @param controller the signup controller, receives the info that the user inputs
+     * @param signupViewModel data structure that contains the info for the view to display
+     * @param viewManagerModel contains all the different views, changes the active view when needed
+     *                         (in response to user)
+     */
     public SignupView(SignupController controller, SignupViewModel signupViewModel, ViewManagerModel viewManagerModel) {
 
-        final Color LIGHT_ORANGE = signupViewModel.BACKGROUND_COLOR;
-
         Font medFont = signupViewModel.getComfortaaMedium();
+        Font smallFont = signupViewModel.getComfortaaSmall();
         this.setPreferredSize(new Dimension(1200, 600)); // set window size
-        this.setBackground(LIGHT_ORANGE); //set colour
+        this.setBackground(SignupViewModel.BACKGROUND_COLOR); //set colour
 
         this.signupController = controller;
         this.signupViewModel = signupViewModel;
         this.viewManagerModel = viewManagerModel;
+        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
         try {
             BufferedImage titlePicture = ImageIO.read(new File("src/assets/signup_view/SignUpViewTitle.png"));
@@ -67,26 +77,47 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         signupViewModel.addPropertyChangeListener(this);
 
+        JLabel nameLabel = new JLabel(SignupViewModel.NAME_LABEL);
         JLabel usernameLabel = new JLabel(SignupViewModel.USERNAME_LABEL);
         JLabel passwordLabel = new JLabel(SignupViewModel.PASSWORD_LABEL);
         JLabel repeatPasswordLabel = new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL);
 
-        usernameLabel.setFont(medFont);
-        passwordLabel.setFont(medFont);
-        repeatPasswordLabel.setFont(medFont);
+        Border border = BorderFactory.createEmptyBorder(0, 0, 0, 10);
+        nameLabel.setBorder(border);
+        usernameLabel.setBorder(border);
+        passwordLabel.setBorder(border);
+        repeatPasswordLabel.setBorder(border);
+
+        nameLabel.setFont(smallFont);
+        usernameLabel.setFont(smallFont);
+        passwordLabel.setFont(smallFont);
+        repeatPasswordLabel.setFont(smallFont);
+
+        nameInputField.setFont(smallFont);
+        usernameInputField.setFont(smallFont);
+        passwordInputField.setFont(smallFont);
+        repeatPasswordInputField.setFont(smallFont);
 
         LabelTextPanel nameInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.NAME_LABEL), nameInputField);
+                nameLabel, nameInputField);
         LabelTextPanel usernameInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.USERNAME_LABEL), usernameInputField);
+                usernameLabel, usernameInputField);
         LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.PASSWORD_LABEL), passwordInputField);
+                passwordLabel, passwordInputField);
         LabelTextPanel repeatPasswordInfo = new LabelTextPanel(
-                new JLabel(SignupViewModel.REPEAT_PASSWORD_LABEL), repeatPasswordInputField);
-        usernameInfo.setBackground(LIGHT_ORANGE);
-        passwordInfo.setBackground(LIGHT_ORANGE);
-        nameInfo.setBackground(LIGHT_ORANGE);
-        repeatPasswordInfo.setBackground(LIGHT_ORANGE);
+                repeatPasswordLabel, repeatPasswordInputField);
+        usernameInfo.setBackground(SignupViewModel.BACKGROUND_COLOR);
+        passwordInfo.setBackground(SignupViewModel.BACKGROUND_COLOR);
+        nameInfo.setBackground(SignupViewModel.BACKGROUND_COLOR);
+        repeatPasswordInfo.setBackground(SignupViewModel.BACKGROUND_COLOR);
+
+//        Border border = BorderFactory.createEmptyBorder(0, 0, 0, 0);
+//        usernameInfo.setBorder(border);
+//        passwordInfo.setBorder(border);
+//        nameInfo.setBorder(border);
+//        repeatPasswordInfo.setBorder(border);
+
+
 
         JPanel buttons = new JPanel();
         signUp = new JButton(SignupViewModel.SIGNUP_BUTTON_LABEL);
@@ -99,7 +130,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
         buttons.add(signUp);
         buttons.add(cancel);
-        buttons.setBackground(LIGHT_ORANGE);
+        buttons.setBackground(SignupViewModel.BACKGROUND_COLOR);
 
 
         signUp.addActionListener(
@@ -217,8 +248,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 }
         );
 
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
 
 //        this.add(title);
         this.add(nameInfo);
@@ -235,7 +264,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         System.out. println("Click " + evt.getActionCommand());
     }
 
-
+    /**
+     * If the evt property's new value is related to the SignUpState, then an error panel will pop up if there is an error with the values the user has inputted into the text fields.
+     * @param evt A PropertyChangeEvent object describing the event source
+     *          and the property that has changed.
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getNewValue() instanceof SignupState) {
