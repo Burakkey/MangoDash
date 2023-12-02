@@ -4,10 +4,12 @@ import entity.SocialMediaStats.InstagramStats;
 
 import java.net.MalformedURLException;
 
-public interface InstagramAPIIDataAccessInterface {
+public interface InstagramAPIDataAccessInterface {
     void fetchData() throws MalformedURLException;
 
     void setAPI(String apiUrl);
+
+    boolean isApiError();
 
     InstagramStats getInstagramStats();
 }

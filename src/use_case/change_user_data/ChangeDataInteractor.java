@@ -3,6 +3,7 @@ package use_case.change_user_data;
 import org.json.JSONArray;
 
 import java.net.MalformedURLException;
+import java.util.HashMap;
 
 public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
@@ -10,12 +11,12 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
     final ChangeDataOutputBoundary homepagePresenter;
 
-    final InstagramAPIIDataAccessInterface instagramAPIIDataAccessInterface;
+    final InstagramAPIDataAccessInterface instagramAPIDataAccessInterface;
 
-    public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter, InstagramAPIIDataAccessInterface instagramAPIIDataAccessInterface) {
+    public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter, InstagramAPIDataAccessInterface instagramAPIDataAccessInterface) {
         this.changeDataAccessInterface = changeDataAccessInterface;
         this.homepagePresenter = homepagePresenter;
-        this.instagramAPIIDataAccessInterface = instagramAPIIDataAccessInterface;
+        this.instagramAPIDataAccessInterface = instagramAPIDataAccessInterface;
     }
 
     @Override
@@ -61,17 +62,32 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String facebookAPIToken = changeDataInput.getFacebookAPIToken();
         String instagramAPIToken = changeDataInput.getInstagramAPIToken();
         changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
-        instagramAPIIDataAccessInterface.setAPI(instagramAPIToken);
+        instagramAPIDataAccessInterface.setAPI(instagramAPIToken);
+        boolean instagramKeyError = false;
+        boolean facebookKeyError = false;
         try {
-            instagramAPIIDataAccessInterface.fetchData();
+            instagramAPIDataAccessInterface.fetchData();
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        JSONArray followers = instagramAPIIDataAccessInterface.getInstagramStats().getFollowers();
-        JSONArray posts = instagramAPIIDataAccessInterface.getInstagramStats().getPosts();
-        ChangeDataOutput changeDataOutput = new ChangeDataOutput(followers, posts);
+        if (instagramAPIDataAccessInterface.isApiError()){
+            instagramKeyError = true;
+        }
+        JSONArray instagramFollowers = instagramAPIDataAccessInterface.getInstagramStats().getFollowers();
+        JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
+        // Add getusername function here
+        // Creating a new HashMap
+        HashMap<String, Object> instagramData = new HashMap<>();
+        // Adding the JSONArray objects to the HashMap
+        instagramData.put("followers", instagramFollowers);
+        instagramData.put("posts", instagramPosts);
+        instagramData.put("apiKey", instagramAPIToken);
+        instagramData.put("keyError", instagramKeyError);
+
+        HashMap<String, Object> facebookData = new HashMap<>();
+        // Do the same for facebook
+
+        ChangeDataOutput changeDataOutput = new ChangeDataOutput(instagramData, facebookData);
         homepagePresenter.prepareAPIView(changeDataOutput);
-
-
     }
 }
