@@ -6,6 +6,9 @@ import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * SignupViewModel is a data structure that contains all the data that the signupView needs.
+ */
 public class SignupViewModel extends ViewModel {
     public static final Color BACKGROUND_COLOR = new Color(255,215,181);
     public static final Color BUTTON_ORANGE = new Color(255,179,138);
@@ -23,6 +26,9 @@ public class SignupViewModel extends ViewModel {
 
     private SignupState state = new SignupState();
 
+    /**
+     * Creates a new SignupViewModel. There are no parameters, as all the instance variables are predetermined.
+     */
     public SignupViewModel() {
         super("sign up");
     }
@@ -33,8 +39,9 @@ public class SignupViewModel extends ViewModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    // This is what the Signup Presenter will call to let the ViewModel know
-    // to alert the View
+    /**
+     * the SignupPresenter calls firePropertyChanged to let the SignupViewModel know to alert the SignupView that a property has been changed
+     */
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
