@@ -1,11 +1,19 @@
 package interface_adapter.login;
 
+import interface_adapter.homepage.HomepagePresenter;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.ViewManagerModel;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import use_case.change_user_data.ChangeDataOutput;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class LoginPresenter implements LoginOutputBoundary {
@@ -23,16 +31,19 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(LoginOutputData response) {
+    public void prepareSuccessView(LoginOutputData loginOutputData) {
         // On success, switch to the logged in view.
         HomepageState homepageState = new HomepageState();
-        homepageState.setName(response.getName());
-        homepageState.setUsername(response.getUsername());
-        homepageState.setBio(response.getBio());
-        homepageState.setFacebookToken(response.getFacebookAPI());
-        homepageState.setInstagramToken(response.getInstagramAPI());
+        homepageState.setName(loginOutputData.getName());
+        homepageState.setUsername(loginOutputData.getUsername());
+        homepageState.setBio(loginOutputData.getBio());
+        homepageState.setFacebookToken((String) loginOutputData.getFacebookData().get("apiKey"));
+        homepageState.setInstagramToken((String) loginOutputData.getInstagramData().get("apiKey"));
+        homepageState.setInstagramStatsHashMap(HomepagePresenter.makeInstagramStatsHashmap(loginOutputData));
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
+        this.loginViewModel.setState(new LoginState());
+        this.loginViewModel.firePropertyChanged();
         this.homepageViewModel.firePropertyChanged();
         this.viewManagerModel.firePropertyChanged();
     }

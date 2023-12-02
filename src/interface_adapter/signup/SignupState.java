@@ -27,6 +27,7 @@ public class SignupState {
      * Creates a new SignupState object, with the default instance variables.
      */
     // Because of the previous copy constructor, the default constructor must be explicit.
+
     public SignupState() {
     }
 
