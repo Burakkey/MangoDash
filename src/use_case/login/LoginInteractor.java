@@ -1,17 +1,26 @@
 package use_case.login;
 
 import entity.User;
+import org.json.JSONArray;
+import use_case.change_user_data.InstagramAPIDataAccessInterface;
 
+import java.net.MalformedURLException;
 import java.util.HashMap;
 
 public class LoginInteractor implements LoginInputBoundary {
     final LoginUserDataAccessInterface userDataAccessObject;
     final LoginOutputBoundary loginPresenter;
 
+    final InstagramAPIDataAccessInterface instagramAPIDataAccessInterface;
+
+//    final InstagramAPIDataAccessInterface facebookAPIDataAccessInterface;
+
     public LoginInteractor(LoginUserDataAccessInterface userDataAccessInterface,
-                           LoginOutputBoundary loginOutputBoundary) {
+                           LoginOutputBoundary loginOutputBoundary, InstagramAPIDataAccessInterface instagramAPIDataAccessInterface) {
         this.userDataAccessObject = userDataAccessInterface;
         this.loginPresenter = loginOutputBoundary;
+        this.instagramAPIDataAccessInterface = instagramAPIDataAccessInterface;
+//        this.facebookAPIDataAccessInterface = facebookAPIDataAccessInterface;
     }
 
     @Override
@@ -28,12 +37,33 @@ public class LoginInteractor implements LoginInputBoundary {
 
                 User user = userDataAccessObject.get(loginInputData.getUsername());
                 HashMap<String, String> apiKeys = user.getApiKeys();
-                String facebookApiKey = (apiKeys != null && apiKeys.containsKey("Facebook")) ? apiKeys.get("Facebook") : " ";
-                String instagramApiKey = (apiKeys != null && apiKeys.containsKey("Instagram")) ? apiKeys.get("Instagram") : " ";
+                String facebookApiKey = (apiKeys != null && apiKeys.containsKey("Facebook")) ? apiKeys.get("Facebook") : "";
+                String instagramApiKey = (apiKeys != null && apiKeys.containsKey("Instagram")) ? apiKeys.get("Instagram") : "";
 
+                instagramAPIDataAccessInterface.setAPI(instagramApiKey);
+                try {
+                    instagramAPIDataAccessInterface.fetchData();
+                } catch (MalformedURLException e) {
+                    throw new RuntimeException(e);
+                }
 
-                LoginOutputData loginOutputData = new LoginOutputData(user.getName(), user.getUserName(), user.getBio(), facebookApiKey, instagramApiKey,false);
+                JSONArray instagramFollowers = instagramAPIDataAccessInterface.getInstagramStats().getFollowers();
+                JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
+                JSONArray instagramUsername = instagramAPIDataAccessInterface.getInstagramStats().getUsername();
 
+                // Add getusername function here
+                // Creating a new HashMap
+                HashMap<String, Object> instagramData = new HashMap<>();
+                // Adding the JSONArray objects to the HashMap
+                instagramData.put("followers", instagramFollowers);
+                instagramData.put("posts", instagramPosts);
+                instagramData.put("username", instagramUsername);
+                instagramData.put("apiKey", instagramApiKey);
+
+                HashMap<String, Object> facebookData = new HashMap<>();
+                // Do the same for facebook
+
+                LoginOutputData loginOutputData = new LoginOutputData(user.getName(), user.getUserName(), user.getBio(), instagramData, facebookData, false);
                 loginPresenter.prepareSuccessView(loginOutputData);
             }
         }

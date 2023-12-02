@@ -16,8 +16,6 @@ class CommonUser implements User {
     private final LocalDateTime creationTime;
     private HashMap<String, String> apiKeys;
 
-    private HashMap<String, SocialMediaStats> socialMedias;
-
     /**
      * Requires: password is valid.
      * @param name
@@ -29,8 +27,7 @@ class CommonUser implements User {
         this.password = password;
         this.bio = bio;
         this.creationTime = creationTime;
-        this.socialMedias = new HashMap<>();
-        socialMedias.put("Instagram", new InstagramStats());
+        this.apiKeys = apiKeys;
     }
 
     @Override

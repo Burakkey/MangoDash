@@ -1,17 +1,21 @@
 package use_case.change_user_data;
 
 import org.json.JSONArray;
+import use_case.InstagramDataGetter;
 
-public class ChangeDataOutput {
+import java.util.HashMap;
+
+public class ChangeDataOutput implements InstagramDataGetter {
     private String username;
 
     private String name;
 
     private String bio;
 
-    private JSONArray instagramFollowers;
+    private HashMap <String, Object> instagramData;
 
-    private JSONArray posts;
+    private HashMap <String, Object> facebookData;
+
 
     public ChangeDataOutput(String username, String name, String bio) {
         this.username = username;
@@ -19,9 +23,17 @@ public class ChangeDataOutput {
         this.bio = bio;
     }
 
-    public ChangeDataOutput(JSONArray instagramFollowers, JSONArray posts){
-        this.instagramFollowers = instagramFollowers;
-        this.posts = posts;
+    public ChangeDataOutput(HashMap <String, Object> instagramData, HashMap <String, Object> facebookData){
+        this.instagramData = instagramData;
+        this.facebookData = facebookData;
+    }
+
+    public HashMap<String, Object> getInstagramData() {
+        return instagramData;
+    }
+
+    public HashMap<String, Object> getFacebookData() {
+        return facebookData;
     }
 
     public String getUsername() {
@@ -30,14 +42,6 @@ public class ChangeDataOutput {
 
     public String getName() {
         return name;
-    }
-
-    public JSONArray getInstagramFollowers() {
-        return instagramFollowers;
-    }
-
-    public JSONArray getPosts() {
-        return posts;
     }
 
     public String getBio() {
