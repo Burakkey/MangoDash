@@ -43,12 +43,10 @@ public class SignupUseCaseFactory {
      * @param loginViewModel
      * @param signupViewModel
      * @param userDataAccessObject
-     * @param clearViewModel
-     * @param userDataAccessObject2
      * @return a new SignupView that can communicate with the necessary classes to sign a user up
      */
     public static SignupView create(
-            ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject, ClearViewModel clearViewModel, ClearUserDataAccessInterface userDataAccessObject2 ) {
+            ViewManagerModel viewManagerModel, LoginViewModel loginViewModel, SignupViewModel signupViewModel, SignupUserDataAccessInterface userDataAccessObject) {
 
         try {
             SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel, loginViewModel, userDataAccessObject);

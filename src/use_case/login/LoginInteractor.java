@@ -7,6 +7,10 @@ import use_case.change_user_data.InstagramAPIDataAccessInterface;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 
+/**
+ * LoginInteractor takes the login info data and uses it to log the user in. If there is an error with the
+ * input data, the user will not be logged in.
+ */
 public class LoginInteractor implements LoginInputBoundary {
     final LoginUserDataAccessInterface userDataAccessObject;
     final LoginOutputBoundary loginPresenter;
@@ -15,6 +19,12 @@ public class LoginInteractor implements LoginInputBoundary {
 
 //    final InstagramAPIDataAccessInterface facebookAPIDataAccessInterface;
 
+    /**
+     * Creates a new LoginInteractor.
+     * @param userDataAccessInterface interface that defines methods of data access objects related to the action of logging in
+     * @param loginOutputBoundary interface that defines methods that describe how output data is transferred to outer
+     *                           layers (presenter), related to the action of logging up
+     */
     public LoginInteractor(LoginUserDataAccessInterface userDataAccessInterface,
                            LoginOutputBoundary loginOutputBoundary, InstagramAPIDataAccessInterface instagramAPIDataAccessInterface) {
         this.userDataAccessObject = userDataAccessInterface;
@@ -23,6 +33,12 @@ public class LoginInteractor implements LoginInputBoundary {
 //        this.facebookAPIDataAccessInterface = facebookAPIDataAccessInterface;
     }
 
+    /**
+     * Given the login input data, decides whether to log the user in.
+     * The user will be able to successfully log up if the password corresponds to the username
+     * Otherwise, a window will appear showing the corresponding error.
+     * @param loginInputData data structure that contains the data needed to log a user in
+     */
     @Override
     public void execute(LoginInputData loginInputData) {
         String username = loginInputData.getUsername();
