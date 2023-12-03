@@ -148,14 +148,11 @@ public class ExtensionPanelComponents {
                             HomepageState currentState = homepageViewModel.getState();
                             currentState.setInstagramToken(instagramAPIAccessToken.getText());
                             currentState.setFacebookToken(facebookAPIaccesstoken.getText());
-
-
                             homepageController.executeAPIChanges(currentState.getUsername(), currentState.getName(),
                                     currentState.getFacebookToken(), currentState.getInstagramToken());
                             if (currentState.getInstagramKeyError()) {
                                 JOptionPane.showMessageDialog(null, "Invalid Instagram API key", "Error", JOptionPane.ERROR_MESSAGE);
                             }
-
                             if (currentState.getFacebookKeyError()){
                                 JOptionPane.showMessageDialog(null, "Invalid Instagram API key", "Error", JOptionPane.ERROR_MESSAGE);
                             }

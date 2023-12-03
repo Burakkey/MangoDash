@@ -34,6 +34,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
     public void prepareSuccessView(ChangeDataOutput changeDataOutput) {
         // On success, switch to the logged in view.
         HomepageState homepageState = homepageViewModel.getState();
+        System.out.println(changeDataOutput.getName());
         homepageState.setName(changeDataOutput.getName());
         homepageState.setUsername(changeDataOutput.getUsername());
         homepageState.setBio(changeDataOutput.getBio());
