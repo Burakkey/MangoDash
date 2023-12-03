@@ -23,14 +23,14 @@ import java.io.IOException;
  */
 public class HomepageUseCaseFactory {
     public static HomepageView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
-                                      HomepageViewModel homepageViewModel, InstagramPanel instagramPanel,
+                                      HomepageViewModel homepageViewModel, InstagramPanel instagramPanel, FacebookPanel facebookPanel,
                                       RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
                                       SettingsPanelComponent settingsPanelComponent, ChangeDataAccessInterface changeDataAccessInterface,
                                       JFrame application){
         try {
             HomepageController homepageController = createHomepageUseCase(viewManagerModel, loginViewModel,
                     homepageViewModel, changeDataAccessInterface);
-            return new HomepageView(homepageViewModel, instagramPanel, rankingPanelComponent, extensionPanelComponents, settingsPanelComponent, homepageController, viewManagerModel, application);
+            return new HomepageView(homepageViewModel, instagramPanel, facebookPanel, rankingPanelComponent, extensionPanelComponents, settingsPanelComponent, homepageController, viewManagerModel, application);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
