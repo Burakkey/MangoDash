@@ -137,50 +137,7 @@ public class ExtensionPanelComponents {
         gbc.gridy = 1;
         settingsPanel.add(buttonsPanel, gbc);
 
-        facebookAPIaccesstoken.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-//                if (!Character.isDigit(e.getKeyChar()) && !Character.isLetter(e.getKeyChar())) {
-//                    return;
-//                }
-                HomepageState currentState = homepageViewModel.getState();
-//                String text = facebookAPIaccesstoken.getText() + e.getKeyChar();
-//                currentState.setFacebookToken(text);
-                HomepageViewModel viewModel = new HomepageViewModel();
-                viewModel.setState(currentState);
-            }
 
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // Handle key pressed event if needed
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                // Handle key released event if needed
-            }
-        });
-
-        instagramAPIAccessToken.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                HomepageState currentState = homepageViewModel.getState();
-//                String text = instagramAPIAccessToken.getText() + e.getKeyChar();
-//                currentState.setInstagramToken(text);
-                HomepageViewModel viewModel = new HomepageViewModel();
-                viewModel.setState(currentState);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
 
 
         saveChangesButton.addActionListener(
