@@ -1,5 +1,6 @@
 package app;
 import com.formdev.flatlaf.*;
+import data_access.InstagramAPIDataAccessObject;
 import data_access.SQLiteUserDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
@@ -55,11 +56,11 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomePanelComponent homePanelComponent = new HomePanelComponent(application);
+        InstagramPanel instagramPanel = new InstagramPanel(application);
         RankingPanelComponent rankingPanelComponent = new RankingPanelComponent();
         ExtensionPanelComponents extensionPanelComponents = new ExtensionPanelComponents();
         SettingsPanelComponent settingsPanelComponent = new SettingsPanelComponent();
-        HomepageView homepageView = HomepageUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, homePanelComponent, rankingPanelComponent,
+        HomepageView homepageView = HomepageUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, instagramPanel, rankingPanelComponent,
                 extensionPanelComponents, settingsPanelComponent, userDataAccessObject, application);
         views.add(homepageView, homepageView.viewName);
 
