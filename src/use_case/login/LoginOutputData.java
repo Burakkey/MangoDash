@@ -1,11 +1,12 @@
 package use_case.login;
 
 import org.json.JSONArray;
+import use_case.FacebookDataGetter;
 import use_case.InstagramDataGetter;
 
 import java.util.HashMap;
 
-public class LoginOutputData implements InstagramDataGetter {
+public class LoginOutputData implements InstagramDataGetter, FacebookDataGetter {
 
     private final String username;
 

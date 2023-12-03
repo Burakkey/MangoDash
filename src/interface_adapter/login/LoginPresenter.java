@@ -38,6 +38,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         homepageState.setUsername(loginOutputData.getUsername());
         homepageState.setBio(loginOutputData.getBio());
         homepageState.setFacebookToken((String) loginOutputData.getFacebookData().get("apiKey"));
+        homepageState.setFacebookStatsHashMap(HomepagePresenter.makeFacebookStatsHashmap(loginOutputData));
         homepageState.setInstagramToken((String) loginOutputData.getInstagramData().get("apiKey"));
         homepageState.setInstagramStatsHashMap(HomepagePresenter.makeInstagramStatsHashmap(loginOutputData));
         this.homepageViewModel.setState(homepageState);

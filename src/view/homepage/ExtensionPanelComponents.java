@@ -137,47 +137,7 @@ public class ExtensionPanelComponents {
         gbc.gridy = 1;
         settingsPanel.add(buttonsPanel, gbc);
 
-        facebookAPIaccesstoken.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                HomepageState currentState = homepageViewModel.getState();
-                String text = facebookAPIaccesstoken.getText() + e.getKeyChar();
-                currentState.setFacebookToken(text);
-                HomepageViewModel viewModel = new HomepageViewModel();
-                viewModel.setState(currentState);
-            }
 
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // Handle key pressed event if needed
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                // Handle key released event if needed
-            }
-        });
-
-        instagramAPIAccessToken.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                HomepageState currentState = homepageViewModel.getState();
-                String text = instagramAPIAccessToken.getText() + e.getKeyChar();
-                currentState.setInstagramToken(text);
-                HomepageViewModel viewModel = new HomepageViewModel();
-                viewModel.setState(currentState);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
 
 
         saveChangesButton.addActionListener(
@@ -186,14 +146,19 @@ public class ExtensionPanelComponents {
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(saveChangesButton)) {
                             HomepageState currentState = homepageViewModel.getState();
+                            currentState.setInstagramToken(instagramAPIAccessToken.getText());
+                            currentState.setFacebookToken(facebookAPIaccesstoken.getText());
                             homepageController.executeAPIChanges(currentState.getUsername(), currentState.getName(),
                                     currentState.getFacebookToken(), currentState.getInstagramToken());
                             if (currentState.getInstagramKeyError()) {
                                 JOptionPane.showMessageDialog(null, "Invalid Instagram API key", "Error", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Successfully Validated Instagram API key", "Success", JOptionPane.ERROR_MESSAGE);
                             }
-
                             if (currentState.getFacebookKeyError()){
-                                JOptionPane.showMessageDialog(null, "Invalid Instagram API key", "Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Invalid Facebook API key", "Error", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Successfully Validated Facebook API key", "Success", JOptionPane.ERROR_MESSAGE);
                             }
                         }
                     }

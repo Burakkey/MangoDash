@@ -13,6 +13,7 @@ public class HomepageState {
     private String facebookToken;
 
     private HashMap<String, Object> instagramStatsHashMap;
+    private HashMap<String, Object> facebookStatsHashMap;
 
     private Boolean instagramKeyError;
 
@@ -56,8 +57,16 @@ public class HomepageState {
         this.instagramStatsHashMap = instagramStatsHashMap;
     }
 
+    public void setFacebookStatsHashMap(HashMap<String, Object> facebookStatsHashMap) {
+        this.facebookStatsHashMap = facebookStatsHashMap;
+    }
+
     public HashMap<String, Object> getInstagramStatsHashMap() {
         return instagramStatsHashMap;
+    }
+
+    public HashMap<String, Object> getFacebookStatsHashMap() {
+        return facebookStatsHashMap;
     }
 
     public String getName() {

@@ -1,11 +1,12 @@
 package use_case.change_user_data;
 
 import org.json.JSONArray;
+import use_case.FacebookDataGetter;
 import use_case.InstagramDataGetter;
 
 import java.util.HashMap;
 
-public class ChangeDataOutput implements InstagramDataGetter {
+public class ChangeDataOutput implements InstagramDataGetter, FacebookDataGetter {
     private String username;
 
     private String name;

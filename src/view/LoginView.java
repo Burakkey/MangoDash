@@ -109,6 +109,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(logIn)) {
                             LoginState currentState = loginViewModel.getState();
+                            currentState.setUsername(usernameInputField.getText());
+                            currentState.setPassword(passwordInputField.getText());
 
                             loginController.execute(
                                     currentState.getUsername(),
@@ -121,41 +123,8 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
 
         back.addActionListener(this);
 
-        usernameInputField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                LoginState currentState = loginViewModel.getState();
-                currentState.setUsername(usernameInputField.getText() + e.getKeyChar());
-                loginViewModel.setState(currentState);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
+//
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        passwordInputField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent e) {
-                        LoginState currentState = loginViewModel.getState();
-                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
-                        loginViewModel.setState(currentState);
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                    }
-
-                    @Override
-                    public void keyReleased(KeyEvent e) {
-                    }
-                });
 
         //this.add(title);
 //        add(inputFields);

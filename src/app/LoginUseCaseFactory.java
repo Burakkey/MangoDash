@@ -3,6 +3,7 @@ package app;
 import data_access.FacebookAPIDataAccessObject;
 import data_access.InstagramAPIDataAccessObject;
 import entity.CommonUserFactory;
+import entity.SocialMediaStats.FacebookStats;
 import entity.SocialMediaStats.InstagramStats;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -10,6 +11,7 @@ import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
+import use_case.change_user_data.FacebookAPIDataAccessInterface;
 import use_case.change_user_data.InstagramAPIDataAccessInterface;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginOutputBoundary;
@@ -53,9 +55,11 @@ public class LoginUseCaseFactory {
         UserFactory userFactory = new CommonUserFactory();
 
         InstagramStats instagramStats = new InstagramStats();
-        InstagramAPIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);;
+        FacebookStats facebookStats = new FacebookStats();
+        InstagramAPIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
+        FacebookAPIDataAccessInterface facebookAPIDataAccessInterface = new FacebookAPIDataAccessObject("", facebookStats);
         LoginInputBoundary loginInteractor = new LoginInteractor(
-                userDataAccessObject, loginOutputBoundary, instagramAPIDataAccessInterface);
+                userDataAccessObject, loginOutputBoundary, instagramAPIDataAccessInterface, facebookAPIDataAccessInterface);
 
         return new LoginController(loginInteractor);
     }
