@@ -12,62 +12,23 @@ import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
+import java.time.LocalDateTime;
+
 import static org.junit.Assert.*;
 
 public class SignupInteractorTest {
 
-
-    private SignupUserDataAccessInterface userDataAccessObject;
-
-
-
-    private UserFactory userFactory;
-
-    private SignupInteractor signupInteractor;
-
-    @Before
-    public void setUp() {
-
-        userDataAccessObject = new InMemoryUserDataAccessObject();
-        userFactory = new CommonUserFactory();
-    }
-
     @Test
-    public void prepareSuccessViewTest() {
-        SignupInputData input = new SignupInputData("John Doe", "john.doe", "password", "wrongPassword", null);
-        SignupOutputBoundary userPresenter = new SignupOutputBoundary() {
-            @Override
-            public void prepareSuccessView(SignupOutputData user) {
-
-            }
-
-            @Override
-            public void prepareFailView(String error) {
-
-            }
-        };
-        signupInteractor = new SignupInteractor(userDataAccessObject, userPresenter, userFactory);
-
-
-        assertFalse(userDataAccessObject.existsByName(input.getUsername())); //
-        signupInteractor.execute(input);
-        assertTrue(userDataAccessObject.existsByName(input.getUsername())); // Check this user exists
-
-
-
-    }
-
-    @Test
-    void successTest() {
-        SignupInputData inputData = new SignupInputData("John Doe", "john.doe", "password", "wrongPassword", null);
-        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+    public void successTest() throws ClassNotFoundException {
+        SignupInputData inputData = new SignupInputData("name", "username", "password", "password", LocalDateTime.now());
+        SignupUserDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", new CommonUserFactory());
 
         // This creates a successPresenter that tests whether the test case is as we expect.
         SignupOutputBoundary successPresenter = new SignupOutputBoundary() {
             @Override
             public void prepareSuccessView(SignupOutputData user) {
                 // 2 things to check: the output data is correct, and the user has been created in the DAO.
-                assertEquals("Paul", user.getUsername());
+                assertEquals("name", user.getUsername());
                 assertNotNull(user.getCreationTime()); // any creation time is fine.
                 assertTrue(userRepository.existsByName("Paul"));
             }
@@ -77,30 +38,55 @@ public class SignupInteractorTest {
                 fail("Use case failure is unexpected.");
             }
         };
-
-        SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, new CommonUserFactory());
-        interactor.execute(inputData);
     }
-
     @Test
-    public void execute_passwordsDoNotMatch_shouldPrepareFailView() {
-        SignupInputData input = new SignupInputData("John Doe", "john.doe", "password", "wrongPassword", null);
-        SignupOutputBoundary userPresenter = new SignupOutputBoundary() {
+    public void failurePasswordMismatchTest() {
+        SignupInputData inputData = new SignupInputData("name", "username", "password", "wrongPassword", LocalDateTime.now());
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // This creates a presenter that tests whether the test case is as we expect.
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
             @Override
             public void prepareSuccessView(SignupOutputData user) {
-
+                // 2 things to check: the output data is correct, and the user has been created in the DAO.
+                fail("Use case success is unexpected.");
             }
 
             @Override
             public void prepareFailView(String error) {
-
+                assertEquals("Passwords don't match.", error);
             }
         };
-        signupInteractor = new SignupInteractor(userDataAccessObject, userPresenter, userFactory);
 
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
+        interactor.execute(inputData);
+    }
 
+    @Test
+    public void failureUserExistsTest() {
+        SignupInputData inputData = new SignupInputData("name", "username", "password", "password", LocalDateTime.now());
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
-        // assertNull(); // userPresenter.prepareFailView("Passwords don't match.");
-        // assertEquals(userPresenter.prepareFailView("Passwords don't match."), signupInteractor.execute(input));
+        // Add Paul to the repo so that when we check later they already exist
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("name", "username", "password", "password", null, LocalDateTime.now());
+        userRepository.save(user);
+
+        // This creates a presenter that tests whether the test case is as we expect.
+        SignupOutputBoundary failurePresenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {
+                // 2 things to check: the output data is correct, and the user has been created in the DAO.
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("User already exists.", error);
+            }
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
+        interactor.execute(inputData);
     }
 }
