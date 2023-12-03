@@ -26,6 +26,7 @@ public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInter
 
     @Override
     public void fetchData() throws MalformedURLException {
+        apiError = false;
         HashMap<String, JSONArray> stats = new HashMap<>();
         stats.put("followers", new JSONArray());
         stats.put("posts", new JSONArray());
@@ -93,6 +94,7 @@ public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInter
         } catch (IOException e) {
             System.out.println("Error with API call to getting user info");
             apiError = true;
+            return;
         }
         System.out.println(stats.get("posts"));
         System.out.println(stats.get("followers"));

@@ -17,9 +17,12 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
     private String apiKey;
     private FacebookStats facebookStats;
 
+    private boolean apiError;
+
     public FacebookAPIDataAccessObject(String apiKey, FacebookStats facebookStats) {
         this.apiKey = apiKey;
         this.facebookStats = facebookStats;
+        this.apiError = false;
     }
 
     public static void main(String[] args) throws MalformedURLException{
@@ -31,6 +34,7 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
     @Override
     public void fetchData() throws MalformedURLException {
         // Reset data
+        apiError = false;
         HashMap<String, JSONArray> stats = new HashMap<>();
         stats.put("followers", new JSONArray());
         stats.put("posts", new JSONArray());
@@ -48,6 +52,8 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
             }
         } catch (IOException e) {
             System.out.println("Error with API call to get user account ID");
+            apiError = true;
+            return;
         }
 
         if (userAccountId == null) {
@@ -72,6 +78,8 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
             }
         } catch (IOException e) {
             System.out.println("Error with API call to getting user friends info");
+            apiError = true;
+            return;
         }
 
         // Retrieve User's Posts
@@ -89,6 +97,8 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
             }
         } catch (IOException e) {
             System.out.println("Error with API call to getting user posts info");
+            apiError = true;
+            return;
         }
 
         JSONArray posts_cleaned = new JSONArray();
@@ -121,6 +131,8 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
                 }
             } catch (IOException e) {
                 System.out.println("Error with data processing to retrieve user posts summary");
+                apiError = true;
+                return;
             }
         }
         if (posts_cleaned.isEmpty()) {
@@ -138,6 +150,11 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
     @Override
     public void setApi(String apiKey) {
         this.apiKey = apiKey;
+    }
+
+    @Override
+    public boolean isApiError() {
+        return apiError;
     }
 
     @Override
