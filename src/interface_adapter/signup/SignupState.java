@@ -12,7 +12,6 @@ public class SignupState {
     private String repeatPassword = "";
     private String repeatPasswordError = null;
 
-
     public SignupState(SignupState copy) {
         name = copy.name;
         username = copy.username;
@@ -27,7 +26,6 @@ public class SignupState {
      * Creates a new SignupState object, with the default instance variables.
      */
     // Because of the previous copy constructor, the default constructor must be explicit.
-
     public SignupState() {
     }
 
@@ -41,6 +39,10 @@ public class SignupState {
 
     public String getError() {
         return error;
+    }
+
+    public void setError(String usernameError) {
+        this.error = usernameError;
     }
 
     public String getPassword() {
@@ -59,14 +61,9 @@ public class SignupState {
         this.username = username;
     }
 
-    public void setError(String usernameError) {
-        this.error = usernameError;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public void setRepeatPassword(String repeatPassword) {
         this.repeatPassword = repeatPassword;

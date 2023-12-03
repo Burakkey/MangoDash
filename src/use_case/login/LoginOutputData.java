@@ -5,6 +5,9 @@ import use_case.InstagramDataGetter;
 
 import java.util.HashMap;
 
+/**
+ * LoginOutputData contains the required data after the user has logged in
+ */
 public class LoginOutputData implements InstagramDataGetter {
 
     private final String username;
@@ -19,7 +22,15 @@ public class LoginOutputData implements InstagramDataGetter {
     private HashMap <String, Object> facebookData;
 
 
-
+    /**
+     * Creates a new LoginOutputData object.
+     * @param name the name the user specified during sign up
+     * @param username the user's username
+     * @param bio the user's chosen biography, if any
+     * @param facebookData the user's facebook data
+     * @param instagramData the user's instagram data
+     * @param useCaseFailed whether the user login was successful
+     */
     public LoginOutputData(String name, String username, String bio, HashMap <String, Object> instagramData, HashMap <String, Object> facebookData, boolean useCaseFailed) {
         this.name = name;
         this.username = username;

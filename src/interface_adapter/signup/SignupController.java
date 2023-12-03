@@ -6,11 +6,16 @@ import use_case.signup.SignupInputData;
 import java.time.LocalDateTime;
 
 /**
- * Creates a new SignupController
- * */
+ * SignupController passes the data from the SignupView that the user inputted to the userSignupUseCaseInteractor, which decides what to do with the data
+ */
 public class SignupController {
 
     final SignupInputBoundary userSignupUseCaseInteractor;
+
+    /**
+     * Creates a new SignupController
+     * @param userSignupUseCaseInteractor decides what to do with the user's input data from the View
+     */
     public SignupController(SignupInputBoundary userSignupUseCaseInteractor) {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
     }

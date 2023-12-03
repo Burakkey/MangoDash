@@ -20,11 +20,23 @@ import view.LoginView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * LoginUseCaseFactory is only called in main, it creates a new LoginView
+ */
 public class LoginUseCaseFactory {
 
     /** Prevent instantiation. */
     private LoginUseCaseFactory() {}
 
+    /**
+     * create creates a LoginView and connects the different parameters to the LoginView, so that the LoginView can
+     * communicate with the other classes necessary for logging a user in.
+     * @param viewManagerModel
+     * @param loginViewModel
+     * @param homepageViewModel
+     * @param userDataAccessObject
+     * @return a new LoginView that can communicate with the necessary classes to log a user in
+     */
     public static LoginView create(
             ViewManagerModel viewManagerModel,
             LoginViewModel loginViewModel,

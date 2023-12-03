@@ -1,6 +1,7 @@
 package use_case.signup;
 
 import java.time.LocalDateTime;
+
 /**
  * SignupInputData contains all the required data for a user to sign up.
  */
