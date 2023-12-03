@@ -140,12 +140,12 @@ public class ExtensionPanelComponents {
         facebookAPIaccesstoken.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (!Character.isDigit(e.getKeyChar()) && !Character.isLetter(e.getKeyChar())) {
-                    return;
-                }
+//                if (!Character.isDigit(e.getKeyChar()) && !Character.isLetter(e.getKeyChar())) {
+//                    return;
+//                }
                 HomepageState currentState = homepageViewModel.getState();
-                String text = facebookAPIaccesstoken.getText() + e.getKeyChar();
-                currentState.setFacebookToken(text);
+//                String text = facebookAPIaccesstoken.getText() + e.getKeyChar();
+//                currentState.setFacebookToken(text);
                 HomepageViewModel viewModel = new HomepageViewModel();
                 viewModel.setState(currentState);
             }
@@ -164,12 +164,9 @@ public class ExtensionPanelComponents {
         instagramAPIAccessToken.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                if (!Character.isDigit(e.getKeyChar()) && !Character.isLetter(e.getKeyChar())) {
-                    return;
-                }
                 HomepageState currentState = homepageViewModel.getState();
-                String text = instagramAPIAccessToken.getText() + e.getKeyChar();
-                currentState.setInstagramToken(text);
+//                String text = instagramAPIAccessToken.getText() + e.getKeyChar();
+//                currentState.setInstagramToken(text);
                 HomepageViewModel viewModel = new HomepageViewModel();
                 viewModel.setState(currentState);
             }
@@ -192,6 +189,10 @@ public class ExtensionPanelComponents {
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(saveChangesButton)) {
                             HomepageState currentState = homepageViewModel.getState();
+                            currentState.setInstagramToken(instagramAPIAccessToken.getText());
+                            currentState.setFacebookToken(facebookAPIaccesstoken.getText());
+
+
                             homepageController.executeAPIChanges(currentState.getUsername(), currentState.getName(),
                                     currentState.getFacebookToken(), currentState.getInstagramToken());
                             if (currentState.getInstagramKeyError()) {
