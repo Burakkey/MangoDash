@@ -39,8 +39,6 @@ public class FacebookPanel {
         facebookDataSet.updateStats(homepageViewModel.getState().getFacebookStatsHashMap());
         homePanel.add(facebookDataSet, BorderLayout.CENTER);
 
-
-        // Configure facebookDataSet just like this pls
         return homePanel;
     }
 
