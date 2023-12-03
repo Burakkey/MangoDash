@@ -12,11 +12,15 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
     final ChangeDataOutputBoundary homepagePresenter;
 
     final InstagramAPIDataAccessInterface instagramAPIDataAccessInterface;
+    final FacebookAPIDataAccessInterface facebookAPIDataAccessInterface;
 
-    public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter, InstagramAPIDataAccessInterface instagramAPIDataAccessInterface) {
+    public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter,
+                                InstagramAPIDataAccessInterface instagramAPIDataAccessInterface,
+                                FacebookAPIDataAccessInterface facebookAPIDataAccessInterface) {
         this.changeDataAccessInterface = changeDataAccessInterface;
         this.homepagePresenter = homepagePresenter;
         this.instagramAPIDataAccessInterface = instagramAPIDataAccessInterface;
+        this.facebookAPIDataAccessInterface = facebookAPIDataAccessInterface;
     }
 
     @Override
@@ -63,6 +67,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String instagramAPIToken = changeDataInput.getInstagramAPIToken();
         changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
         instagramAPIDataAccessInterface.setAPI(instagramAPIToken);
+        facebookAPIDataAccessInterface.setApi(facebookAPIToken);
         boolean instagramKeyError = false;
         boolean facebookKeyError = false;
         try {
