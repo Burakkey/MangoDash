@@ -131,6 +131,11 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                         if (evt.getSource().equals(signUp)) {
                             SignupState currentState = signupViewModel.getState();
 
+                            currentState.setUsername(usernameInputField.getText());
+                            currentState.setPassword(passwordInputField.getText());
+                            currentState.setName(nameInputField.getText());
+                            currentState.setRepeatPassword(repeatPasswordInputField.getText());
+
                             signupController.execute(
                                     currentState.getName(),
                                     currentState.getUsername(),
@@ -165,8 +170,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                             return;
                         }
                         SignupState currentState = signupViewModel.getState();
-                        String text = nameInputField.getText() + e.getKeyChar();
-                        currentState.setName(text);
+//                        String text = nameInputField.getText() + e.getKeyChar();
+//                        currentState.setName(text);
                         signupViewModel.setState(currentState);
                     }
 
@@ -190,8 +195,8 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                             return;
                         }
                         SignupState currentState = signupViewModel.getState();
-                        String text = usernameInputField.getText() + e.getKeyChar();
-                        currentState.setUsername(text);
+//                        String text = usernameInputField.getText() + e.getKeyChar();
+//                        currentState.setUsername(text);
                         signupViewModel.setState(currentState);
                     }
 
@@ -212,7 +217,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                             return;
                         }
                         SignupState currentState = signupViewModel.getState();
-                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
+//                        currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
                         signupViewModel.setState(currentState);
                     }
 
@@ -236,7 +241,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                             return;
                         }
                         SignupState currentState = signupViewModel.getState();
-                        currentState.setRepeatPassword(repeatPasswordInputField.getText() + e.getKeyChar());
+//                        currentState.setRepeatPassword(repeatPasswordInputField.getText() + e.getKeyChar());
                         signupViewModel.setState(currentState); // Hmm, is this necessary?
                     }
 
