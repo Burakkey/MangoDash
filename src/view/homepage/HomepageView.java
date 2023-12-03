@@ -20,6 +20,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
     public final String viewName = "homepage";
     private final HomepageViewModel homepageViewModel;
     private final InstagramPanel instagramPanel;
+    private  final FacebookPanel facebookPanel;
     private final RankingPanelComponent rankingPanelComponent;
 
     private final ExtensionPanelComponents extensionPanelComponents;
@@ -32,7 +33,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
 
 
-    public HomepageView(HomepageViewModel homepageViewModel, InstagramPanel instagramPanel,
+    public HomepageView(HomepageViewModel homepageViewModel, InstagramPanel instagramPanel, FacebookPanel facebookPanel,
                         RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
                         SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, ViewManagerModel viewManagerModel,
                         JFrame application) {
@@ -42,6 +43,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         this.homepageViewModel = homepageViewModel;
         this.homepageViewModel.addPropertyChangeListener(this);
         this.instagramPanel = instagramPanel;
+        this.facebookPanel = facebookPanel;
         this.rankingPanelComponent = rankingPanelComponent;
         this.extensionPanelComponents = extensionPanelComponents;
         this.settingsPanelComponent = settingsPanelComponent;
@@ -73,6 +75,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         this.settingsPanelComponent.updatePanel(newHomepageState);
         this.extensionPanelComponents.updatePanel(newHomepageState);
         this.instagramPanel.updatePanel(newHomepageState);
+        this.facebookPanel.updatePanel(newHomepageState);
 //        this.rankingPanelComponent.updatePanel(newHomepageState);
     }
 

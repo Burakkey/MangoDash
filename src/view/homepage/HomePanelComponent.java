@@ -1,33 +1,33 @@
 package view.homepage;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.ViewModel;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.Buffer;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class HomePanelComponent {
+
+    private InstagramDataSet instagramDataSet;
+    private FacebookDataSet facebookDataSet;
+
+    public HomePanelComponent() {
+        instagramDataSet = new InstagramDataSet();
+        facebookDataSet = new FacebookDataSet();
+    }
+
+    public void updatePanel(HomepageState newState) {
+        instagramDataSet.updateStats(newState.getInstagramStatsHashMap());
+        facebookDataSet.updateStats(newState.getFacebookStatsHashMap());
+    }
 
     public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel, JFrame application) {
         JPanel homePanel = new JPanel();
@@ -38,7 +38,7 @@ public class HomePanelComponent {
         homePanel.setPreferredSize(new Dimension(200, 30));
 
         try {
-             BufferedImage picture = ImageIO.read(new File("src/assets/homepage/Home.png"));
+            BufferedImage picture = ImageIO.read(new File("src/assets/homepage/Home.png"));
             JLabel picLabel = new JLabel(new ImageIcon(picture));
             Border border = BorderFactory.createEmptyBorder(0, 0, 50, 0);
             picLabel.setBorder(border);
@@ -74,8 +74,21 @@ public class HomePanelComponent {
                 }
             }
         });
+
+        facebookButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource().equals(facebookButton)) {
+                    JDialog facebookPage = new JDialog(application, "FacebookPage", true);
+                    facebookPage.setSize(1200,650);
+                    JPanel facebookStats = FacebookPanel.getPanel(homepageViewModel, homepageController);
+                    facebookPage.add(facebookStats);
+                    facebookPage.setVisible(true);
+                }
+            }
+        });
+
         return homePanel;
     }
-
 
 }
