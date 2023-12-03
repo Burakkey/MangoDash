@@ -38,7 +38,7 @@ public class HomePanelComponent {
         homePanel.setPreferredSize(new Dimension(200, 30));
 
         try {
-             BufferedImage picture = ImageIO.read(new File("src/assets/homepage/Home.png"));
+            BufferedImage picture = ImageIO.read(new File("src/assets/homepage/Home.png"));
             JLabel picLabel = new JLabel(new ImageIcon(picture));
             Border border = BorderFactory.createEmptyBorder(0, 0, 50, 0);
             picLabel.setBorder(border);
