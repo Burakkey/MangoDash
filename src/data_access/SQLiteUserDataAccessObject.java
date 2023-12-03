@@ -59,11 +59,8 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
                             apiKeys.put(entry.getKey(), entry.getValue().toString());
                         }
 
-
                         User user = userFactory.create(name, username, password, bio, apiKeys, creationTime);
                         accounts.put(username, user);
-
-                        user.getApiKeys();
                     }
                 }
             }
@@ -81,7 +78,7 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
     @Override
     public boolean validName(String name) {
         for (int i = 0; i < name.length(); i++) {
-            if (Character.isLetter(name.charAt(i))) {
+            if (!Character.isLetter(name.charAt(i))) {
                 return false;
             }
         }
@@ -164,6 +161,7 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
     public User get(String username) {
         return accounts.get(username);
     }
+
 
     // Other methods like clear, existsByName, modifyUser to be implemented similarly
 }
