@@ -19,7 +19,7 @@ import java.beans.PropertyChangeListener;
 public class HomepageView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "homepage";
     private final HomepageViewModel homepageViewModel;
-    private final HomePanelComponent homePanelComponent;
+    private final InstagramPanel instagramPanel;
     private final RankingPanelComponent rankingPanelComponent;
 
     private final ExtensionPanelComponents extensionPanelComponents;
@@ -28,22 +28,24 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
     private final HomepageController homepageController;
 
+    private final JFrame application;
 
 
 
-
-    public HomepageView(HomepageViewModel homepageViewModel, HomePanelComponent homePanelComponent,
+    public HomepageView(HomepageViewModel homepageViewModel, InstagramPanel instagramPanel,
                         RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
-                        SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, ViewManagerModel viewManagerModel) {
+                        SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, ViewManagerModel viewManagerModel,
+                        JFrame application) {
         this.homepageController = homepageController;
         this.setPreferredSize(new Dimension(1200, 600));
 
         this.homepageViewModel = homepageViewModel;
         this.homepageViewModel.addPropertyChangeListener(this);
-        this.homePanelComponent = homePanelComponent;
+        this.instagramPanel = instagramPanel;
         this.rankingPanelComponent = rankingPanelComponent;
         this.extensionPanelComponents = extensionPanelComponents;
         this.settingsPanelComponent = settingsPanelComponent;
+        this.application = application;
 
 
         JLabel title = new JLabel("Homepage View");
@@ -54,7 +56,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setFont(homepageViewModel.getComfortaaSmall());
         tabbedPane.setPreferredSize(new Dimension(1200, 600));
-        tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, homePanelComponent.getPanel(homepageViewModel, homepageController));
+        tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, HomePanelComponent.getPanel(homepageViewModel, homepageController, viewManagerModel, application));
         tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());
         tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel(homepageViewModel, homepageController));
         tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController, viewManagerModel));
@@ -70,7 +72,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         this.homepageViewModel.setState(newHomepageState);
         this.settingsPanelComponent.updatePanel(newHomepageState);
         this.extensionPanelComponents.updatePanel(newHomepageState);
-        this.homePanelComponent.updatePanel(newHomepageState);
+        this.instagramPanel.updatePanel(newHomepageState);
 //        this.rankingPanelComponent.updatePanel(newHomepageState);
     }
 

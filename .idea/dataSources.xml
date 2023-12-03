@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="users" uuid="eebbdcd8-7693-4fe6-a649-eb435dfbd549">
+    <data-source source="LOCAL" name="testusers" uuid="33955156-eb2b-4540-b7b1-dec19f382b12">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:C:\Users\richa\IdeaProjects\yangri13\MangoDash\users.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/testusers.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

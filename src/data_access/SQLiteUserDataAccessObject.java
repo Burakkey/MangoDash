@@ -78,7 +78,7 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
     @Override
     public boolean validName(String name) {
         for (int i = 0; i < name.length(); i++) {
-            if (Character.isLetter(name.charAt(i))) {
+            if (!Character.isLetter(name.charAt(i))) {
                 return false;
             }
         }
