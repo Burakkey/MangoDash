@@ -65,6 +65,10 @@ public class HomepageState {
         return instagramStatsHashMap;
     }
 
+    public HashMap<String, Object> getFacebookStatsHashMap() {
+        return facebookStatsHashMap;
+    }
+
     public String getName() {
         return name;
     }
