@@ -38,6 +38,7 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
         HashMap<String, JSONArray> stats = new HashMap<>();
         stats.put("followers", new JSONArray());
         stats.put("posts", new JSONArray());
+        stats.put("username", new JSONArray());
 
         String userAccountId = null;
         String userAccountName = null;
@@ -70,7 +71,7 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
             for (String line; (line = reader.readLine()) != null; ) {
                 JSONObject object = new JSONObject(line);
                 userAccountName = (String) object.get("name");
-                stats.get("fullname").put(userAccountName);
+                stats.get("username").put(userAccountName);
             }
         } catch (IOException e) {
             System.out.println("Error with API call to get user full name");

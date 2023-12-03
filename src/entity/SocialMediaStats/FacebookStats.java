@@ -31,7 +31,7 @@ public class FacebookStats implements SocialMediaStats {
         return this.stats.get("followers");
     }
 
-    public JSONArray getName() {
-        return this.stats.get("fullname");
+    public JSONArray getUsername() {
+        return this.stats.get("username");
     }
 }
