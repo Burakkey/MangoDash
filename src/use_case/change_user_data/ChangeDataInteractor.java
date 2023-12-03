@@ -88,7 +88,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
         JSONArray facebookFollowers = facebookAPIDataAccessInterface.getFacebookStats().getFollowers();
         JSONArray facebookPosts = facebookAPIDataAccessInterface.getFacebookStats().getPosts();
-        JSONArray facebookName = facebookAPIDataAccessInterface.getFacebookStats().getUsername();
+        JSONArray facebookUserName = facebookAPIDataAccessInterface.getFacebookStats().getUsername();
 
         // Creating a new HashMap
         HashMap<String, Object> instagramData = new HashMap<>();
@@ -101,10 +101,11 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         instagramData.put("apiKey", instagramAPIToken);
         instagramData.put("keyError", instagramKeyError);
 
-
-
-        HashMap<String, Object> facebookData = new HashMap<>();
-        // Do the same for facebook
+        facebookData.put("followers", facebookFollowers);
+        facebookData.put("posts", facebookPosts);
+        facebookData.put("username", facebookUserName);
+        facebookData.put("apiKey", facebookAPIToken);
+        facebookData.put("keyError", facebookKeyError);
 
         ChangeDataOutput changeDataOutput = new ChangeDataOutput(instagramData, facebookData);
         homepagePresenter.prepareAPIView(changeDataOutput);
