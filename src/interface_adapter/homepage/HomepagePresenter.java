@@ -33,12 +33,12 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
     @Override
     public void prepareSuccessView(ChangeDataOutput changeDataOutput) {
         // On success, switch to the logged in view.
-        HomepageState homepageState = new HomepageState();
+        HomepageState homepageState = homepageViewModel.getState();
         homepageState.setName(changeDataOutput.getName());
         homepageState.setUsername(changeDataOutput.getUsername());
         homepageState.setBio(changeDataOutput.getBio());
-        homepageState.setInstagramToken((String) changeDataOutput.getInstagramData().get("apiKey"));  // Has to cast argument to string from Object
-        homepageState.setFacebookToken((String) changeDataOutput.getFacebookData().get("apiKey"));    // Has to cast argument to string from Object
+//        homepageState.setInstagramToken((String) changeDataOutput.getInstagramData().get("apiKey"));  // Has to cast argument to string from Object
+//        homepageState.setFacebookToken((String) changeDataOutput.getFacebookData().get("apiKey"));    // Has to cast argument to string from Object
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.homepageViewModel.firePropertyChanged();
