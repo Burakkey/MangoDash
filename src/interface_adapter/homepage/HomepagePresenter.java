@@ -50,10 +50,12 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
     @Override
     public void prepareAPIView(ChangeDataOutput changeDataOutput) {
         HashMap<String, Object> instagramStatsHashMap = makeInstagramStatsHashmap(changeDataOutput);
+        HashMap<String, Object> facebookStatsHashMap = makeFacebookStatsHashmap(changeDataOutput);
         HomepageState homepageState = homepageViewModel.getState();
         homepageState.setInstagramKeyError((Boolean) changeDataOutput.getInstagramData().get("keyError"));
         homepageState.setFacebookKeyError((Boolean) changeDataOutput.getFacebookData().get("keyError"));
         homepageState.setInstagramStatsHashMap(instagramStatsHashMap);
+        homepageState.setFacebookStatsHashMap(facebookStatsHashMap);
         this.homepageViewModel.firePropertyChanged();
         this.viewManagerModel.firePropertyChanged();
     }
