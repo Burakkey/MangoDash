@@ -40,30 +40,22 @@ public class HomePanelComponent {
         JPanel homePanel = new JPanel();
         homePanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
 
-        homePanel.setLayout(new BorderLayout());
+        homePanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
 
         instagramDataSet.updateStats(homepageViewModel.getState().getInstagramStatsHashMap());
         facebookDataSet.updateStats(homepageViewModel.getState().getFacebookStatsHashMap());
-//
-//        homePanel.setLayout(new GridBagLayout());
-//        GridBagConstraints gbc = new GridBagConstraints();
-//        gbc.gridx = 0;
-//        gbc.gridy = 0;
-//        gbc.weightx = 1;
-//        gbc.weighty = 1;
-//        gbc.fill = GridBagConstraints.BOTH;
-//
-//        instagramDataSet.updateStats(homepageViewModel.getState().getInstagramStatsHashMap());
-//        facebookDataSet.updateStats(homepageViewModel.getState().getFacebookStatsHashMap());
-//
-//        homePanel.add(facebookDataSet, gbc);
-//        gbc.gridy = 1;  // Move to the next row
-//        gbc.weighty = 1;  // Reset weighty for the second row
-//
-//        homePanel.add(instagramDataSet, gbc);
 
-        homePanel.add(instagramDataSet, BorderLayout.CENTER);
-        homePanel.add(facebookDataSet, BorderLayout.CENTER);
+        homePanel.add(facebookDataSet, gbc);
+        gbc.gridx = 1;  // Move to the next column
+        gbc.weighty = 1;
+
+        homePanel.add(instagramDataSet, gbc);
 
         return homePanel;
     }
@@ -123,7 +115,7 @@ class FacebookDataSet extends JPanel {
         if (!likesPerPost.isEmpty() || !commentsPerPost.isEmpty()) {
             add(createTitle());
 
-            Border emptyBorder = BorderFactory.createEmptyBorder(0, 300, 50, 300);
+            Border emptyBorder = BorderFactory.createEmptyBorder(0, 0, 50, 0);
             Border outlineBorder = BorderFactory.createLineBorder(Color.BLACK);
             Border border = new CompoundBorder(emptyBorder, outlineBorder);
             GridLayout layout = new GridLayout(0, 2);
@@ -177,7 +169,7 @@ class FacebookDataSet extends JPanel {
     }
 
     private JPanel createTitle() {
-        Border emptyBorder = BorderFactory.createEmptyBorder(50, 200, 50, 200);
+        Border emptyBorder = BorderFactory.createEmptyBorder(50, 0, 50, 0);
         Border outlineBorder = BorderFactory.createLineBorder(Color.BLACK);
         Border border = new CompoundBorder(emptyBorder, outlineBorder);
 
@@ -185,7 +177,7 @@ class FacebookDataSet extends JPanel {
         panel.setBorder(border);
         JPanel titlePanel = new JPanel();
         JLabel titleLabel = new JLabel(username + "'s Facebook Stats");
-        titleLabel.setFont(new HomepageViewModel().getComfortaaMedium());
+        titleLabel.setFont(new HomepageViewModel().getComfortaaSmall());
         titlePanel.add(titleLabel);
         titlePanel.setBackground(HomepageViewModel.GRAPH_ORANGE);
 
@@ -219,7 +211,7 @@ class FacebookDataSet extends JPanel {
 
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
-        Border emptyBorder = BorderFactory.createEmptyBorder(0, 50, 50, 50);
+        Border emptyBorder = BorderFactory.createEmptyBorder(0, 5, 50, 5);
         chartPanel.setBorder(emptyBorder);
 
         return chartPanel;
@@ -279,7 +271,7 @@ class InstagramDataSet extends JPanel {
         if (!likesPerPost.isEmpty() || !commentsPerPost.isEmpty()) {
             add(createTitle());
 
-            Border emptyBorder = BorderFactory.createEmptyBorder(0, 300, 50, 300);
+            Border emptyBorder = BorderFactory.createEmptyBorder(0, 0, 50, 0);
             Border outlineBorder = BorderFactory.createLineBorder(Color.BLACK);
             Border border = new CompoundBorder(emptyBorder, outlineBorder);
             GridLayout layout = new GridLayout(0, 2);
@@ -333,7 +325,7 @@ class InstagramDataSet extends JPanel {
     }
 
     private JPanel createTitle() {
-        Border emptyBorder = BorderFactory.createEmptyBorder(50, 200, 50, 200);
+        Border emptyBorder = BorderFactory.createEmptyBorder(50, 0, 50, 0);
         Border outlineBorder = BorderFactory.createLineBorder(Color.BLACK);
         Border border = new CompoundBorder(emptyBorder, outlineBorder);
 
@@ -341,7 +333,7 @@ class InstagramDataSet extends JPanel {
         panel.setBorder(border);
         JPanel titlePanel = new JPanel();
         JLabel titleLabel = new JLabel(username + "'s Instagram Stats");
-        titleLabel.setFont(new HomepageViewModel().getComfortaaMedium());
+        titleLabel.setFont(new HomepageViewModel().getComfortaaSmall());
         titlePanel.add(titleLabel);
         titlePanel.setBackground(HomepageViewModel.GRAPH_ORANGE);
 
@@ -375,7 +367,7 @@ class InstagramDataSet extends JPanel {
 
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
-        Border emptyBorder = BorderFactory.createEmptyBorder(0, 50, 50, 50);
+        Border emptyBorder = BorderFactory.createEmptyBorder(0, 5, 50, 5);
         chartPanel.setBorder(emptyBorder);
 
         return chartPanel;
