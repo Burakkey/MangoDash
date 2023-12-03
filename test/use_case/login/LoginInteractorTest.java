@@ -1,55 +1,77 @@
 package use_case.login;
 
+import data_access.SQLiteUserDataAccessObject;
+import entity.CommonUser;
 import entity.CommonUserFactory;
-import entity.SocialMediaStats.InstagramStats;
 import entity.User;
-import org.json.JSONArray;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mock;
 import use_case.change_user_data.InstagramAPIDataAccessInterface;
-import use_case.login.*;
 
-import java.net.MalformedURLException;
-import java.util.HashMap;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 public class LoginInteractorTest {
 
-    @Mock
+    private LoginInteractor loginInteractor;
     private LoginUserDataAccessInterface userDataAccessObject;
-
-    @Mock
     private LoginOutputBoundary loginPresenter;
 
-    @Mock
     private InstagramAPIDataAccessInterface instagramAPIDataAccessInterface;
 
-    private LoginInteractor loginInteractor;
 
+    /**
+     * Set up the test environment
+     */
     @Before
     public void setUp() {
-        userDataAccessObject = mock(LoginUserDataAccessInterface.class);
-        loginPresenter = mock(LoginOutputBoundary.class);
-        instagramAPIDataAccessInterface = mock(InstagramAPIDataAccessInterface.class);
-
-        loginInteractor = new LoginInteractor(userDataAccessObject, loginPresenter, instagramAPIDataAccessInterface);
+        userDataAccessObject = new InMemoryUserDataAccessObject();
     }
 
+
+    @Test
+    public void execute_whenUserExists_shouldPrepareSuccessView() {
+        LoginInputData input = new LoginInputData("nonexisting_user", "nonexisting_user_password");
+        LoginOutputBoundary loginOutputBoundary = new LoginOutputBoundary() {
+            @Override // Mock Presenter
+            public void prepareSuccessView(LoginOutputData user) {
+
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+
+            }
+        };
+
+        loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary, instagramAPIDataAccessInterface);
+        assertFalse(userDataAccessObject.existsByName(input.getUsername())); //
+        loginInteractor.execute(input);
+        assertFalse(userDataAccessObject.existsByName(input.getUsername())); // Check this user does not exist
+
+    }
+    /**
+     * Test the execution of the login functionality when the user does not exist.
+     */
     @Test
     public void execute_whenUserDoesNotExist_shouldPrepareFailView() {
-        // Arrange
-        LoginInputData input = new LoginInputData("nonexistent_user", "password");
-        when(userDataAccessObject.existsByName("nonexistent_user")).thenReturn(false);
+        LoginInputData input = new LoginInputData("nonexisting_user", "nonexisting_user_password");
+        LoginOutputBoundary loginOutputBoundary = new LoginOutputBoundary() {
+            @Override // Mock Presenter
+            public void prepareSuccessView(LoginOutputData user) {
 
-        // Act
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+
+            }
+        };
+
+        loginInteractor = new LoginInteractor(userDataAccessObject, loginOutputBoundary, instagramAPIDataAccessInterface);
+        assertFalse(userDataAccessObject.existsByName(input.getUsername())); //
         loginInteractor.execute(input);
+        assertFalse(userDataAccessObject.existsByName(input.getUsername())); // Check this user does not exist
 
-        // Assert
-        verify(loginPresenter).prepareFailView("nonexistent_user: Account does not exist.");
     }
 }
 

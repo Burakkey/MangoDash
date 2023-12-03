@@ -6,7 +6,7 @@ import entity.SocialMediaStats.SocialMediaStats;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
-class CommonUser implements User {
+public class CommonUser implements User {
 
     private String bio;
     private String name;
@@ -21,7 +21,7 @@ class CommonUser implements User {
      * @param name
      * @param password
      */
-    CommonUser(String name, String username, String password, String bio, HashMap<String, String> apiKeys, LocalDateTime creationTime) {
+    public CommonUser(String name, String username, String password, String bio, HashMap<String, String> apiKeys, LocalDateTime creationTime) {
         this.name = name;
         this.username = username;
         this.password = password;
