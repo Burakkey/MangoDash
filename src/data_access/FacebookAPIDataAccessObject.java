@@ -145,8 +145,8 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
                     // Create hashmap of id, like count, and comment count
                     HashMap<String, Integer> id_likes_comments = new HashMap<>();
                     id_likes_comments.put("postnumber", i);  // Post number not to be confused with post id
-                    id_likes_comments.put("likes", (Integer) postSummaryReactions.get("total_count"));
-                    id_likes_comments.put("comments", (Integer) postSummaryComments.get("total_count"));
+                    id_likes_comments.put("like_count", (Integer) postSummaryReactions.get("total_count"));
+                    id_likes_comments.put("comments_count", (Integer) postSummaryComments.get("total_count"));
 
                     // add hashmap to array
                     posts_cleaned.put(id_likes_comments);
