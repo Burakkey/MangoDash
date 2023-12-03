@@ -40,6 +40,7 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
         stats.put("posts", new JSONArray());
 
         String userAccountId = null;
+        String userAccountName = null;
 
         // Retrieve User's ID
         URL urlGetId = new URL(
@@ -59,6 +60,26 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
         if (userAccountId == null) {
             return;
         }
+
+        // Retrieve User's Full Name
+        URL urlGetName = new URL(
+                "https://graph.facebook.com/v18.0/" + userAccountId + "?fields=name&access_token="
+                        + apiKey);
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(urlGetName.openStream(), "UTF-8"))) {
+            for (String line; (line = reader.readLine()) != null; ) {
+                JSONObject object = new JSONObject(line);
+                userAccountName = (String) object.get("name");
+                stats.get("fullname").put(userAccountName);
+            }
+        } catch (IOException e) {
+            System.out.println("Error with API call to get user full name");
+        }
+
+        if (userAccountName == null) {
+            return;
+        }
+
 
         // Retrieve User Friend Count
         URL urlGetFriendsInfo = new URL(
