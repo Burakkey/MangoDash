@@ -172,68 +172,6 @@ public class SettingsPanelComponent {
         gbc.gridy = 1;
         settingsPanel.add(buttonsPanel, gbc);
 
-        nameInputField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                HomepageState currentState = homepageViewModel.getState();
-                String text = nameInputField.getText() + e.getKeyChar();
-                currentState.setName(text);
-                HomepageViewModel viewModel = new HomepageViewModel();
-                viewModel.setState(currentState);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // Handle key pressed event if needed
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                // Handle key released event if needed
-            }
-        });
-
-        usernameInputField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                HomepageState currentState = homepageViewModel.getState();
-                currentState.setUsername(currentState.getUsername());
-                HomepageViewModel viewModel = new HomepageViewModel();
-                viewModel.setState(currentState);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
-
-        bioInputField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                HomepageState currentState = homepageViewModel.getState();
-                String text = bioInputField.getText() + e.getKeyChar();
-                currentState.setBio(text);
-                HomepageViewModel viewModel = new HomepageViewModel();
-                viewModel.setState(currentState);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                // Handle key pressed event if needed
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                // Handle key released event if needed
-            }
-        });
-
         changePasswordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -316,6 +254,9 @@ public class SettingsPanelComponent {
                     public void actionPerformed(ActionEvent e) {
                         if (e.getSource().equals(saveChangesButton)) {
                             HomepageState currentState = homepageViewModel.getState();
+                            currentState.setUsername(usernameInputField.getText());
+                            currentState.setName(nameInputField.getText());
+                            currentState.setBio(bioInputField.getText());
                             homepageController.executeSaveChanges(currentState.getUsername(), currentState.getName(), currentState.getBio());
 
                         }
