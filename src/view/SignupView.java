@@ -161,6 +161,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
+                        if (!Character.isDigit(e.getKeyChar()) && !Character.isLetter(e.getKeyChar())) {
+                            return;
+                        }
                         SignupState currentState = signupViewModel.getState();
                         String text = nameInputField.getText() + e.getKeyChar();
                         currentState.setName(text);
@@ -183,6 +186,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
+                        if (!Character.isDigit(e.getKeyChar()) && !Character.isLetter(e.getKeyChar())) {
+                            return;
+                        }
                         SignupState currentState = signupViewModel.getState();
                         String text = usernameInputField.getText() + e.getKeyChar();
                         currentState.setUsername(text);
@@ -202,6 +208,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
+                        if (!Character.isDigit(e.getKeyChar()) && !Character.isLetter(e.getKeyChar())) {
+                            return;
+                        }
                         SignupState currentState = signupViewModel.getState();
                         currentState.setPassword(passwordInputField.getText() + e.getKeyChar());
                         signupViewModel.setState(currentState);
@@ -223,6 +232,9 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent e) {
+                        if (!Character.isDigit(e.getKeyChar()) && !Character.isLetter(e.getKeyChar())) {
+                            return;
+                        }
                         SignupState currentState = signupViewModel.getState();
                         currentState.setRepeatPassword(repeatPasswordInputField.getText() + e.getKeyChar());
                         signupViewModel.setState(currentState); // Hmm, is this necessary?

@@ -140,6 +140,9 @@ public class ExtensionPanelComponents {
         facebookAPIaccesstoken.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                if (!Character.isDigit(e.getKeyChar()) && !Character.isLetter(e.getKeyChar())) {
+                    return;
+                }
                 HomepageState currentState = homepageViewModel.getState();
                 String text = facebookAPIaccesstoken.getText() + e.getKeyChar();
                 currentState.setFacebookToken(text);
@@ -161,6 +164,9 @@ public class ExtensionPanelComponents {
         instagramAPIAccessToken.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                if (!Character.isDigit(e.getKeyChar()) && !Character.isLetter(e.getKeyChar())) {
+                    return;
+                }
                 HomepageState currentState = homepageViewModel.getState();
                 String text = instagramAPIAccessToken.getText() + e.getKeyChar();
                 currentState.setInstagramToken(text);
