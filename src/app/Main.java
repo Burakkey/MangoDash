@@ -63,6 +63,9 @@ public class Main {
                 extensionPanelComponents, settingsPanelComponent, userDataAccessObject);
         views.add(homepageView, homepageView.viewName);
 
+        InstagramPageView instagramPageView = new InstagramPageView(homepageViewModel, viewManagerModel);
+        views.add(instagramPageView, instagramPageView.viewName);
+
 
         LoginHomeView loginHomeView = new LoginHomeView(loginHomeViewModel, viewManagerModel);
         views.add(loginHomeView, loginHomeView.viewName);

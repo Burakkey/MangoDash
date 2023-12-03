@@ -16,6 +16,10 @@ public class HomepageViewModel extends ViewModel {
 
     public static final String ACCOUNT_TAB_LABEL = "Settings";
 
+    public static final String INSTAGRAM = "Instagram";
+
+    public static final String FACEBOOK = "Facebook";
+
     public static final String SHOW_INSTAGRAM_GRAPH_LABEL = "Show Instagram Graph";
 
     public static final String LOG_OUT_BUTTON_LABEL = "Logout";
