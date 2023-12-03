@@ -1,7 +1,9 @@
 package app;
 
+import data_access.FacebookAPIDataAccessObject;
 import data_access.InstagramAPIDataAccessObject;
 import entity.CommonUserFactory;
+import entity.SocialMediaStats.FacebookStats;
 import entity.SocialMediaStats.InstagramStats;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -21,14 +23,14 @@ import java.io.IOException;
  */
 public class HomepageUseCaseFactory {
     public static HomepageView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
-                                      HomepageViewModel homepageViewModel, InstagramPanel instagramPanel,
+                                      HomepageViewModel homepageViewModel, InstagramPanel instagramPanel, FacebookPanel facebookPanel,
                                       RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
                                       SettingsPanelComponent settingsPanelComponent, ChangeDataAccessInterface changeDataAccessInterface,
                                       JFrame application){
         try {
             HomepageController homepageController = createHomepageUseCase(viewManagerModel, loginViewModel,
                     homepageViewModel, changeDataAccessInterface);
-            return new HomepageView(homepageViewModel, instagramPanel, rankingPanelComponent, extensionPanelComponents, settingsPanelComponent, homepageController, viewManagerModel, application);
+            return new HomepageView(homepageViewModel, instagramPanel, facebookPanel, rankingPanelComponent, extensionPanelComponents, settingsPanelComponent, homepageController, viewManagerModel, application);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -43,8 +45,10 @@ public class HomepageUseCaseFactory {
         ChangeDataOutputBoundary changeDataOutputBoundary = new HomepagePresenter(loginViewModel, homepageViewModel, viewManagerModel);
         UserFactory userFactory = new CommonUserFactory();
         InstagramStats instagramStats = new InstagramStats();
+        FacebookStats facebookStats = new FacebookStats();
         InstagramAPIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
-        ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary, instagramAPIDataAccessInterface);
+        FacebookAPIDataAccessInterface facebookAPIDataAccessInterface = new FacebookAPIDataAccessObject("", facebookStats);
+        ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary, instagramAPIDataAccessInterface, facebookAPIDataAccessInterface);
         return new HomepageController(changeDataInteractor);
     }
 }

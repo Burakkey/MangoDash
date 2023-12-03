@@ -1,4 +1,5 @@
 package view.homepage;
+
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
@@ -17,36 +18,33 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-public class InstagramPanel {
+public class FacebookPanel {
 
-    private static InstagramDataSet instagramDataSet;
+    private static FacebookDataSet facebookDataSet;
     public JFrame application;
 
-    public InstagramPanel(JFrame application) {
-        instagramDataSet = new InstagramDataSet();
+    public FacebookPanel(JFrame application) {
+        facebookDataSet = new FacebookDataSet();
         this.application = application;
-        // Initialize other components
     }
 
     public void updatePanel(HomepageState newState) {
-        instagramDataSet.updateStats(newState.getInstagramStatsHashMap());
+        facebookDataSet.updateStats(newState.getFacebookStatsHashMap());
     }
 
     public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController) {
         JPanel homePanel = new JPanel();
         homePanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
         homePanel.setLayout(new BorderLayout());
-        instagramDataSet.updateStats(homepageViewModel.getState().getInstagramStatsHashMap());
-        homePanel.add(instagramDataSet, BorderLayout.CENTER);
+        facebookDataSet.updateStats(homepageViewModel.getState().getFacebookStatsHashMap());
+        homePanel.add(facebookDataSet, BorderLayout.CENTER);
 
-
-        // Configure facebookDataSet just like this pls
         return homePanel;
     }
 
 }
 
-class InstagramDataSet extends JPanel {
+class FacebookDataSet extends JPanel {
 
     private int followersCount;
     private int maxLikes;
@@ -55,10 +53,10 @@ class InstagramDataSet extends JPanel {
     private int totalComments;
     private double averageLikes;
     private double averageComments;
-    private List<Integer> likesPerPost;
-    private List<Integer> commentsPerPost;
+    private java.util.List<Integer> likesPerPost;
+    private java.util.List<Integer> commentsPerPost;
     private String username;
-    public InstagramDataSet() {
+    public FacebookDataSet() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
@@ -85,8 +83,8 @@ class InstagramDataSet extends JPanel {
             this.maxComments = (int) stats.get("maxComments");
             this.averageLikes = (double) stats.get("averageLikes");
             this.averageComments = (double) stats.get("averageComments");
-            this.likesPerPost = (List<Integer>) stats.get("likesPerPost");
-            this.commentsPerPost = (List<Integer>) stats.get("commentsPerPost");
+            this.likesPerPost = (java.util.List<Integer>) stats.get("likesPerPost");
+            this.commentsPerPost = (java.util.List<Integer>) stats.get("commentsPerPost");
             this.username = (String) stats.get("username");
         }
 
@@ -108,7 +106,7 @@ class InstagramDataSet extends JPanel {
             stats.setBorder(border);
             stats.setBackground(HomepageViewModel.BACKGROUND_COLOR);
 
-            stats.add(createStatPanel("Followers Count", followersCount));
+            stats.add(createStatPanel("Friend Count", followersCount));
             stats.add(createStatPanel("Max Likes", maxLikes));
             stats.add(createStatPanel("Total Likes", totalLikes));
             stats.add(createStatPanel("Total Comments", totalComments));
@@ -160,7 +158,7 @@ class InstagramDataSet extends JPanel {
         JPanel panel = new JPanel(new GridLayout());
         panel.setBorder(border);
         JPanel titlePanel = new JPanel();
-        JLabel titleLabel = new JLabel(username + "'s Instagram Stats");
+        JLabel titleLabel = new JLabel(username + "'s Facebook Stats");
         titleLabel.setFont(new HomepageViewModel().getComfortaaMedium());
         titlePanel.add(titleLabel);
         titlePanel.setBackground(HomepageViewModel.GRAPH_ORANGE);

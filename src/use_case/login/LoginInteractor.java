@@ -2,6 +2,7 @@ package use_case.login;
 
 import entity.User;
 import org.json.JSONArray;
+import use_case.change_user_data.FacebookAPIDataAccessInterface;
 import use_case.change_user_data.InstagramAPIDataAccessInterface;
 
 import java.net.MalformedURLException;
@@ -17,7 +18,7 @@ public class LoginInteractor implements LoginInputBoundary {
 
     final InstagramAPIDataAccessInterface instagramAPIDataAccessInterface;
 
-//    final InstagramAPIDataAccessInterface facebookAPIDataAccessInterface;
+    final FacebookAPIDataAccessInterface facebookAPIDataAccessInterface;
 
     /**
      * Creates a new LoginInteractor.
@@ -26,11 +27,13 @@ public class LoginInteractor implements LoginInputBoundary {
      *                           layers (presenter), related to the action of logging up
      */
     public LoginInteractor(LoginUserDataAccessInterface userDataAccessInterface,
-                           LoginOutputBoundary loginOutputBoundary, InstagramAPIDataAccessInterface instagramAPIDataAccessInterface) {
+                           LoginOutputBoundary loginOutputBoundary,
+                           InstagramAPIDataAccessInterface instagramAPIDataAccessInterface,
+                           FacebookAPIDataAccessInterface facebookAPIDataAccessInterface) {
         this.userDataAccessObject = userDataAccessInterface;
         this.loginPresenter = loginOutputBoundary;
         this.instagramAPIDataAccessInterface = instagramAPIDataAccessInterface;
-//        this.facebookAPIDataAccessInterface = facebookAPIDataAccessInterface;
+        this.facebookAPIDataAccessInterface = facebookAPIDataAccessInterface;
     }
 
     /**
@@ -57,8 +60,10 @@ public class LoginInteractor implements LoginInputBoundary {
                 String instagramApiKey = (apiKeys != null && apiKeys.containsKey("Instagram")) ? apiKeys.get("Instagram") : "";
 
                 instagramAPIDataAccessInterface.setAPI(instagramApiKey);
+                facebookAPIDataAccessInterface.setApi(facebookApiKey);
                 try {
                     instagramAPIDataAccessInterface.fetchData();
+                    facebookAPIDataAccessInterface.fetchData();
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);
                 }
@@ -67,17 +72,24 @@ public class LoginInteractor implements LoginInputBoundary {
                 JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
                 JSONArray instagramUsername = instagramAPIDataAccessInterface.getInstagramStats().getUsername();
 
-                // Add getusername function here
+                JSONArray facebookFollowers = facebookAPIDataAccessInterface.getFacebookStats().getFollowers();
+                JSONArray facebookPosts = facebookAPIDataAccessInterface.getFacebookStats().getPosts();
+                JSONArray facebookUsername = facebookAPIDataAccessInterface.getFacebookStats().getUsername();
+
                 // Creating a new HashMap
                 HashMap<String, Object> instagramData = new HashMap<>();
+                HashMap<String, Object> facebookData = new HashMap<>();
+
                 // Adding the JSONArray objects to the HashMap
                 instagramData.put("followers", instagramFollowers);
                 instagramData.put("posts", instagramPosts);
                 instagramData.put("username", instagramUsername);
                 instagramData.put("apiKey", instagramApiKey);
 
-                HashMap<String, Object> facebookData = new HashMap<>();
-                // Do the same for facebook
+                facebookData.put("followers", facebookFollowers);
+                facebookData.put("posts", facebookPosts);
+                facebookData.put("username", facebookUsername);
+                facebookData.put("apiKey", facebookApiKey);
 
                 LoginOutputData loginOutputData = new LoginOutputData(user.getName(), user.getUserName(), user.getBio(), instagramData, facebookData, false);
                 loginPresenter.prepareSuccessView(loginOutputData);

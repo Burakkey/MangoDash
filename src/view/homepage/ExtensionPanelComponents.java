@@ -152,9 +152,13 @@ public class ExtensionPanelComponents {
                                     currentState.getFacebookToken(), currentState.getInstagramToken());
                             if (currentState.getInstagramKeyError()) {
                                 JOptionPane.showMessageDialog(null, "Invalid Instagram API key", "Error", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Successfully Validated Instagram API key", "Success", JOptionPane.ERROR_MESSAGE);
                             }
                             if (currentState.getFacebookKeyError()){
-                                JOptionPane.showMessageDialog(null, "Invalid Instagram API key", "Error", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null, "Invalid Facebook API key", "Error", JOptionPane.ERROR_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Successfully Validated Facebook API key", "Success", JOptionPane.ERROR_MESSAGE);
                             }
                         }
                     }
