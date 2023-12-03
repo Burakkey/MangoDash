@@ -22,10 +22,12 @@ import java.util.Map;
 
 public class HomePanelComponent {
 
-    private InstagramDataSet instagramDataSet;
+    private static InstagramDataSet instagramDataSet;
+    public JFrame application;
 
-    public HomePanelComponent() {
+    public HomePanelComponent(JFrame application) {
         instagramDataSet = new InstagramDataSet();
+        this.application = application;
         // Initialize other components
     }
 
@@ -33,7 +35,7 @@ public class HomePanelComponent {
         instagramDataSet.updateStats(newState.getInstagramStatsHashMap());
     }
 
-    public JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController) {
+    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController) {
         JPanel homePanel = new JPanel();
         homePanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
         homePanel.setLayout(new BorderLayout());

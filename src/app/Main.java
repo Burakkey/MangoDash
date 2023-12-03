@@ -55,16 +55,15 @@ public class Main {
         LoginView loginView = LoginUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, userDataAccessObject);
         views.add(loginView, loginView.viewName);
 
-        HomePanelComponent homePanelComponent = new HomePanelComponent();
+        HomePanelComponent homePanelComponent = new HomePanelComponent(application);
         RankingPanelComponent rankingPanelComponent = new RankingPanelComponent();
         ExtensionPanelComponents extensionPanelComponents = new ExtensionPanelComponents();
         SettingsPanelComponent settingsPanelComponent = new SettingsPanelComponent();
         HomepageView homepageView = HomepageUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, homePanelComponent, rankingPanelComponent,
-                extensionPanelComponents, settingsPanelComponent, userDataAccessObject);
+                extensionPanelComponents, settingsPanelComponent, userDataAccessObject, application);
         views.add(homepageView, homepageView.viewName);
 
-        InstagramPageView instagramPageView = new InstagramPageView(homepageViewModel, viewManagerModel);
-        views.add(instagramPageView, instagramPageView.viewName);
+        //
 
 
         LoginHomeView loginHomeView = new LoginHomeView(loginHomeViewModel, viewManagerModel);

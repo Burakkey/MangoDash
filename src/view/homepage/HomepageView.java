@@ -28,13 +28,14 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
     private final HomepageController homepageController;
 
-
+    private final JFrame application;
 
 
 
     public HomepageView(HomepageViewModel homepageViewModel, HomePanelComponent homePanelComponent,
                         RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
-                        SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, ViewManagerModel viewManagerModel) {
+                        SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, ViewManagerModel viewManagerModel,
+                        JFrame application) {
         this.homepageController = homepageController;
         this.setPreferredSize(new Dimension(1200, 600));
 
@@ -44,6 +45,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         this.rankingPanelComponent = rankingPanelComponent;
         this.extensionPanelComponents = extensionPanelComponents;
         this.settingsPanelComponent = settingsPanelComponent;
+        this.application = application;
 
 
         JLabel title = new JLabel("Homepage View");
@@ -54,7 +56,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setFont(homepageViewModel.getComfortaaSmall());
         tabbedPane.setPreferredSize(new Dimension(1200, 600));
-        tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, HomePanelC.getPanel(homepageViewModel, homepageController, viewManagerModel));
+        tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, HomePanelC.getPanel(homepageViewModel, homepageController, viewManagerModel, application));
         tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());
         tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel(homepageViewModel, homepageController));
         tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController, viewManagerModel));

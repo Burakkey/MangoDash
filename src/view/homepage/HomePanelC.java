@@ -29,6 +29,7 @@ import java.util.Map;
 public class HomePanelC {
     private InstagramDataSet instagramDataSet;
 
+
     public HomePanelC() {
         instagramDataSet = new InstagramDataSet();
         // Initialize other components
@@ -38,7 +39,7 @@ public class HomePanelC {
         instagramDataSet.updateStats(newState.getInstagramStatsHashMap());
     }
 
-    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel) {
+    public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel, JFrame application) {
         JPanel homePanel = new JPanel();
 
         homePanel.setLayout(new GridBagLayout());
@@ -75,8 +76,11 @@ public class HomePanelC {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource().equals(instagramButton)) {
-                    viewManagerModel.setActiveView("Instapage");
-                    viewManagerModel.firePropertyChanged();
+                    JDialog instagramPage = new JDialog(application, "InstagramPage", true);
+                    instagramPage.setSize(1200,650);
+                    JPanel instagramStats = HomePanelComponent.getPanel(homepageViewModel, homepageController);
+                    instagramPage.add(instagramStats);
+                    instagramPage.setVisible(true);
                 }
             }
         });
