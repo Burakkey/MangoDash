@@ -5,28 +5,36 @@ import entity.CommonUserFactory;
 import entity.User;
 import org.junit.Before;
 import org.junit.Test;
+import use_case.change_user_data.FacebookAPIDataAccessInterface;
 import use_case.change_user_data.InstagramAPIDataAccessInterface;
 import use_case.signup.SignupInputData;
 import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupOutputData;
 import use_case.signup.SignupUserDataAccessInterface;
 
+import java.io.File;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
 public class LoginInteractorTest {
+    private FacebookAPIDataAccessInterface facebookAPI;
     private InstagramAPIDataAccessInterface instagramAPI;
     private CommonUserFactory userFactory;
+    private HashMap<String, String> apiKeys;
     @Before
     public void setUp(){
         userFactory = new CommonUserFactory();
+        apiKeys = new HashMap<>();
+        apiKeys.put("Facebook", "");
+        apiKeys.put("Instagram","");
     }
-// TODO - ??
+
     @Test
     public void successTest() throws ClassNotFoundException {
 
-        User user = userFactory.create("name", "username", "password", "bio", null, LocalDateTime.now());
+        User user = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
         LoginInputData inputData = new LoginInputData("username", "password");
         LoginUserDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
         userRepository.save(user);
@@ -36,7 +44,9 @@ public class LoginInteractorTest {
 
             @Override
             public void prepareSuccessView(LoginOutputData user) {
-                assertFalse(userRepository.existsByName("username"));
+                //TODO WHAT ELSE & PROBLEM
+                assertTrue(userRepository.existsByName(user.getUsername()));
+                assertEquals("bio", user.getBio());
             }
 
             @Override
@@ -45,12 +55,13 @@ public class LoginInteractorTest {
             }
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter, instagramAPI);
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter, instagramAPI, facebookAPI);
         interactor.execute(inputData);
+
     }
     @Test
     public void WrongPasswordForExistedUser() throws ClassNotFoundException{
-        User user = userFactory.create("name", "User", "password", "bio", null, LocalDateTime.now());
+        User user = userFactory.create("name", "User", "password", "bio", apiKeys, LocalDateTime.now());
         LoginInputData inputData = new LoginInputData("User", "WronngPassword");
         LoginUserDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
         userRepository.save(user);
@@ -67,9 +78,8 @@ public class LoginInteractorTest {
             }
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(userRepository, failPresenter, instagramAPI);
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, failPresenter, instagramAPI, facebookAPI);
         interactor.execute(inputData);
-
 
     }
 
@@ -90,9 +100,8 @@ public class LoginInteractorTest {
             }
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(userRepository, failPresenter, instagramAPI);
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, failPresenter, instagramAPI, facebookAPI);
         interactor.execute(inputData);
-
 
     }
 

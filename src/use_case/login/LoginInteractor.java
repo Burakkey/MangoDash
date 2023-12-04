@@ -59,8 +59,10 @@ public class LoginInteractor implements LoginInputBoundary {
                 String facebookApiKey = (apiKeys != null && apiKeys.containsKey("Facebook")) ? apiKeys.get("Facebook") : "";
                 String instagramApiKey = (apiKeys != null && apiKeys.containsKey("Instagram")) ? apiKeys.get("Instagram") : "";
 
-                instagramAPIDataAccessInterface.setAPI(instagramApiKey);
                 facebookAPIDataAccessInterface.setApi(facebookApiKey);
+                instagramAPIDataAccessInterface.setAPI(instagramApiKey);
+
+
                 try {
                     instagramAPIDataAccessInterface.fetchData();
                     facebookAPIDataAccessInterface.fetchData();
