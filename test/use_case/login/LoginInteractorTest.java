@@ -1,10 +1,15 @@
 package use_case.login;
 
+import data_access.FacebookAPIDataAccessObject;
+import data_access.InstagramAPIDataAccessObject;
 import data_access.SQLiteUserDataAccessObject;
 import entity.CommonUserFactory;
+import entity.SocialMediaStats.FacebookStats;
+import entity.SocialMediaStats.InstagramStats;
 import entity.User;
 import org.junit.Before;
 import org.junit.Test;
+import use_case.change_user_data.FacebookAPIDataAccessInterface;
 import use_case.change_user_data.InstagramAPIDataAccessInterface;
 import use_case.signup.SignupInputData;
 import use_case.signup.SignupOutputBoundary;
@@ -16,13 +21,14 @@ import java.time.LocalDateTime;
 import static org.junit.Assert.*;
 
 public class LoginInteractorTest {
+    private FacebookAPIDataAccessInterface facebookAPI;
     private InstagramAPIDataAccessInterface instagramAPI;
     private CommonUserFactory userFactory;
     @Before
     public void setUp(){
         userFactory = new CommonUserFactory();
     }
-// TODO - ??
+// TODO - ?? HISHAM
     @Test
     public void successTest() throws ClassNotFoundException {
 
@@ -45,7 +51,7 @@ public class LoginInteractorTest {
             }
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter, instagramAPI);
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter, instagramAPI, facebookAPI);
         interactor.execute(inputData);
     }
     @Test
@@ -67,7 +73,7 @@ public class LoginInteractorTest {
             }
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(userRepository, failPresenter, instagramAPI);
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, failPresenter, instagramAPI, facebookAPI);
         interactor.execute(inputData);
 
 
@@ -90,7 +96,7 @@ public class LoginInteractorTest {
             }
         };
 
-        LoginInputBoundary interactor = new LoginInteractor(userRepository, failPresenter, instagramAPI);
+        LoginInputBoundary interactor = new LoginInteractor(userRepository, failPresenter, instagramAPI, facebookAPI);
         interactor.execute(inputData);
 
 

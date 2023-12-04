@@ -13,6 +13,7 @@ import java.util.HashMap;
 import static org.junit.Assert.*;
 
 public class ChangeDataInteractorTest {
+    private FacebookAPIDataAccessInterface facebookAPI;
     private InstagramAPIDataAccessInterface instagramAPI;
 
     private CommonUserFactory userFactory;
@@ -47,11 +48,11 @@ public class ChangeDataInteractorTest {
             }
         };
 
-        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI);
+        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI, facebookAPI);
         interactor.executeSaveChanges(inputData);
 
     }
-
+// TODO ONE MORE IN THE BOTTOM
 
 // TODO Bug IN HERE
 //    @Test
@@ -114,7 +115,7 @@ public class ChangeDataInteractorTest {
             }
         };
 
-        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI);
+        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI, facebookAPI);
         interactor.executeSaveChanges(inputData);
 
     }
@@ -152,7 +153,7 @@ public class ChangeDataInteractorTest {
             }
         };
 
-        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI);
+        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI, facebookAPI);
         interactor.executeAPIChanges(inputData);
 
     }

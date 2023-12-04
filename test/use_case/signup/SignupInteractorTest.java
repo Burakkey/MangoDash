@@ -6,6 +6,7 @@ import entity.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
@@ -41,6 +42,7 @@ public class SignupInteractorTest {
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, userFactory);
         interactor.execute(inputData);
+//        userRepository.
     }
     @Test
     public void failurePasswordMismatchTest() throws ClassNotFoundException {
@@ -63,6 +65,8 @@ public class SignupInteractorTest {
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, userFactory);
         interactor.execute(inputData);
+        File file = new File("testusers.db");
+        file.delete();
     }
 
     @Test
@@ -113,3 +117,4 @@ public class SignupInteractorTest {
         interactor.execute(inputData);
     }
 }
+dd
