@@ -71,8 +71,8 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
         instagramAPIDataAccessInterface.setAPI(instagramAPIToken);
         facebookAPIDataAccessInterface.setApi(facebookAPIToken);
-        boolean instagramKeyError = false;
-        boolean facebookKeyError = false;
+        Boolean instagramKeyError = false;
+        Boolean facebookKeyError = false;
         try {
             instagramAPIDataAccessInterface.fetchData();
             facebookAPIDataAccessInterface.fetchData();
@@ -101,6 +101,10 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         }
 
         // Adding additional Instagram data
+        if (changeDataInput.getFacebookAPIToken().isEmpty()){
+            instagramKeyError = null;
+        }
+
         instagramData.put("apiKey", instagramAPIToken);
         instagramData.put("keyError", instagramKeyError);
 
@@ -108,6 +112,10 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         for (String key : facebookStats.keySet()) {
             JSONArray value = facebookStats.get(key);
             facebookData.put(key, value);
+        }
+
+        if (changeDataInput.getFacebookAPIToken().isEmpty()){
+            facebookKeyError = null;
         }
 
         // Adding additional Facebook data

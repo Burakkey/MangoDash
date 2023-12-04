@@ -150,15 +150,22 @@ public class ExtensionPanelComponents {
                             currentState.setFacebookToken(facebookAPIaccesstoken.getText());
                             homepageController.executeAPIChanges(currentState.getUsername(), currentState.getName(),
                                     currentState.getFacebookToken(), currentState.getInstagramToken());
-                            if (currentState.getInstagramKeyError()) {
+                            if (currentState.getInstagramKeyError() == null) {
+                                // Do nothing here because API key is blank
+                            } else if (currentState.getInstagramKeyError().equals(false)) {
                                 JOptionPane.showMessageDialog(null, "Invalid Instagram API key", "Error", JOptionPane.ERROR_MESSAGE);
-                            } else {
+                            }
+                            else{
                                 JOptionPane.showMessageDialog(null, "Successfully Validated Instagram API key", "Success", JOptionPane.INFORMATION_MESSAGE);
                             }
-                            if (currentState.getFacebookKeyError()){
-                                JOptionPane.showMessageDialog(null, "Invalid Facebook API key", "Error", JOptionPane.ERROR_MESSAGE);
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Successfully Validated Facebook API key", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                            if (currentState.getFacebookKeyError() == null) {
+                                // Do nothing here because API key is blank
+                            } else if (currentState.getFacebookKeyError().equals(false)) {
+                                JOptionPane.showMessageDialog(null, "Invalid Instagram API key", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                            else{
+                                JOptionPane.showMessageDialog(null, "Successfully Validated Instagram API key", "Success", JOptionPane.INFORMATION_MESSAGE);
                             }
                         }
                     }
