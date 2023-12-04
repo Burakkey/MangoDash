@@ -5,16 +5,8 @@ import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.ViewManagerModel;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-import use_case.change_user_data.ChangeDataOutput;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 /**
  * LoginPresenter takes output data and formats it into an appropriate type that the view can immediately use,
  * and puts it into the LoginViewModel.
