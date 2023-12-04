@@ -68,27 +68,29 @@ public class LoginInteractor implements LoginInputBoundary {
                     throw new RuntimeException(e);
                 }
 
-                JSONArray instagramFollowers = instagramAPIDataAccessInterface.getInstagramStats().getFollowers();
-                JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
-                JSONArray instagramUsername = instagramAPIDataAccessInterface.getInstagramStats().getUsername();
+                HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getInstagramStats().getStats();
+                HashMap<String, JSONArray> facebookStats = facebookAPIDataAccessInterface.getFacebookStats().getStats();
 
-                JSONArray facebookFollowers = facebookAPIDataAccessInterface.getFacebookStats().getFollowers();
-                JSONArray facebookPosts = facebookAPIDataAccessInterface.getFacebookStats().getPosts();
-                JSONArray facebookUsername = facebookAPIDataAccessInterface.getFacebookStats().getUsername();
-
-                // Creating a new HashMap
+                // Creating new HashMaps
                 HashMap<String, Object> instagramData = new HashMap<>();
                 HashMap<String, Object> facebookData = new HashMap<>();
 
-                // Adding the JSONArray objects to the HashMap
-                instagramData.put("followers", instagramFollowers);
-                instagramData.put("posts", instagramPosts);
-                instagramData.put("username", instagramUsername);
+                // Iterating over Instagram data
+                for (String key : instagramStats.keySet()) {
+                    JSONArray value = instagramStats.get(key);
+                    instagramData.put(key, value);
+                }
+
+                // Adding additional Instagram data
                 instagramData.put("apiKey", instagramApiKey);
 
-                facebookData.put("followers", facebookFollowers);
-                facebookData.put("posts", facebookPosts);
-                facebookData.put("username", facebookUsername);
+                // Iterating over Facebook data
+                for (String key : facebookStats.keySet()) {
+                    JSONArray value = facebookStats.get(key);
+                    facebookData.put(key, value);
+                }
+
+                // Adding additional Facebook data
                 facebookData.put("apiKey", facebookApiKey);
 
                 LoginOutputData loginOutputData = new LoginOutputData(user.getName(), user.getUserName(), user.getBio(), instagramData, facebookData, false);

@@ -1,9 +1,12 @@
 package use_case.change_user_data;
 
+import entity.SocialMediaStats.FacebookStats;
+import entity.SocialMediaStats.InstagramStats;
 import org.json.JSONArray;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
@@ -82,28 +85,32 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         if (facebookAPIDataAccessInterface.isApiError()){
             facebookKeyError = true;
         }
-        JSONArray instagramFollowers = instagramAPIDataAccessInterface.getInstagramStats().getFollowers();
-        JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
-        JSONArray instagramUsername = instagramAPIDataAccessInterface.getInstagramStats().getUsername();
 
-        JSONArray facebookFollowers = facebookAPIDataAccessInterface.getFacebookStats().getFollowers();
-        JSONArray facebookPosts = facebookAPIDataAccessInterface.getFacebookStats().getPosts();
-        JSONArray facebookUserName = facebookAPIDataAccessInterface.getFacebookStats().getUsername();
 
-        // Creating a new HashMap
+        HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getInstagramStats().getStats();
+        HashMap<String, JSONArray> facebookStats = facebookAPIDataAccessInterface.getFacebookStats().getStats();
+
+        // Creating new HashMaps
         HashMap<String, Object> instagramData = new HashMap<>();
         HashMap<String, Object> facebookData = new HashMap<>();
 
-        // Adding the JSONArray objects to the HashMap
-        instagramData.put("followers", instagramFollowers);
-        instagramData.put("posts", instagramPosts);
-        instagramData.put("username", instagramUsername);
+        // Iterating over Instagram data
+        for (String key : instagramStats.keySet()) {
+            JSONArray value = instagramStats.get(key);
+            instagramData.put(key, value);
+        }
+
+        // Adding additional Instagram data
         instagramData.put("apiKey", instagramAPIToken);
         instagramData.put("keyError", instagramKeyError);
 
-        facebookData.put("followers", facebookFollowers);
-        facebookData.put("posts", facebookPosts);
-        facebookData.put("username", facebookUserName);
+        // Iterating over Facebook data
+        for (String key : facebookStats.keySet()) {
+            JSONArray value = facebookStats.get(key);
+            facebookData.put(key, value);
+        }
+
+        // Adding additional Facebook data
         facebookData.put("apiKey", facebookAPIToken);
         facebookData.put("keyError", facebookKeyError);
 
