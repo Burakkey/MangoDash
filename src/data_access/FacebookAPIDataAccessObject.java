@@ -13,12 +13,21 @@ import java.net.URL;
 import java.util.HashMap;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * A DataAccessObject that interacts with the Facebook Graph API. This class contains methods that allow the application
+ * to access data on the Facebook platform from the user's Facebook account
+ */
 public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterface {
     private String apiKey;
     private FacebookStats facebookStats;
 
     private boolean apiError;
 
+    /**
+     * given a valid API key, creates a FacebookAPIDataAccessObject that is able to access data related to the user's Facebook account
+     * @param apiKey the valid API key
+     * @param facebookStats the relevant info from the user's Facebook account
+     */
     public FacebookAPIDataAccessObject(String apiKey, FacebookStats facebookStats) {
         this.apiKey = apiKey;
         this.facebookStats = facebookStats;
@@ -31,6 +40,10 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
         accessObject.fetchData();
     }
 
+    /**
+     * retrieves the relevant data from the user's Facebook account
+     * @throws MalformedURLException
+     */
     @Override
     public void fetchData() throws MalformedURLException {
         // Reset data
