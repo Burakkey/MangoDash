@@ -2,6 +2,9 @@ package interface_adapter.homepage;
 
 import java.util.HashMap;
 
+/**
+ * HomepageState contains the current condition/status of values on the home page
+ */
 public class HomepageState {
     private String name; // Add name field
 
@@ -30,7 +33,9 @@ public class HomepageState {
         facebookKeyError = copy.facebookKeyError;
     }
 
-
+    /**
+     * Creates a new HomepageState object, with the default instance variables.
+     */
     public HomepageState(){}
 
     public String getUsername() {

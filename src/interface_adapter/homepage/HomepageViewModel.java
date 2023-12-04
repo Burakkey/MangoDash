@@ -6,6 +6,9 @@ import java.awt.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * HomepageViewModel is a data structure that contains all the data that the HomepageView needs.
+ */
 public class HomepageViewModel extends ViewModel {
 
     public static final String HOME_TAB_LABEL = "Home";

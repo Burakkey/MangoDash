@@ -5,6 +5,10 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Abstract class representing a view model in the application.
+ * This abstract class defines the common behaviour and methods of the view model classes used in this application.
+ */
 public abstract class ViewModel {
 
     private String viewName;
@@ -12,7 +16,10 @@ public abstract class ViewModel {
     private Font comfortaaMedium;
     private Font comfortaaSmall;
 
-
+    /**
+     * Creates a new ViewModel object with a name
+     * @param viewName the name of this ViewModel
+     */
     public ViewModel(String viewName) {
         this.viewName = viewName;
 

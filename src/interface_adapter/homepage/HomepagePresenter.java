@@ -14,12 +14,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * HomepagePresenter takes output data and formats it into an appropriate type that the view can immediately use,
+ * and puts it into the HomepageViewModel.
+ */
 public class HomepagePresenter implements ChangeDataOutputBoundary {
 
     private final LoginViewModel loginViewModel;
     private final HomepageViewModel homepageViewModel;
     private ViewManagerModel viewManagerModel;
 
+    /**
+     * Creates a new HomepagePresenter
+     * @param loginViewModel data structure that contains the data in the appropriate format for the LoginView to display
+     * @param homepageViewModel data structure that contains the data in the appropriate format for the HomepageView to display
+     * @param viewManagerModel contains all the different views, changes the active view when needed (in response to user)
+     */
     public HomepagePresenter(LoginViewModel loginViewModel, HomepageViewModel homepageViewModel,
                              ViewManagerModel viewManagerModel) {
         this.loginViewModel = loginViewModel;
@@ -27,11 +37,19 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         this.viewManagerModel = viewManagerModel;
     }
 
+    /**
+     * If the input data has errors, then the password change is unsuccessful
+     * @param error A String containing the case-specific error message
+     */
     @Override
-    public void prepareFailView(String s) {
-        // On success, switch to the logged in view.
+    public void prepareFailView(String error) {
+
     }
 
+    /**
+     * if the input data does not have any errors, then the password change is successful and prepareSuccessView is called.
+     * @param changeDataOutput
+     */
     @Override
     public void prepareSuccessView(ChangeDataOutput changeDataOutput) {
         // On success, switch to the logged in view.
@@ -46,6 +64,10 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         this.viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * If the input API key is valid, then prepareAPIView is called
+     * @param changeDataOutput
+     */
     @Override
     public void prepareAPIView(ChangeDataOutput changeDataOutput) {
         HashMap<String, Object> instagramStatsHashMap = makeInstagramStatsHashmap(changeDataOutput);
