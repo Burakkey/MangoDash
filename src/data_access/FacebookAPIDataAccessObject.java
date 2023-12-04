@@ -26,7 +26,7 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
     }
 
     public static void main(String[] args) throws MalformedURLException{
-        String apiKey = "EAAE1wmc7D2IBOZCR3TwaAvnKB5SeinplkpJuxQL9ay6ZATdHbe6y3UWPEmXxbyJPoWaCltJZAEf94iDKc8pGGwb2yEsP37rGBxtt0NZAlqCufphM9YYg7Dpn4jVAmCNwG1a7NvXUCmJCObTp8btoRBuBTaqAYTgZAzg6fZCJjelnAQXEeGZBZA6gIrp2";
+        String apiKey = "EAAE1wmc7D2IBOwSQlllK9mfR1m48oGF7IIGYa83Yhfm1J4MDLx9nXTP5QO6HOvCaxs8Y7CiZCOAiIaGRotjYkWO37JLzcOOZBiQxJXa4N7LztrGX6TJacJkZBO6YUfhKmjZCjWXPsGcVzbslbaApXXrE4gq9rWUUmbLQLgeZAb81yhODhf8irECJ3eXwP6ZB3QT7a7EKY8e2yoUm2JrgZDZD";
         FacebookAPIDataAccessObject accessObject = new FacebookAPIDataAccessObject(apiKey, new FacebookStats());
         accessObject.fetchData();
     }

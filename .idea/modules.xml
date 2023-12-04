@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/MangoDash.iml" filepath="$PROJECT_DIR$/.idea/MangoDash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MangoDash.iml" filepath="$PROJECT_DIR$/MangoDash.iml" />
     </modules>
   </component>
 </project>
