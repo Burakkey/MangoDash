@@ -3,10 +3,17 @@ package entity.SocialMediaStats;
 import org.json.JSONArray;
 import java.util.HashMap;
 
+/**
+ * Represents statistics related to Facebook data.
+ * This entity encapsulates information about various statistics associated with a Facebook account
+ */
 public class FacebookStats implements SocialMediaStats {
 
     private HashMap<String, JSONArray> stats;
 
+    /**
+     * Constructs a FacebookStats object with data about the followers and posts of a Facebook account
+     */
     public FacebookStats() {
         stats = new HashMap<>();
         stats.put("followers", new JSONArray());
