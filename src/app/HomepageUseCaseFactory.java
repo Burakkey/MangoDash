@@ -19,9 +19,24 @@ import javax.swing.*;
 import java.io.IOException;
 
 /**
- * HomepageUseCaseFactory is only called in main, it creates a new SignupView
+ * HomepageUseCaseFactory is only called in main, it creates a new HomepageView
  */
 public class HomepageUseCaseFactory {
+    /**
+     * create creates a HomepageView and connects the different parameters to the View, so that the HomepageView can
+     * communnicates with the other classes necessary for navigating the homepage.
+     * @param viewManagerModel
+     * @param loginViewModel
+     * @param homepageViewModel
+     * @param instagramPanel
+     * @param facebookPanel
+     * @param rankingPanelComponent
+     * @param extensionPanelComponents
+     * @param settingsPanelComponent
+     * @param changeDataAccessInterface
+     * @param application
+     * @return a new HomepageView that can communicate with the necessary classes to navigate the homepage
+     */
     public static HomepageView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
                                       HomepageViewModel homepageViewModel, InstagramPanel instagramPanel, FacebookPanel facebookPanel,
                                       RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
