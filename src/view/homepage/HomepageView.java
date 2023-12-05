@@ -23,7 +23,6 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
     private final HomepageViewModel homepageViewModel;
     private final InstagramPanel instagramPanel;
     private  final FacebookPanel facebookPanel;
-    private final HomePanelComponent homePanelComponent;
     private final ExtensionPanelComponents extensionPanelComponents;
 
     private final SettingsPanelComponent settingsPanelComponent;
@@ -37,7 +36,6 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
      * @param homepageViewModel
      * @param instagramPanel the instagram panel that is displayed when the instagram button on the Home Panel is clicked
      * @param facebookPanel the facebook panel that is displayed when the facebook button on the Home Panel is clicked
-     * @param homePanelComponent the home panel that is displayed when the home tab is clicked
      * @param extensionPanelComponents the extension panel that is displayed when the extension tab is clicked
      * @param settingsPanelComponent the settings panel that is displayed when the settings tab is clicked
      * @param homepageController
@@ -45,7 +43,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
      * @param application
      */
     public HomepageView(HomepageViewModel homepageViewModel, InstagramPanel instagramPanel, FacebookPanel facebookPanel,
-                        HomePanelComponent homePanelComponent, ExtensionPanelComponents extensionPanelComponents,
+                        ExtensionPanelComponents extensionPanelComponents,
                         SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, ViewManagerModel viewManagerModel,
                         JFrame application) {
         this.homepageController = homepageController;
@@ -55,7 +53,6 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         this.homepageViewModel.addPropertyChangeListener(this);
         this.instagramPanel = instagramPanel;
         this.facebookPanel = facebookPanel;
-        this.homePanelComponent = homePanelComponent;
         this.extensionPanelComponents = extensionPanelComponents;
         this.settingsPanelComponent = settingsPanelComponent;
         this.application = application;
