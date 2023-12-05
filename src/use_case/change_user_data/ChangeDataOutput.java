@@ -6,6 +6,9 @@ import use_case.InstagramDataGetter;
 
 import java.util.HashMap;
 
+/**
+ * ChangeOutputData contains the required data after the user has successfully changed their info
+ */
 public class ChangeDataOutput implements InstagramDataGetter, FacebookDataGetter {
     private String username;
 
@@ -17,13 +20,23 @@ public class ChangeDataOutput implements InstagramDataGetter, FacebookDataGetter
 
     private HashMap <String, Object> facebookData;
 
-
+    /**
+     * Creates a new ChangeDataOutput object. The data provided corresponds to the data after changing the user's name and/or bio
+     * @param username
+     * @param name
+     * @param bio
+     */
     public ChangeDataOutput(String username, String name, String bio) {
         this.username = username;
         this.name = name;
         this.bio = bio;
     }
 
+    /**
+     * Creates a new ChangeDataOutput object. The data provided corresponds to the Social Media data after changing the user's Facebook and/or Instagram API key(s).
+     * @param instagramData
+     * @param facebookData
+     */
     public ChangeDataOutput(HashMap <String, Object> instagramData, HashMap <String, Object> facebookData){
         this.instagramData = instagramData;
         this.facebookData = facebookData;
