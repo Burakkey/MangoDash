@@ -10,6 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SettingsPanelComponentTest {
@@ -61,23 +64,17 @@ class SettingsPanelComponentTest {
                 Window[] windows = Window.getWindows();
                 for (Window window : windows) {
                     if (window instanceof JDialog && window.isVisible()) {
-                        JDialog dialog = (JDialog)window;
-                        String message = extractMessageFromDialog(dialog);
+                        JDialog dialog = (JDialog) window;
+                        String message = dialog.getTitle();
                         processDialogMessage(message);
                         dialog.dispose();
                     }
                 }
             }
         };
-
         return new Timer(1000, close);
     }
 
-    private String extractMessageFromDialog(JDialog dialog) {
-        // Extract and return the message from the dialog
-        JOptionPane optionPane = (JOptionPane) dialog.getContentPane().getComponent(0);
-        return (String) optionPane.getMessage();
-    }
 
     private void processDialogMessage(String message) {
         // Process the dialog message and set appropriate flags or variables
@@ -88,18 +85,68 @@ class SettingsPanelComponentTest {
 
     @Test
     void testChangePasswordButtonAction() throws ClassNotFoundException {
-        // Get the changePasswordButton using your method
+        // Initialize the main application
         Main.main(null);
-        changePasswordButton = getButton(2);
 
-        createCloseTimer().start();
+        // Get the changePasswordButton using your method
+        changePasswordButton = getButton(1);
+
+        // Create and start the timer to close the dialog
+        Timer timer = createCloseTimer();
+        timer.start();
 
         // Simulate the button click
-        changePasswordButton.doClick();
+        SwingUtilities.invokeLater(() -> changePasswordButton.doClick());
+
+        // Allow some time for the dialog to appear and be processed
+        try {
+            Thread.sleep(2000); // Wait 2 seconds for the dialog to appear
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
 
         // Assertions
-        assertTrue(popUpDiscovered, "Popup did appear");
-        // Add more specific assertions about the popup message if needed
-        // For example: assertEquals("Expected message", popupMessage);
+        assertTrue(popUpDiscovered, "Popup did not appear");
+    }
+
+    private JDialog findAndProcessDialog() {
+        Window[] windows = Window.getWindows();
+        for (Window window : windows) {
+            if (window instanceof JDialog && window.isVisible()) {
+                return (JDialog) window;
+            }
+        }
+        return null;
+    }
+
+    @Test
+    void testChangePasswordDialogCancellation() throws Exception {
+
+        Main.main(null);
+        // Simulate the button click to open the dialog
+        changePasswordButton = getButton(1);
+        SwingUtilities.invokeLater(() -> changePasswordButton.doClick());
+
+        // Wait a little for the dialog to appear
+        Thread.sleep(500); // Adjust this delay as needed
+
+        // Find the open dialog
+        JDialog dialog = findAndProcessDialog();
+        Assertions.assertNotNull(dialog);
+
+        // Simulate clicking the "Cancel" button
+        JDialog finalDialog = dialog;
+        SwingUtilities.invokeLater(() -> {
+            // This simulates clicking the "Cancel" button in the dialog
+            JOptionPane optionPane = (JOptionPane) finalDialog.getContentPane().getComponent(0);
+            optionPane.setValue(JOptionPane.CANCEL_OPTION);
+        });
+
+        // Wait a little for the dialog to process the click
+        Thread.sleep(500); // Adjust this delay as needed
+
+        // Re-find the dialog to check if it is still visible
+        dialog = findAndProcessDialog();
+        assertNull(dialog, "Dialog should be closed after clicking Cancel");
     }
 }
