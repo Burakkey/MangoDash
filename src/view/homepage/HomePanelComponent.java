@@ -31,6 +31,7 @@ public class HomePanelComponent {
 
     public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel, JFrame application) {
         JPanel homePanel = new JPanel();
+        homePanel.setName(HomepageViewModel.HOME_TAB_LABEL);
 
         homePanel.setLayout(new GridBagLayout());
         homePanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);

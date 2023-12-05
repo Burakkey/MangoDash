@@ -39,6 +39,7 @@ public class SettingsPanelComponent {
         usernameInputField.setEditable(false);
 
         JPanel settingsPanel = new JPanel();
+        settingsPanel.setName(HomepageViewModel.ACCOUNT_TAB_LABEL);
 
         settingsPanel.setLayout(new GridBagLayout());
         settingsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
