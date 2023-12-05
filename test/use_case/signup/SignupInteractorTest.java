@@ -6,6 +6,7 @@ import entity.User;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
@@ -16,7 +17,7 @@ public class SignupInteractorTest {
     public void setUp() {
         userFactory = new CommonUserFactory();
     }
-//TODO PROBLEM OCCURS AFTER RUNNING 1ST TIME SINCE IT SAVES TO THE DB
+
     @Test
     public void successTest() throws ClassNotFoundException {
         SignupInputData inputData = new SignupInputData("er", "er", "password", "password", LocalDateTime.now());
@@ -41,6 +42,9 @@ public class SignupInteractorTest {
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, successPresenter, userFactory);
         interactor.execute(inputData);
+
+        File file = new File("testusers.db");
+        file.delete();
     }
     @Test
     public void failurePasswordMismatchTest() throws ClassNotFoundException {
@@ -63,6 +67,9 @@ public class SignupInteractorTest {
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, userFactory);
         interactor.execute(inputData);
+
+        File file = new File("testusers.db");
+        file.delete();
     }
 
     @Test
@@ -91,6 +98,9 @@ public class SignupInteractorTest {
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, userFactory);
         interactor.execute(inputData);
+
+        File file = new File("testusers.db");
+        file.delete();
     }
 
     @Test
@@ -111,5 +121,8 @@ public class SignupInteractorTest {
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, userFactory);
         interactor.execute(inputData);
+
+        File file = new File("testusers.db");
+        file.delete();
     }
 }

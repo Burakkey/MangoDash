@@ -22,6 +22,8 @@ public class HomepageState {
 
     private Boolean facebookKeyError;
 
+    private String errorMessage;
+
     public HomepageState(HomepageState copy) {
         name = copy.name;
         username = copy.username;
@@ -31,6 +33,7 @@ public class HomepageState {
         instagramStatsHashMap = copy.instagramStatsHashMap;
         instagramKeyError = copy.instagramKeyError;
         facebookKeyError = copy.facebookKeyError;
+        errorMessage = copy.errorMessage;
     }
 
     /**
@@ -78,8 +81,16 @@ public class HomepageState {
         return name;
     }
 
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
     public String getBio() {
         return this.bio;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public void setUsername(String username) {

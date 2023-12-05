@@ -1,9 +1,11 @@
 package data_access;
 
 import entity.SocialMediaStats.FacebookStats;
+import entity.SocialMediaStats.SocialMediaStats;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.change_user_data.FacebookAPIDataAccessInterface;
+import use_case.change_user_data.APIDataAccessInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,25 +19,26 @@ import java.nio.charset.StandardCharsets;
  * A DataAccessObject that interacts with the Facebook Graph API. This class contains methods that allow the application
  * to access data on the Facebook platform from the user's Facebook account
  */
-public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterface {
+public class FacebookAPIDataAccessObject implements APIDataAccessInterface {
+
     private String apiKey;
-    private FacebookStats facebookStats;
+    private SocialMediaStats facebookStats;
 
     private boolean apiError;
 
     /**
      * given a valid API key, creates a FacebookAPIDataAccessObject that is able to access data related to the user's Facebook account
-     * @param apiKey the valid API key
-     * @param facebookStats the relevant info from the user's Facebook account
+     * @param apiKey
+     * @param facebookStats
      */
-    public FacebookAPIDataAccessObject(String apiKey, FacebookStats facebookStats) {
+    public FacebookAPIDataAccessObject(String apiKey, SocialMediaStats facebookStats) {
         this.apiKey = apiKey;
         this.facebookStats = facebookStats;
         this.apiError = false;
     }
 
     public static void main(String[] args) throws MalformedURLException{
-        String apiKey = "EAAE1wmc7D2IBOZCR3TwaAvnKB5SeinplkpJuxQL9ay6ZATdHbe6y3UWPEmXxbyJPoWaCltJZAEf94iDKc8pGGwb2yEsP37rGBxtt0NZAlqCufphM9YYg7Dpn4jVAmCNwG1a7NvXUCmJCObTp8btoRBuBTaqAYTgZAzg6fZCJjelnAQXEeGZBZA6gIrp2";
+        String apiKey = "EAAE1wmc7D2IBOwSQlllK9mfR1m48oGF7IIGYa83Yhfm1J4MDLx9nXTP5QO6HOvCaxs8Y7CiZCOAiIaGRotjYkWO37JLzcOOZBiQxJXa4N7LztrGX6TJacJkZBO6YUfhKmjZCjWXPsGcVzbslbaApXXrE4gq9rWUUmbLQLgeZAb81yhODhf8irECJ3eXwP6ZB3QT7a7EKY8e2yoUm2JrgZDZD";
         FacebookAPIDataAccessObject accessObject = new FacebookAPIDataAccessObject(apiKey, new FacebookStats());
         accessObject.fetchData();
     }
@@ -104,7 +107,16 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
                 StandardCharsets.UTF_8))) {
             for (String line; (line = reader.readLine()) != null; ) {
                 JSONObject object = new JSONObject(line);
-                JSONObject userFriends = (JSONObject) object.get("friends"); // Pull friend data
+                JSONObject userFriends = null;
+
+                try {
+                    userFriends = (JSONObject) object.get("friends"); // Pull friend data
+                } catch (JSONException e) {
+                    System.out.println("Error with API call please check that you are using the correct API key for Facebook");
+                    apiError = true;
+                    return;
+                }
+
                 JSONObject userFriendsSummary = (JSONObject) userFriends.get("summary");
 
                 JSONArray jsonFriendCount = new JSONArray();
@@ -183,7 +195,7 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
     }
 
     @Override
-    public void setApi(String apiKey) {
+    public void setAPI(String apiKey) {
         this.apiKey = apiKey;
     }
 
@@ -193,7 +205,7 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
     }
 
     @Override
-    public FacebookStats getFacebookStats() {
+    public SocialMediaStats getStats() {
         return facebookStats;
     }
 }

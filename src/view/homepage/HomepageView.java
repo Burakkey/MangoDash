@@ -1,7 +1,6 @@
 package view.homepage;
 
 
-import interface_adapter.ViewModel;
 import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
@@ -9,7 +8,6 @@ import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.ViewManagerModel;
 
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

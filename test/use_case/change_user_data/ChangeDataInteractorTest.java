@@ -1,11 +1,14 @@
 package use_case.change_user_data;
 
+import data_access.FacebookAPIDataAccessObject;
+import data_access.InstagramAPIDataAccessObject;
 import data_access.SQLiteUserDataAccessObject;
 import entity.CommonUserFactory;
+import entity.SocialMediaStats.FacebookStats;
+import entity.SocialMediaStats.InstagramStats;
 import entity.User;
 import org.junit.Before;
 import org.junit.Test;
-import use_case.login.LoginUserDataAccessInterface;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -13,17 +16,22 @@ import java.util.HashMap;
 import static org.junit.Assert.*;
 
 public class ChangeDataInteractorTest {
-    private InstagramAPIDataAccessInterface instagramAPI;
+    private APIDataAccessInterface facebookAPI;
+
+    private APIDataAccessInterface instagramAPI;
 
     private CommonUserFactory userFactory;
+    private HashMap<String, String> apiKeys;
     @Before
     public void setUp(){
         userFactory = new CommonUserFactory();
+        facebookAPI = new FacebookAPIDataAccessObject("", new FacebookStats());
+        instagramAPI = new InstagramAPIDataAccessObject("", new InstagramStats());
     }
     @Test
-    public void executeSaveChangesSuccessfullyTest() throws ClassNotFoundException {
+    public void SuccessfullyTest() throws ClassNotFoundException {
         // First create user so that we can test
-        User user = userFactory.create("name", "username", "password", "bio", null, LocalDateTime.now());
+        User user = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
         ChangeDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
         ((SQLiteUserDataAccessObject) userRepository).save(user);
 
@@ -47,50 +55,50 @@ public class ChangeDataInteractorTest {
             }
         };
 
-        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI);
+        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI, facebookAPI);
         interactor.executeSaveChanges(inputData);
 
     }
 
 
-// TODO Bug IN HERE
-//    @Test
-//    public void executeSaveChangesPasswordMismatchTest() throws ClassNotFoundException {
-//        // First create user so that we can test
-//        User user = userFactory.create("name", "username", "password", "bio", null, LocalDateTime.now());
-//        ChangeDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
-//        ((SQLiteUserDataAccessObject) userRepository).save(user);
-//
-//        ChangeDataInput inputData = new ChangeDataInput("username", "name", "bio", user.getPassword(), "newPassword", "newWRONGPassword");
-//
-//
-//        ChangeDataOutputBoundary successPresenter = new ChangeDataOutputBoundary() {
-//            @Override
-//            public void prepareFailView(String s) {
-//                assertEquals("Incorrect password for " + user.getUserName() + ".", s);
-//            }
-//
-//            @Override
-//            public void prepareSuccessView(ChangeDataOutput changeDataOutput) {
-//                fail("Use case success is unexpected.");
-//            }
-//
-//            @Override
-//            public void prepareAPIView(ChangeDataOutput changeDataOutput) {
-//                fail("Use case success is unexpected.");
-//            }
-//        };
-//
-//        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI);
-//        interactor.executeSaveChanges(inputData);
-//
-//    }
+    @Test
+    public void PasswordMismatchTest() throws ClassNotFoundException {
+        // First create user so that we can test
+        User user = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
+        ChangeDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
+        ((SQLiteUserDataAccessObject) userRepository).save(user);
+        // LOGIN
+
+        ChangeDataInput inputData = new ChangeDataInput("username", "name", "bio", "password", "newPassword", "newWRONGPassword");
+
+
+        ChangeDataOutputBoundary successPresenter = new ChangeDataOutputBoundary() {
+            @Override
+            public void prepareFailView(String s) {
+                assertEquals("New passwords does not match.", s);
+            }
+
+            @Override
+            public void prepareSuccessView(ChangeDataOutput changeDataOutput) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareAPIView(ChangeDataOutput changeDataOutput) {
+                fail("Use case success is unexpected.");
+            }
+        };
+
+        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI, facebookAPI);
+        interactor.executeSaveChanges(inputData);
+
+    }
 
 
     @Test
-    public void executeSaveChangesPasswordWrongCurrentPasswordTest() throws ClassNotFoundException {
+    public void WrongCurrentPasswordTest() throws ClassNotFoundException {
         // First create user so that we can test
-        User user = userFactory.create("name", "username", "password", "bio", null, LocalDateTime.now());
+        User user = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
         ChangeDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
         ((SQLiteUserDataAccessObject) userRepository).save(user);
 
@@ -114,7 +122,7 @@ public class ChangeDataInteractorTest {
             }
         };
 
-        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI);
+        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI, facebookAPI);
         interactor.executeSaveChanges(inputData);
 
     }
@@ -122,7 +130,7 @@ public class ChangeDataInteractorTest {
     @Test
     public void executeAPIChangesSuccessfullyTest() throws ClassNotFoundException {
         // First create user so that we can test
-        User user = userFactory.create("name", "username", "password", "bio", null, LocalDateTime.now());
+        User user = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
         ChangeDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
         ((SQLiteUserDataAccessObject) userRepository).save(user);
 
@@ -152,7 +160,7 @@ public class ChangeDataInteractorTest {
             }
         };
 
-        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI);
+        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter, instagramAPI, facebookAPI);
         interactor.executeAPIChanges(inputData);
 
     }

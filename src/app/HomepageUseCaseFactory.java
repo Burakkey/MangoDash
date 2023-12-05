@@ -11,7 +11,6 @@ import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepagePresenter;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginViewModel;
-import use_case.change_user_data.InstagramAPIDataAccessInterface;
 import use_case.change_user_data.*;
 import view.homepage.*;
 
@@ -38,7 +37,7 @@ public class HomepageUseCaseFactory {
      */
     public static HomepageView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel,
                                       HomepageViewModel homepageViewModel, InstagramPanel instagramPanel, FacebookPanel facebookPanel,
-                                      HomePanelComponent homePanelComponent,ExtensionPanelComponents extensionPanelComponents,
+                                      HomePanelComponent homePanelComponent, ExtensionPanelComponents extensionPanelComponents,
                                       SettingsPanelComponent settingsPanelComponent, ChangeDataAccessInterface changeDataAccessInterface,
                                       JFrame application){
         try {
@@ -60,8 +59,8 @@ public class HomepageUseCaseFactory {
         UserFactory userFactory = new CommonUserFactory();
         InstagramStats instagramStats = new InstagramStats();
         FacebookStats facebookStats = new FacebookStats();
-        InstagramAPIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
-        FacebookAPIDataAccessInterface facebookAPIDataAccessInterface = new FacebookAPIDataAccessObject("", facebookStats);
+        APIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
+        APIDataAccessInterface facebookAPIDataAccessInterface = new FacebookAPIDataAccessObject("", facebookStats);
         ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary, instagramAPIDataAccessInterface, facebookAPIDataAccessInterface);
         return new HomepageController(changeDataInteractor);
     }

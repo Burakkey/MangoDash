@@ -16,7 +16,6 @@ public class LoginOutputData implements InstagramDataGetter, FacebookDataGetter 
     private final String name;
 
     private final String bio;
-    private boolean useCaseFailed;
 
     private HashMap <String, Object> instagramData;
 
@@ -30,15 +29,14 @@ public class LoginOutputData implements InstagramDataGetter, FacebookDataGetter 
      * @param bio the user's chosen biography, if any
      * @param facebookData the user's facebook data
      * @param instagramData the user's instagram data
-     * @param useCaseFailed whether the user login was successful
+     //* @param useCaseFailed whether the user login was successful
      */
-    public LoginOutputData(String name, String username, String bio, HashMap <String, Object> instagramData, HashMap <String, Object> facebookData, boolean useCaseFailed) {
+    public LoginOutputData(String name, String username, String bio, HashMap <String, Object> instagramData, HashMap <String, Object> facebookData) {
         this.name = name;
         this.username = username;
         this.bio = bio;
         this.instagramData = instagramData;
         this.facebookData = facebookData;
-        this.useCaseFailed = useCaseFailed;
     }
 
     public HashMap<String,Object> getInstagramData() {

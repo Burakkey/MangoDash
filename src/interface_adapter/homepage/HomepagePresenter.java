@@ -38,15 +38,6 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
     }
 
     /**
-     * If the input data has errors, then the password change is unsuccessful
-     * @param error A String containing the case-specific error message
-     */
-    @Override
-    public void prepareFailView(String error) {
-
-    }
-
-    /**
      * if the input data does not have any errors, then the password change is successful and prepareSuccessView is called.
      * @param changeDataOutput
      */
@@ -58,6 +49,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         homepageState.setName(changeDataOutput.getName());
         homepageState.setUsername(changeDataOutput.getUsername());
         homepageState.setBio(changeDataOutput.getBio());
+        homepageState.setErrorMessage("");
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.homepageViewModel.firePropertyChanged();
@@ -73,6 +65,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         HashMap<String, Object> instagramStatsHashMap = makeInstagramStatsHashmap(changeDataOutput);
         HashMap<String, Object> facebookStatsHashMap = makeFacebookStatsHashmap(changeDataOutput);
         HomepageState homepageState = homepageViewModel.getState();
+        homepageState.setErrorMessage("");
         homepageState.setInstagramKeyError((Boolean) changeDataOutput.getInstagramData().get("keyError"));
         homepageState.setFacebookKeyError((Boolean) changeDataOutput.getFacebookData().get("keyError"));
         homepageState.setInstagramStatsHashMap(instagramStatsHashMap);
@@ -197,12 +190,15 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         return instagramStatsHashMap;
     }
 
+    /**
+     * If the input data has errors, then the data changes are unsuccessful
+     * @param error A String containing the case-specific error message
+     */
+    @Override
+    public void prepareFailView(String error){
+        HomepageState currentState = homepageViewModel.getState();
+        currentState.setErrorMessage(error);
+        this.homepageViewModel.setState(currentState);
 
-    public void prepareFailAPIView(ChangeDataOutput changeDataOutput){
-        HomepageState homepageState = new HomepageState();
-        homepageState.setName(changeDataOutput.getName());
-        homepageState.setUsername(changeDataOutput.getUsername());
-        homepageState.setBio(changeDataOutput.getBio());
-        this.homepageViewModel.setState(homepageState);
     }
 }

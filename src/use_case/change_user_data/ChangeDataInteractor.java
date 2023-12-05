@@ -1,9 +1,13 @@
 package use_case.change_user_data;
 
+import entity.SocialMediaStats.FacebookStats;
+import entity.SocialMediaStats.InstagramStats;
 import org.json.JSONArray;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.Iterator;
+
 /**
  * ChangeDataInteractor takes the change data input data and uses it to change the user's data. If there is an error with the
  * input data, the data will not change
@@ -14,8 +18,8 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
     final ChangeDataOutputBoundary homepagePresenter;
 
-    final InstagramAPIDataAccessInterface instagramAPIDataAccessInterface;
-    final FacebookAPIDataAccessInterface facebookAPIDataAccessInterface;
+    final APIDataAccessInterface instagramAPIDataAccessInterface;
+    final APIDataAccessInterface facebookAPIDataAccessInterface;
 
     /**
      * Creates a new ChangeDataInteractor
@@ -25,8 +29,8 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
      * @param facebookAPIDataAccessInterface
      */
     public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter,
-                                InstagramAPIDataAccessInterface instagramAPIDataAccessInterface,
-                                FacebookAPIDataAccessInterface facebookAPIDataAccessInterface) {
+                                APIDataAccessInterface instagramAPIDataAccessInterface,
+                                APIDataAccessInterface facebookAPIDataAccessInterface) {
         this.changeDataAccessInterface = changeDataAccessInterface;
         this.homepagePresenter = homepagePresenter;
         this.instagramAPIDataAccessInterface = instagramAPIDataAccessInterface;
@@ -44,20 +48,23 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String newName = changeDataInput.getName();
         String oldPassword = changeDataInput.getOldPassword();
         String newPassword = changeDataInput.getNewPassword();
+        String repeatNewPassword = changeDataInput.getRepeateNewPassword();
         String bio = changeDataInput.getBio();
         if (changeDataInput.getNewPassword() != null &&
                 changeDataInput.getOldPassword() != null &&
                 changeDataInput.getRepeateNewPassword() != null) {
-            // Assumes that repeatPassword and newPassword are same!
-            // Validates oldPassword is user's password
-            // Changes oldPassword to newPassword
             String pwd = changeDataAccessInterface.get(username).getPassword();
             if (!oldPassword.equals(pwd)){
                 homepagePresenter.prepareFailView("Incorrect password for " + username + ".");
             }else {
-                changeDataAccessInterface.modifyUser(username, newName, newPassword, bio);
-                ChangeDataOutput changeDataOutput = new ChangeDataOutput(username, newName,bio);
-                homepagePresenter.prepareSuccessView(changeDataOutput);
+                if (repeatNewPassword.equals(newPassword)){
+                    changeDataAccessInterface.modifyUser(username, newName, newPassword, bio);
+                    ChangeDataOutput changeDataOutput = new ChangeDataOutput(username, newName,bio);
+                    homepagePresenter.prepareSuccessView(changeDataOutput);
+                }
+                else{
+                    homepagePresenter.prepareFailView("New passwords does not match.");
+                }
             }
 
 
@@ -88,7 +95,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String instagramAPIToken = changeDataInput.getInstagramAPIToken();
         changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
         instagramAPIDataAccessInterface.setAPI(instagramAPIToken);
-        facebookAPIDataAccessInterface.setApi(facebookAPIToken);
+        facebookAPIDataAccessInterface.setAPI(facebookAPIToken);
         boolean instagramKeyError = false;
         boolean facebookKeyError = false;
         try {
@@ -97,36 +104,35 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        if (instagramAPIDataAccessInterface.isApiError()){
-            instagramKeyError = true;
-        }
-        if (facebookAPIDataAccessInterface.isApiError()){
-            facebookKeyError = true;
-        }
-        JSONArray instagramFollowers = instagramAPIDataAccessInterface.getInstagramStats().getFollowers();
-        JSONArray instagramPosts = instagramAPIDataAccessInterface.getInstagramStats().getPosts();
-        JSONArray instagramUsername = instagramAPIDataAccessInterface.getInstagramStats().getUsername();
 
-        JSONArray facebookFollowers = facebookAPIDataAccessInterface.getFacebookStats().getFollowers();
-        JSONArray facebookPosts = facebookAPIDataAccessInterface.getFacebookStats().getPosts();
-        JSONArray facebookUserName = facebookAPIDataAccessInterface.getFacebookStats().getUsername();
 
-        // Creating a new HashMap
+        HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getStats().getStats();
+        HashMap<String, JSONArray> facebookStats = facebookAPIDataAccessInterface.getStats().getStats();
+
+        // Creating new HashMaps
         HashMap<String, Object> instagramData = new HashMap<>();
         HashMap<String, Object> facebookData = new HashMap<>();
 
-        // Adding the JSONArray objects to the HashMap
-        instagramData.put("followers", instagramFollowers);
-        instagramData.put("posts", instagramPosts);
-        instagramData.put("username", instagramUsername);
-        instagramData.put("apiKey", instagramAPIToken);
-        instagramData.put("keyError", instagramKeyError);
+        // Iterating over Instagram data
+        for (String key : instagramStats.keySet()) {
+            JSONArray value = instagramStats.get(key);
+            instagramData.put(key, value);
+        }
 
-        facebookData.put("followers", facebookFollowers);
-        facebookData.put("posts", facebookPosts);
-        facebookData.put("username", facebookUserName);
+
+        // Adding additional Instagram data
+        instagramData.put("apiKey", instagramAPIToken);
+        instagramData.put("keyError", instagramAPIDataAccessInterface.isApiError());
+
+        // Iterating over Facebook data
+        for (String key : facebookStats.keySet()) {
+            JSONArray value = facebookStats.get(key);
+            facebookData.put(key, value);
+        }
+
+        // Adding additional Facebook data
         facebookData.put("apiKey", facebookAPIToken);
-        facebookData.put("keyError", facebookKeyError);
+        facebookData.put("keyError", facebookAPIDataAccessInterface.isApiError());
 
         ChangeDataOutput changeDataOutput = new ChangeDataOutput(instagramData, facebookData);
         homepagePresenter.prepareAPIView(changeDataOutput);

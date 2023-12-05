@@ -69,7 +69,6 @@ public class Main {
 
         viewManagerModel.setActiveView(loginHomeView.viewName);
         viewManagerModel.firePropertyChanged();
-
         application.pack();
         application.setLocationRelativeTo(null);
         application.setVisible(true);
