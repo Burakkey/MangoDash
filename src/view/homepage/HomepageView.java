@@ -70,7 +70,6 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         this.extensionPanelComponents.updatePanel(newHomepageState);
         this.instagramPanel.updatePanel(newHomepageState);
         this.facebookPanel.updatePanel(newHomepageState);
-//        this.rankingPanelComponent.updatePanel(newHomepageState);
     }
 
     @Override

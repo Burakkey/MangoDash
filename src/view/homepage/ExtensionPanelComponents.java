@@ -33,6 +33,7 @@ public class ExtensionPanelComponents {
 
         // Below are how components are place (visuals) feel free to do whatever here
         JPanel settingsPanel = new JPanel();
+        settingsPanel.setName(HomepageViewModel.EXTENSION_TAB_LABEL);
         settingsPanel.setLayout(new GridBagLayout());
         settingsPanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
 
