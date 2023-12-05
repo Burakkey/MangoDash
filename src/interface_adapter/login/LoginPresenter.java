@@ -38,6 +38,7 @@ public class LoginPresenter implements LoginOutputBoundary {
      */
     @Override
     public void prepareSuccessView(LoginOutputData loginOutputData) {
+        System.out.println("Correct");
         // On success, switch to the logged in view.
         HomepageState homepageState = new HomepageState();
         homepageState.setName(loginOutputData.getName());
@@ -66,5 +67,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         LoginState loginState = loginViewModel.getState();
         loginState.setError((error));
         loginViewModel.firePropertyChanged();
+        loginState.setError(null);
+
     }
 }
