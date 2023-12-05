@@ -37,9 +37,6 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         if (changeDataInput.getNewPassword() != null &&
                 changeDataInput.getOldPassword() != null &&
                 changeDataInput.getRepeateNewPassword() != null) {
-            // Assumes that repeatPassword and newPassword are same!
-            // Validates oldPassword is user's password
-            // Changes oldPassword to newPassword
             String pwd = changeDataAccessInterface.get(username).getPassword();
             if (!oldPassword.equals(pwd)){
                 homepagePresenter.prepareFailView("Incorrect password for " + username + ".");
@@ -77,8 +74,8 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
         instagramAPIDataAccessInterface.setAPI(instagramAPIToken);
         facebookAPIDataAccessInterface.setApi(facebookAPIToken);
-        boolean instagramKeyError = false;
-        boolean facebookKeyError = false;
+        Boolean instagramKeyError = false;
+        Boolean facebookKeyError = false;
         try {
             instagramAPIDataAccessInterface.fetchData();
             facebookAPIDataAccessInterface.fetchData();
@@ -106,6 +103,10 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
             instagramData.put(key, value);
         }
 
+        if (changeDataInput.getInstagramAPIToken().isEmpty()){
+            instagramKeyError = null;
+        }
+
         // Adding additional Instagram data
         instagramData.put("apiKey", instagramAPIToken);
         instagramData.put("keyError", instagramKeyError);
@@ -114,6 +115,10 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         for (String key : facebookStats.keySet()) {
             JSONArray value = facebookStats.get(key);
             facebookData.put(key, value);
+        }
+
+        if (changeDataInput.getFacebookAPIToken().isEmpty()){
+            facebookKeyError = null;
         }
 
         // Adding additional Facebook data

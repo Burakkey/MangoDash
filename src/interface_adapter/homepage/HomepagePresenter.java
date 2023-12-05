@@ -28,11 +28,6 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
     }
 
     @Override
-    public void prepareFailView(String s) {
-        // On success, switch to the logged in view.
-    }
-
-    @Override
     public void prepareSuccessView(ChangeDataOutput changeDataOutput) {
         // On success, switch to the logged in view.
         HomepageState homepageState = homepageViewModel.getState();
@@ -40,6 +35,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         homepageState.setName(changeDataOutput.getName());
         homepageState.setUsername(changeDataOutput.getUsername());
         homepageState.setBio(changeDataOutput.getBio());
+        homepageState.setErrorMessage("");
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.homepageViewModel.firePropertyChanged();
@@ -51,6 +47,7 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
         HashMap<String, Object> instagramStatsHashMap = makeInstagramStatsHashmap(changeDataOutput);
         HashMap<String, Object> facebookStatsHashMap = makeFacebookStatsHashmap(changeDataOutput);
         HomepageState homepageState = homepageViewModel.getState();
+        homepageState.setErrorMessage("");
         homepageState.setInstagramKeyError((Boolean) changeDataOutput.getInstagramData().get("keyError"));
         homepageState.setFacebookKeyError((Boolean) changeDataOutput.getFacebookData().get("keyError"));
         homepageState.setInstagramStatsHashMap(instagramStatsHashMap);
@@ -176,11 +173,11 @@ public class HomepagePresenter implements ChangeDataOutputBoundary {
     }
 
 
-    public void prepareFailAPIView(ChangeDataOutput changeDataOutput){
-        HomepageState homepageState = new HomepageState();
-        homepageState.setName(changeDataOutput.getName());
-        homepageState.setUsername(changeDataOutput.getUsername());
-        homepageState.setBio(changeDataOutput.getBio());
-        this.homepageViewModel.setState(homepageState);
+    @Override
+    public void prepareFailView(String error){
+        HomepageState currentState = homepageViewModel.getState();
+        currentState.setErrorMessage(error);
+        this.homepageViewModel.setState(currentState);
+
     }
 }
