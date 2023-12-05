@@ -30,16 +30,16 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
 
     private final SignupViewModel signupViewModel;
 
-    private final JTextField nameInputField = new JTextField(15);
+    final JTextField nameInputField = new JTextField(15);
 
-    private final JTextField usernameInputField = new JTextField(15);
-    private final JPasswordField passwordInputField = new JPasswordField(15);
-    private final JPasswordField repeatPasswordInputField = new JPasswordField(15);
+    final JTextField usernameInputField = new JTextField(15);
+    final JPasswordField passwordInputField = new JPasswordField(15);
+    final JPasswordField repeatPasswordInputField = new JPasswordField(15);
 
 
     private final SignupController signupController;
 
-    private final JButton signUp;
+    final JButton signUp;
     private final JButton cancel;
 
     private final ViewManagerModel viewManagerModel;
