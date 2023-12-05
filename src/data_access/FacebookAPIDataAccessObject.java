@@ -3,6 +3,7 @@ package data_access;
 import entity.SocialMediaStats.FacebookStats;
 import entity.SocialMediaStats.SocialMediaStats;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.change_user_data.APIDataAccessInterface;
 
@@ -92,7 +93,16 @@ public class FacebookAPIDataAccessObject implements APIDataAccessInterface {
                 StandardCharsets.UTF_8))) {
             for (String line; (line = reader.readLine()) != null; ) {
                 JSONObject object = new JSONObject(line);
-                JSONObject userFriends = (JSONObject) object.get("friends"); // Pull friend data
+                JSONObject userFriends = null;
+
+                try {
+                    userFriends = (JSONObject) object.get("friends"); // Pull friend data
+                } catch (JSONException e) {
+                    System.out.println("Error with API call please check that you are using the correct API key for Facebook");
+                    apiError = true;
+                    return;
+                }
+
                 JSONObject userFriendsSummary = (JSONObject) userFriends.get("summary");
 
                 JSONArray jsonFriendCount = new JSONArray();
