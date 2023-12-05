@@ -1,11 +1,9 @@
 package app;
 import com.formdev.flatlaf.*;
-import data_access.InstagramAPIDataAccessObject;
 import data_access.SQLiteUserDataAccessObject;
 import entity.CommonUserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.homepage.HomepageViewModel;
-import interface_adapter.logged_in.LoggedInViewModel;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.login_home.LoginHomeViewModel;
 import interface_adapter.signup.SignupViewModel;
@@ -40,7 +38,6 @@ public class Main {
         // results from the use case. The ViewModels are observable, and will
         // be observed by the Views.
         LoginViewModel loginViewModel = new LoginViewModel();
-        LoggedInViewModel loggedInViewModel = new LoggedInViewModel();
         SignupViewModel signupViewModel = new SignupViewModel();
         HomepageViewModel homepageViewModel = new HomepageViewModel();
         LoginHomeViewModel loginHomeViewModel = new LoginHomeViewModel();
@@ -57,10 +54,9 @@ public class Main {
 
         InstagramPanel instagramPanel = new InstagramPanel(application);
         FacebookPanel facebookPanel = new FacebookPanel(application);
-        RankingPanelComponent rankingPanelComponent = new RankingPanelComponent();
         ExtensionPanelComponents extensionPanelComponents = new ExtensionPanelComponents();
         SettingsPanelComponent settingsPanelComponent = new SettingsPanelComponent();
-        HomepageView homepageView = HomepageUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, instagramPanel, facebookPanel, rankingPanelComponent,
+        HomepageView homepageView = HomepageUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, instagramPanel, facebookPanel,
                 extensionPanelComponents, settingsPanelComponent, userDataAccessObject, application);
         views.add(homepageView, homepageView.viewName);
 

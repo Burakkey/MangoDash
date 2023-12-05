@@ -12,15 +12,6 @@ public class SignupState {
     private String repeatPassword = "";
     private String repeatPasswordError = null;
 
-    public SignupState(SignupState copy) {
-        name = copy.name;
-        username = copy.username;
-        error = copy.error;
-        password = copy.password;
-        passwordError = copy.passwordError;
-        repeatPassword = copy.repeatPassword;
-        repeatPasswordError = copy.repeatPasswordError;
-    }
 
     /**
      * Creates a new SignupState object, with the default instance variables.

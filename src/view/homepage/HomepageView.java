@@ -21,8 +21,6 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
     private final HomepageViewModel homepageViewModel;
     private final InstagramPanel instagramPanel;
     private  final FacebookPanel facebookPanel;
-    private final RankingPanelComponent rankingPanelComponent;
-
     private final ExtensionPanelComponents extensionPanelComponents;
 
     private final SettingsPanelComponent settingsPanelComponent;
@@ -34,7 +32,7 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
 
 
     public HomepageView(HomepageViewModel homepageViewModel, InstagramPanel instagramPanel, FacebookPanel facebookPanel,
-                        RankingPanelComponent rankingPanelComponent, ExtensionPanelComponents extensionPanelComponents,
+                        ExtensionPanelComponents extensionPanelComponents,
                         SettingsPanelComponent settingsPanelComponent, HomepageController homepageController, ViewManagerModel viewManagerModel,
                         JFrame application) {
         this.homepageController = homepageController;
@@ -44,7 +42,6 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         this.homepageViewModel.addPropertyChangeListener(this);
         this.instagramPanel = instagramPanel;
         this.facebookPanel = facebookPanel;
-        this.rankingPanelComponent = rankingPanelComponent;
         this.extensionPanelComponents = extensionPanelComponents;
         this.settingsPanelComponent = settingsPanelComponent;
         this.application = application;
@@ -59,7 +56,6 @@ public class HomepageView extends JPanel implements ActionListener, PropertyChan
         tabbedPane.setFont(homepageViewModel.getComfortaaSmall());
         tabbedPane.setPreferredSize(new Dimension(1200, 600));
         tabbedPane.add(HomepageViewModel.HOME_TAB_LABEL, HomePanelComponent.getPanel(homepageViewModel, homepageController, viewManagerModel, application));
-        tabbedPane.add(HomepageViewModel.RANKING_TAB_LABEL, RankingPanelComponent.getPanel());
         tabbedPane.add(HomepageViewModel.EXTENSION_TAB_LABEL, ExtensionPanelComponents.getPanel(homepageViewModel, homepageController));
         tabbedPane.add(HomepageViewModel.ACCOUNT_TAB_LABEL, SettingsPanelComponent.getPanel(homepageViewModel, homepageController, viewManagerModel));
 
