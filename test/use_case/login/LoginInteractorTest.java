@@ -10,7 +10,6 @@ import entity.User;
 import org.junit.Before;
 import org.junit.Test;
 import use_case.change_user_data.FacebookAPIDataAccessInterface;
-import use_case.change_user_data.InstagramAPIDataAccessInterface;
 import use_case.signup.SignupInputData;
 import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupOutputData;

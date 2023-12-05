@@ -14,12 +14,12 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
     final ChangeDataOutputBoundary homepagePresenter;
 
-    final InstagramAPIDataAccessInterface instagramAPIDataAccessInterface;
-    final FacebookAPIDataAccessInterface facebookAPIDataAccessInterface;
+    final APIDataAccessInterface instagramAPIDataAccessInterface;
+    final APIDataAccessInterface facebookAPIDataAccessInterface;
 
     public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter,
-                                InstagramAPIDataAccessInterface instagramAPIDataAccessInterface,
-                                FacebookAPIDataAccessInterface facebookAPIDataAccessInterface) {
+                                APIDataAccessInterface instagramAPIDataAccessInterface,
+                                APIDataAccessInterface facebookAPIDataAccessInterface) {
         this.changeDataAccessInterface = changeDataAccessInterface;
         this.homepagePresenter = homepagePresenter;
         this.instagramAPIDataAccessInterface = instagramAPIDataAccessInterface;
@@ -73,25 +73,19 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String instagramAPIToken = changeDataInput.getInstagramAPIToken();
         changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
         instagramAPIDataAccessInterface.setAPI(instagramAPIToken);
-        facebookAPIDataAccessInterface.setApi(facebookAPIToken);
-        Boolean instagramKeyError = false;
-        Boolean facebookKeyError = false;
+        facebookAPIDataAccessInterface.setAPI(facebookAPIToken);
+        boolean instagramKeyError = false;
+        boolean facebookKeyError = false;
         try {
             instagramAPIDataAccessInterface.fetchData();
             facebookAPIDataAccessInterface.fetchData();
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        if (instagramAPIDataAccessInterface.isApiError()){
-            instagramKeyError = true;
-        }
-        if (facebookAPIDataAccessInterface.isApiError()){
-            facebookKeyError = true;
-        }
 
 
-        HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getInstagramStats().getStats();
-        HashMap<String, JSONArray> facebookStats = facebookAPIDataAccessInterface.getFacebookStats().getStats();
+        HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getStats().getStats();
+        HashMap<String, JSONArray> facebookStats = facebookAPIDataAccessInterface.getStats().getStats();
 
         // Creating new HashMaps
         HashMap<String, Object> instagramData = new HashMap<>();
@@ -103,13 +97,10 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
             instagramData.put(key, value);
         }
 
-        if (changeDataInput.getInstagramAPIToken().isEmpty()){
-            instagramKeyError = null;
-        }
 
         // Adding additional Instagram data
         instagramData.put("apiKey", instagramAPIToken);
-        instagramData.put("keyError", instagramKeyError);
+        instagramData.put("keyError", instagramAPIDataAccessInterface.isApiError());
 
         // Iterating over Facebook data
         for (String key : facebookStats.keySet()) {
@@ -117,13 +108,9 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
             facebookData.put(key, value);
         }
 
-        if (changeDataInput.getFacebookAPIToken().isEmpty()){
-            facebookKeyError = null;
-        }
-
         // Adding additional Facebook data
         facebookData.put("apiKey", facebookAPIToken);
-        facebookData.put("keyError", facebookKeyError);
+        facebookData.put("keyError", facebookAPIDataAccessInterface.isApiError());
 
         ChangeDataOutput changeDataOutput = new ChangeDataOutput(instagramData, facebookData);
         homepagePresenter.prepareAPIView(changeDataOutput);
