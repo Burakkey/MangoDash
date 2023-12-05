@@ -32,20 +32,23 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String newName = changeDataInput.getName();
         String oldPassword = changeDataInput.getOldPassword();
         String newPassword = changeDataInput.getNewPassword();
+        String repeatNewPassword = changeDataInput.getRepeateNewPassword();
         String bio = changeDataInput.getBio();
         if (changeDataInput.getNewPassword() != null &&
                 changeDataInput.getOldPassword() != null &&
                 changeDataInput.getRepeateNewPassword() != null) {
-            // Assumes that repeatPassword and newPassword are same!
-            // Validates oldPassword is user's password
-            // Changes oldPassword to newPassword
             String pwd = changeDataAccessInterface.get(username).getPassword();
             if (!oldPassword.equals(pwd)){
                 homepagePresenter.prepareFailView("Incorrect password for " + username + ".");
             }else {
-                changeDataAccessInterface.modifyUser(username, newName, newPassword, bio);
-                ChangeDataOutput changeDataOutput = new ChangeDataOutput(username, newName,bio);
-                homepagePresenter.prepareSuccessView(changeDataOutput);
+                if (repeatNewPassword.equals(newPassword)){
+                    changeDataAccessInterface.modifyUser(username, newName, newPassword, bio);
+                    ChangeDataOutput changeDataOutput = new ChangeDataOutput(username, newName,bio);
+                    homepagePresenter.prepareSuccessView(changeDataOutput);
+                }
+                else{
+                    homepagePresenter.prepareFailView("New passwords does not match.");
+                }
             }
 
 
@@ -71,8 +74,8 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
         instagramAPIDataAccessInterface.setAPI(instagramAPIToken);
         facebookAPIDataAccessInterface.setApi(facebookAPIToken);
-        boolean instagramKeyError = false;
-        boolean facebookKeyError = false;
+        Boolean instagramKeyError = false;
+        Boolean facebookKeyError = false;
         try {
             instagramAPIDataAccessInterface.fetchData();
             facebookAPIDataAccessInterface.fetchData();
@@ -100,6 +103,10 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
             instagramData.put(key, value);
         }
 
+        if (changeDataInput.getInstagramAPIToken().isEmpty()){
+            instagramKeyError = null;
+        }
+
         // Adding additional Instagram data
         instagramData.put("apiKey", instagramAPIToken);
         instagramData.put("keyError", instagramKeyError);
@@ -108,6 +115,10 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         for (String key : facebookStats.keySet()) {
             JSONArray value = facebookStats.get(key);
             facebookData.put(key, value);
+        }
+
+        if (changeDataInput.getFacebookAPIToken().isEmpty()){
+            facebookKeyError = null;
         }
 
         // Adding additional Facebook data
