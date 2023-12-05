@@ -32,7 +32,7 @@ public class HomepageViewTest {
     @BeforeEach
     public void setUp() {
         homepageViewModel = new HomepageViewModel();
-        instagramPanel = new InstagramPanel(new JFrame()); // Assuming these can be initialized without a JFrame
+        instagramPanel = new InstagramPanel(new JFrame());
         facebookPanel = new FacebookPanel(new JFrame());
         extensionPanelComponents = new ExtensionPanelComponents();
         settingsPanelComponent = new SettingsPanelComponent();
