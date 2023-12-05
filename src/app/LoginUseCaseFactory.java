@@ -11,6 +11,7 @@ import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
+import use_case.change_user_data.APIDataAccessInterface;
 import use_case.change_user_data.FacebookAPIDataAccessInterface;
 import use_case.change_user_data.InstagramAPIDataAccessInterface;
 import use_case.login.LoginInputBoundary;
@@ -68,7 +69,7 @@ public class LoginUseCaseFactory {
 
         InstagramStats instagramStats = new InstagramStats();
         FacebookStats facebookStats = new FacebookStats();
-        InstagramAPIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
+        APIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
         FacebookAPIDataAccessInterface facebookAPIDataAccessInterface = new FacebookAPIDataAccessObject("", facebookStats);
         LoginInputBoundary loginInteractor = new LoginInteractor(
                 userDataAccessObject, loginOutputBoundary, instagramAPIDataAccessInterface, facebookAPIDataAccessInterface);

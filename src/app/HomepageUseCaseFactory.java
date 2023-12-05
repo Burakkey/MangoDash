@@ -46,7 +46,7 @@ public class HomepageUseCaseFactory {
         UserFactory userFactory = new CommonUserFactory();
         InstagramStats instagramStats = new InstagramStats();
         FacebookStats facebookStats = new FacebookStats();
-        InstagramAPIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
+        APIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
         FacebookAPIDataAccessInterface facebookAPIDataAccessInterface = new FacebookAPIDataAccessObject("", facebookStats);
         ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary, instagramAPIDataAccessInterface, facebookAPIDataAccessInterface);
         return new HomepageController(changeDataInteractor);

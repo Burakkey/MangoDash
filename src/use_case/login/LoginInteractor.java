@@ -2,6 +2,7 @@ package use_case.login;
 
 import entity.User;
 import org.json.JSONArray;
+import use_case.change_user_data.APIDataAccessInterface;
 import use_case.change_user_data.FacebookAPIDataAccessInterface;
 import use_case.change_user_data.InstagramAPIDataAccessInterface;
 
@@ -16,7 +17,7 @@ public class LoginInteractor implements LoginInputBoundary {
     final LoginUserDataAccessInterface userDataAccessObject;
     final LoginOutputBoundary loginPresenter;
 
-    final InstagramAPIDataAccessInterface instagramAPIDataAccessInterface;
+    final APIDataAccessInterface instagramAPIDataAccessInterface;
 
     final FacebookAPIDataAccessInterface facebookAPIDataAccessInterface;
 
@@ -28,7 +29,7 @@ public class LoginInteractor implements LoginInputBoundary {
      */
     public LoginInteractor(LoginUserDataAccessInterface userDataAccessInterface,
                            LoginOutputBoundary loginOutputBoundary,
-                           InstagramAPIDataAccessInterface instagramAPIDataAccessInterface,
+                           APIDataAccessInterface instagramAPIDataAccessInterface,
                            FacebookAPIDataAccessInterface facebookAPIDataAccessInterface) {
         this.userDataAccessObject = userDataAccessInterface;
         this.loginPresenter = loginOutputBoundary;
@@ -70,7 +71,7 @@ public class LoginInteractor implements LoginInputBoundary {
                     throw new RuntimeException(e);
                 }
 
-                HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getInstagramStats().getStats();
+                HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getStats().getStats();
                 HashMap<String, JSONArray> facebookStats = facebookAPIDataAccessInterface.getFacebookStats().getStats();
 
                 // Creating new HashMaps

@@ -1,8 +1,10 @@
 package data_access;
 
 import entity.SocialMediaStats.InstagramStats;
+import entity.SocialMediaStats.SocialMediaStats;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import use_case.change_user_data.APIDataAccessInterface;
 import use_case.change_user_data.InstagramAPIDataAccessInterface;
 
 import java.io.BufferedReader;
@@ -13,12 +15,12 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInterface {
+public class InstagramAPIDataAccessObject implements APIDataAccessInterface {
     private String apiKey;
-    private InstagramStats instagramStats;
+    private SocialMediaStats instagramStats;
     private boolean apiError;
 
-    public InstagramAPIDataAccessObject(String apiKey, InstagramStats instagramStats) {
+    public InstagramAPIDataAccessObject(String apiKey, SocialMediaStats instagramStats) {
         this.apiKey = apiKey;
         this.instagramStats = instagramStats;
         this.apiError = false;
@@ -108,7 +110,7 @@ public class InstagramAPIDataAccessObject implements InstagramAPIDataAccessInter
     }
 
     @Override
-    public InstagramStats getInstagramStats() {
+    public SocialMediaStats getStats() {
         return instagramStats;
     }
 

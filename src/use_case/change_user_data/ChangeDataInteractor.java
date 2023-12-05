@@ -14,11 +14,11 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
     final ChangeDataOutputBoundary homepagePresenter;
 
-    final InstagramAPIDataAccessInterface instagramAPIDataAccessInterface;
+    final APIDataAccessInterface instagramAPIDataAccessInterface;
     final FacebookAPIDataAccessInterface facebookAPIDataAccessInterface;
 
     public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter,
-                                InstagramAPIDataAccessInterface instagramAPIDataAccessInterface,
+                                APIDataAccessInterface instagramAPIDataAccessInterface,
                                 FacebookAPIDataAccessInterface facebookAPIDataAccessInterface) {
         this.changeDataAccessInterface = changeDataAccessInterface;
         this.homepagePresenter = homepagePresenter;
@@ -87,7 +87,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         }
 
 
-        HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getInstagramStats().getStats();
+        HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getStats().getStats();
         HashMap<String, JSONArray> facebookStats = facebookAPIDataAccessInterface.getFacebookStats().getStats();
 
         // Creating new HashMaps
