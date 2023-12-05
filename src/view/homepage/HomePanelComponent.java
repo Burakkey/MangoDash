@@ -85,6 +85,7 @@ public class HomePanelComponent {
                     instagramPage.setSize(1200,650);
                     JPanel instagramStats = InstagramPanel.getPanel(homepageViewModel, homepageController);
                     instagramPage.add(instagramStats);
+                    instagramPage.setLocationRelativeTo(null);
                     instagramPage.setVisible(true);
                 }
             }
@@ -98,6 +99,7 @@ public class HomePanelComponent {
                     facebookPage.setSize(1200,650);
                     JPanel facebookStats = FacebookPanel.getPanel(homepageViewModel, homepageController);
                     facebookPage.add(facebookStats);
+                    facebookPage.setLocationRelativeTo(null);
                     facebookPage.setVisible(true);
                 }
             }
