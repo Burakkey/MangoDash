@@ -54,10 +54,11 @@ public class Main {
 
         InstagramPanel instagramPanel = new InstagramPanel(application);
         FacebookPanel facebookPanel = new FacebookPanel(application);
+        HomePanelComponent homePanelComponent = new HomePanelComponent();
         ExtensionPanelComponents extensionPanelComponents = new ExtensionPanelComponents();
         SettingsPanelComponent settingsPanelComponent = new SettingsPanelComponent();
         HomepageView homepageView = HomepageUseCaseFactory.create(viewManagerModel, loginViewModel, homepageViewModel, instagramPanel, facebookPanel,
-                extensionPanelComponents, settingsPanelComponent, userDataAccessObject, application);
+                homePanelComponent, extensionPanelComponents, settingsPanelComponent, userDataAccessObject, application);
         views.add(homepageView, homepageView.viewName);
 
         //

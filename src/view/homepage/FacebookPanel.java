@@ -18,20 +18,37 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The FacebookComponent contains methods that display the user's Facebook data to the user that is retrieved using the Facebook Graph API
+ */
 public class FacebookPanel {
 
     private static FacebookDataSet facebookDataSet;
     public JFrame application;
 
+    /**
+     * Creates a new FacebookPanel object on the given JFrame
+     * @param application
+     */
     public FacebookPanel(JFrame application) {
         facebookDataSet = new FacebookDataSet();
         this.application = application;
     }
 
+    /**
+     * Updates the Facebook data when the Homepage state changes
+     * @param newState
+     */
     public void updatePanel(HomepageState newState) {
         facebookDataSet.updateStats(newState.getFacebookStatsHashMap());
     }
 
+    /**
+     * This method builds the FacebookPanel that the user sees
+     * @param homepageViewModel
+     * @param homepageController
+     * @return a JPanel that displays the relevant Facebook data
+     */
     public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController) {
         JPanel homePanel = new JPanel();
         homePanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
@@ -44,6 +61,9 @@ public class FacebookPanel {
 
 }
 
+/**
+ * FacebookDataSet includes the Facebook data retrieved using the Facebook Graph API
+ */
 class FacebookDataSet extends JPanel {
 
     private int followersCount;
@@ -60,6 +80,10 @@ class FacebookDataSet extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
+    /**
+     * Updates the Facebook data and displays the changes to the user
+     * @param stats
+     */
     public void updateStats(HashMap<String, Object> stats) {
         if (stats == null) {
             // Reset all fields to default values

@@ -16,13 +16,19 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The ExtensionPanelComponent contains methods that display information to the user from the Extensions tab on the HomepageView.
+ * It is responsible for the UI for changing/inputting the user's Facebook and/or Instagram API key(s), and observes/reacts
+ * to events triggered by the user on the Extension tab.
+ */
 public class ExtensionPanelComponents {
     public static JTextField facebookAPIaccesstoken = new JTextField(15);
     public static JTextField instagramAPIAccessToken = new JTextField(15);
 
-
-
-
+    /**
+     * After the state of the Homepage changes, this method updates the Facebook and/or Instagram API key shown in the text fields
+     * @param newState the new state
+     */
     public void updatePanel(HomepageState newState){
 
         // these are updated without re-creating a new instance, add component that can change here!
@@ -31,6 +37,12 @@ public class ExtensionPanelComponents {
 
     }
 
+    /**
+     * This method builds the Extension Panel UI and reacts to the user inputs
+     * @param homepageViewModel
+     * @param homepageController
+     * @return the Extension Panel
+     */
     public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController) {
 
         // Below are how components are place (visuals) feel free to do whatever here

@@ -14,14 +14,23 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * LoginHomeView displays information to the user, is responsible for the login home page UI, and observes/reacts to events
+ * that are triggered by the user.
+ */
 public class LoginHomeView extends JPanel implements ActionListener, PropertyChangeListener {
     public final String viewName = "Home";
     private final LoginHomeViewModel loginHomeViewModel;
     final JButton signupButton;
     final JButton loginButton;
     private final ViewManagerModel viewManagerModel;
+
+    /**
+     * Constructs a new LoginHomeView object, which is responsible for the UI on the Login Home page.
+     * @param loginHomeViewModel
+     * @param viewManagerModel
+     */
     public LoginHomeView(LoginHomeViewModel loginHomeViewModel, ViewManagerModel viewManagerModel) {
-        // This is the code that modifies the color
         this.setBackground(LoginHomeViewModel.LIGHT_ORANGE);
         setPreferredSize(new Dimension(1200,600));
 
@@ -30,8 +39,6 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
         this.loginHomeViewModel.addPropertyChangeListener(this);
         this.viewManagerModel = viewManagerModel;
 
-//        JLabel title = new JLabel("Login Home View");
-//        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         try {
             BufferedImage titlePicture =
                     ImageIO.read(new File("src/assets/login_home_view/MangoDashLoginHomeTitle.png"));
