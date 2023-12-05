@@ -1,9 +1,10 @@
 package data_access;
 
 import entity.SocialMediaStats.FacebookStats;
+import entity.SocialMediaStats.SocialMediaStats;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import use_case.change_user_data.FacebookAPIDataAccessInterface;
+import use_case.change_user_data.APIDataAccessInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,13 +14,13 @@ import java.net.URL;
 import java.util.HashMap;
 import java.nio.charset.StandardCharsets;
 
-public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterface {
+public class FacebookAPIDataAccessObject implements APIDataAccessInterface {
     private String apiKey;
-    private FacebookStats facebookStats;
+    private SocialMediaStats facebookStats;
 
     private boolean apiError;
 
-    public FacebookAPIDataAccessObject(String apiKey, FacebookStats facebookStats) {
+    public FacebookAPIDataAccessObject(String apiKey, SocialMediaStats facebookStats) {
         this.apiKey = apiKey;
         this.facebookStats = facebookStats;
         this.apiError = false;
@@ -170,7 +171,7 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
     }
 
     @Override
-    public void setApi(String apiKey) {
+    public void setAPI(String apiKey) {
         this.apiKey = apiKey;
     }
 
@@ -180,7 +181,7 @@ public class FacebookAPIDataAccessObject implements FacebookAPIDataAccessInterfa
     }
 
     @Override
-    public FacebookStats getFacebookStats() {
+    public SocialMediaStats getStats() {
         return facebookStats;
     }
 }

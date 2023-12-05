@@ -11,7 +11,6 @@ import interface_adapter.homepage.HomepageController;
 import interface_adapter.homepage.HomepagePresenter;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginViewModel;
-import use_case.change_user_data.InstagramAPIDataAccessInterface;
 import use_case.change_user_data.*;
 import view.homepage.*;
 
@@ -47,7 +46,7 @@ public class HomepageUseCaseFactory {
         InstagramStats instagramStats = new InstagramStats();
         FacebookStats facebookStats = new FacebookStats();
         APIDataAccessInterface instagramAPIDataAccessInterface = new InstagramAPIDataAccessObject("", instagramStats);
-        FacebookAPIDataAccessInterface facebookAPIDataAccessInterface = new FacebookAPIDataAccessObject("", facebookStats);
+        APIDataAccessInterface facebookAPIDataAccessInterface = new FacebookAPIDataAccessObject("", facebookStats);
         ChangeDataInputBoundary changeDataInteractor = new ChangeDataInteractor(changeDataAccessInterface, changeDataOutputBoundary, instagramAPIDataAccessInterface, facebookAPIDataAccessInterface);
         return new HomepageController(changeDataInteractor);
     }

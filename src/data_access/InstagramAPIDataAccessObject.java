@@ -1,11 +1,9 @@
 package data_access;
 
-import entity.SocialMediaStats.InstagramStats;
 import entity.SocialMediaStats.SocialMediaStats;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import use_case.change_user_data.APIDataAccessInterface;
-import use_case.change_user_data.InstagramAPIDataAccessInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -15,11 +15,11 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
     final ChangeDataOutputBoundary homepagePresenter;
 
     final APIDataAccessInterface instagramAPIDataAccessInterface;
-    final FacebookAPIDataAccessInterface facebookAPIDataAccessInterface;
+    final APIDataAccessInterface facebookAPIDataAccessInterface;
 
     public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter,
                                 APIDataAccessInterface instagramAPIDataAccessInterface,
-                                FacebookAPIDataAccessInterface facebookAPIDataAccessInterface) {
+                                APIDataAccessInterface facebookAPIDataAccessInterface) {
         this.changeDataAccessInterface = changeDataAccessInterface;
         this.homepagePresenter = homepagePresenter;
         this.instagramAPIDataAccessInterface = instagramAPIDataAccessInterface;
@@ -70,7 +70,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String instagramAPIToken = changeDataInput.getInstagramAPIToken();
         changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
         instagramAPIDataAccessInterface.setAPI(instagramAPIToken);
-        facebookAPIDataAccessInterface.setApi(facebookAPIToken);
+        facebookAPIDataAccessInterface.setAPI(facebookAPIToken);
         boolean instagramKeyError = false;
         boolean facebookKeyError = false;
         try {
@@ -88,7 +88,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
 
         HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getStats().getStats();
-        HashMap<String, JSONArray> facebookStats = facebookAPIDataAccessInterface.getFacebookStats().getStats();
+        HashMap<String, JSONArray> facebookStats = facebookAPIDataAccessInterface.getStats().getStats();
 
         // Creating new HashMaps
         HashMap<String, Object> instagramData = new HashMap<>();
