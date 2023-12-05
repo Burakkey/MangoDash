@@ -44,7 +44,7 @@ public class SignupViewTest {
         // Simulate signup button click
         signupView.signUp.doClick();
 
-        // Retrieve the current state from the mock ViewModel
+        // Get the current state from the mock ViewModel
         SignupState currentState = signupViewModel.getState();
 
         // Verify that the state has been updated

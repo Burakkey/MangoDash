@@ -31,7 +31,7 @@ public class LoginViewTest {
         mocks = MockitoAnnotations.openMocks(this);
         when(loginViewModel.getComfortaaMedium()).thenReturn(new Font("SansSerif", Font.PLAIN, 12)); // Example font
 
-        // Ensure that loginViewModel returns a non-null LoginState
+        // Verify that loginViewModel returns a non-null LoginState
         when(loginViewModel.getState()).thenReturn(new LoginState());
 
         loginView = new LoginView(loginViewModel, loginController, viewManagerModel);
