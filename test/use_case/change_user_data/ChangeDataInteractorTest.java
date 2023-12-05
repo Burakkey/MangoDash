@@ -16,9 +16,9 @@ import java.util.HashMap;
 import static org.junit.Assert.*;
 
 public class ChangeDataInteractorTest {
-    private FacebookAPIDataAccessInterface facebookAPI;
+    private APIDataAccessInterface facebookAPI;
 
-    private InstagramAPIDataAccessInterface instagramAPI;
+    private APIDataAccessInterface instagramAPI;
 
     private CommonUserFactory userFactory;
     private HashMap<String, String> apiKeys;
