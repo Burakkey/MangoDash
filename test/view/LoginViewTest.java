@@ -15,6 +15,7 @@ import java.beans.PropertyChangeEvent;
 import java.lang.reflect.Field;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.*;
 
 public class LoginViewTest {
@@ -88,6 +89,8 @@ public class LoginViewTest {
         assertEquals("newUser", loginView.usernameInputField.getText());
         assertEquals("newPass", new String(loginView.passwordInputField.getPassword()));
     }
+
+
 
 
 }
