@@ -84,5 +84,4 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
     public void propertyChange(PropertyChangeEvent evt) {
 
     }
-
 }

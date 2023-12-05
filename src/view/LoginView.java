@@ -149,11 +149,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
             viewManagerModel.setActiveView("Home");
             viewManagerModel.firePropertyChanged();
         }
-        else if (evt.getActionCommand() == logIn.getActionCommand()){
-            viewManagerModel.setActiveView("logged in");
-            viewManagerModel.firePropertyChanged();
-        }
-
         System.out.println("Click " + evt.getActionCommand());
     }
 

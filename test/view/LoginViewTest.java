@@ -9,7 +9,10 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import javax.swing.*;
 import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.lang.reflect.Field;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -37,6 +40,12 @@ public class LoginViewTest {
         loginView = new LoginView(loginViewModel, loginController, viewManagerModel);
     }
 
+    private JButton getButton(String buttonName) throws NoSuchFieldException, IllegalAccessException {
+        Field field = LoginView.class.getDeclaredField(buttonName);
+        field.setAccessible(true);
+        return (JButton) field.get(loginView);
+    }
+
     @Test
     public void testLoginProcess() {
         // Simulate user input
@@ -52,4 +61,33 @@ public class LoginViewTest {
         assertEquals("testUser", currentState.getUsername());
         assertEquals("testPass", currentState.getPassword());
     }
+
+    @Test
+    public void testBackButtonAction() throws NoSuchFieldException, IllegalAccessException {
+        JButton backButton = getButton("back");
+
+        // Simulate the back button click
+        backButton.doClick();
+
+        // Verify that the view changes to "Home"
+        verify(viewManagerModel, times(1)).setActiveView("Home");
+        verify(viewManagerModel, times(1)).firePropertyChanged();
+    }
+
+    @Test
+    public void testPropertyChangeUpdatesFields() {
+        LoginState newState = new LoginState();
+        newState.setUsername("newUser");
+        newState.setPassword("newPass");
+
+        // Simulate property change event
+        PropertyChangeEvent evt = new PropertyChangeEvent(this, "state", null, newState);
+        loginView.propertyChange(evt);
+
+        // Verify that the fields are updated correctly
+        assertEquals("newUser", loginView.usernameInputField.getText());
+        assertEquals("newPass", new String(loginView.passwordInputField.getPassword()));
+    }
+
+
 }
