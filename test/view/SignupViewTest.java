@@ -9,6 +9,9 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import javax.swing.*;
+import java.lang.reflect.Field;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -56,5 +59,24 @@ public class SignupViewTest {
         // Verify that the controller's execute method is called with correct parameters
         verify(signupController, times(1)).execute("testName", "testUser", "testPass", "testPass");
     }
+
+    @Test
+    public void testCancelActionChangesView() throws NoSuchFieldException, IllegalAccessException {
+        // Access the private 'cancel' button field using reflection
+        Field cancelButtonField = SignupView.class.getDeclaredField("cancel");
+        cancelButtonField.setAccessible(true); // Make the field accessible
+        JButton cancelButton = (JButton) cancelButtonField.get(signupView); // Get the 'cancel' button instance
+
+        // Simulate the cancel button click
+        cancelButton.doClick();
+
+        // Verify that the viewManagerModel's setActiveView method is called with "Home"
+        verify(viewManagerModel, times(1)).setActiveView("Home");
+
+        // Verify that the viewManagerModel's firePropertyChanged method is called
+        verify(viewManagerModel, times(1)).firePropertyChanged();
+    }
+
+
 
 }
