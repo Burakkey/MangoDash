@@ -14,11 +14,18 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+/**
+ * The HomePanelComponent contains methods that display information to the user from the Home tab on the HomepageView.
+ * It is responsible for the UI for displaying the Facebook and Instagram data, and observes/reacts to events triggered by the user on the Home tab.
+ */
 public class HomePanelComponent {
 
     private InstagramDataSet instagramDataSet;
     private FacebookDataSet facebookDataSet;
 
+    /**
+     * Creates a new HomePanelComponent with the default instagram and facebook data sets
+     */
     public HomePanelComponent() {
         instagramDataSet = new InstagramDataSet();
         facebookDataSet = new FacebookDataSet();
@@ -29,6 +36,14 @@ public class HomePanelComponent {
         facebookDataSet.updateStats(newState.getFacebookStatsHashMap());
     }
 
+    /**
+     * This method builds the Home Panel UI and reacts to the buttons clicked
+     * @param homepageViewModel
+     * @param homepageController
+     * @param viewManagerModel
+     * @param application
+     * @return the Home Panel
+     */
     public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel, JFrame application) {
         JPanel homePanel = new JPanel();
 

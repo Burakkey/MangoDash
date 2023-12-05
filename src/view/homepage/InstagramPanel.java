@@ -17,21 +17,37 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * InstagramComponent contains methods that display the user's Instagram data to the user that is retrieved using the Instagram Graph API
+ */
 public class InstagramPanel {
 
     private static InstagramDataSet instagramDataSet;
     public JFrame application;
 
+    /**
+     * Creates a new InstagramPanel object on the given JFrame
+     * @param application
+     */
     public InstagramPanel(JFrame application) {
         instagramDataSet = new InstagramDataSet();
         this.application = application;
-        // Initialize other components
     }
 
+    /**
+     * Updates the Instagram data when the Homepage state changes
+     * @param newState
+     */
     public void updatePanel(HomepageState newState) {
         instagramDataSet.updateStats(newState.getInstagramStatsHashMap());
     }
 
+    /**
+     * This method builds the InstagramPanel that the user sees
+     * @param homepageViewModel
+     * @param homepageController
+     * @return a JPanel that displays the relevant Instagram data
+     */
     public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController) {
         JPanel homePanel = new JPanel();
         homePanel.setBackground(HomepageViewModel.BACKGROUND_COLOR);
@@ -46,6 +62,9 @@ public class InstagramPanel {
 
 }
 
+/**
+ * InstagramDataSet includes the Instagram data retrieved using the Instagram Graph API
+ */
 class InstagramDataSet extends JPanel {
 
     private int followersCount;
@@ -62,6 +81,10 @@ class InstagramDataSet extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
     }
 
+    /**
+     * Updates the Instagram data and displays the changes to the user
+     * @param stats
+     */
     public void updateStats(HashMap<String, Object> stats) {
         if (stats == null) {
             // Reset all fields to default values

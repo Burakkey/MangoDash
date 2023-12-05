@@ -8,6 +8,10 @@ import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Iterator;
 
+/**
+ * ChangeDataInteractor takes the change data input data and uses it to change the user's data. If there is an error with the
+ * input data, the data will not change
+ */
 public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
     final ChangeDataAccessInterface changeDataAccessInterface;
@@ -17,6 +21,13 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
     final APIDataAccessInterface instagramAPIDataAccessInterface;
     final APIDataAccessInterface facebookAPIDataAccessInterface;
 
+    /**
+     * Creates a new ChangeDataInteractor
+     * @param changeDataAccessInterface
+     * @param homepagePresenter
+     * @param instagramAPIDataAccessInterface
+     * @param facebookAPIDataAccessInterface
+     */
     public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter,
                                 APIDataAccessInterface instagramAPIDataAccessInterface,
                                 APIDataAccessInterface facebookAPIDataAccessInterface) {
@@ -26,6 +37,11 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         this.facebookAPIDataAccessInterface = facebookAPIDataAccessInterface;
     }
 
+    /**
+     * Given the changeDataInput, decide whether to successfully change the user's info, and which info to change.
+     * This includes changing password, or changing name and/or bio.
+     * @param changeDataInput
+     */
     @Override
     public void executeSaveChanges(ChangeDataInput changeDataInput) {
         String username = changeDataInput.getUsername();
@@ -66,6 +82,12 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
     }
 
+    /**
+     * Given the changeDataInput, decide whether to successfully change the user's info.
+     * This includes the user's Facebook and/or Instagram API key(s). Then, change the corresponding Social Media data to
+     * reflect the change in the API key(s).
+     * @param changeDataInput
+     */
     @Override
     public void executeAPIChanges(ChangeDataInput changeDataInput) {
         String username = changeDataInput.getUsername();

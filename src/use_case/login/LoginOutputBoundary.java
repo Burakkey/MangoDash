@@ -1,7 +1,8 @@
 package use_case.login;
 
 /**
- * LoginOutputBoundary is an interface with methods that detail how the program will respond to input data
+ * LoginOutputBoundary is an interface defining the contract for presenting login-related responses
+ * and output to the LoginPresenter after successful logins.
  */
 public interface LoginOutputBoundary {
     /**

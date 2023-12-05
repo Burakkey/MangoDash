@@ -14,6 +14,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The SettingsPanelComponent contains methods that display information to the user from the Settings tab on the HomepageView.
+ * It is responsible for the UI for changing/inputting the user's name, bio, and/or password, and observes/reacts
+ * to events triggered by the user on the Settings tab.
+ */
 public class SettingsPanelComponent {
 
     public SettingsPanelComponent() {
@@ -23,7 +28,10 @@ public class SettingsPanelComponent {
     public static JTextField bioInputField = new JTextField(15);
     public static JTextField usernameInputField = new JTextField(15);
 
-
+    /**
+     * After the state of the Homepage changes, this method updates the info shown in the text fields of name, username, and bio
+     * @param newState the new state
+     */
     public void updatePanel(HomepageState newState){
 
         // these are updated without re-creating a new instance, add component that can change here!
@@ -32,6 +40,13 @@ public class SettingsPanelComponent {
         bioInputField.setText(newState.getBio());
     }
 
+    /**
+     * This method builds the Settings Panel UI and reacts to user input
+     * @param homepageViewModel
+     * @param homepageController
+     * @param viewManagerModel
+     * @return the Settings Panel
+     */
     public static JPanel getPanel(HomepageViewModel homepageViewModel, HomepageController homepageController, ViewManagerModel viewManagerModel) {
 
         // Below are how components are place (visuals) feel free to do whatever here

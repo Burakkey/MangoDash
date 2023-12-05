@@ -13,6 +13,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * SQLiteUserDataAccessObject provides methods relating to user information for the application to interact with the database
+ */
 public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface, LoginUserDataAccessInterface,
         ChangeDataAccessInterface {
 
@@ -21,6 +24,12 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
 
     private final Map<String, User> accounts = new HashMap<>();
 
+    /**
+     * creates a SQLiteUserDataAccessObject that takes user information and puts it into a SQL file.
+     * @param dbPath the String of the file name of the SQL database
+     * @param userFactory encapsulates the data of the user
+     * @throws ClassNotFoundException
+     */
     public SQLiteUserDataAccessObject(String dbPath, UserFactory userFactory) throws ClassNotFoundException {
         this.userFactory = userFactory;
         this.dbUrl = "jdbc:sqlite:" + dbPath;
@@ -70,11 +79,21 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
 
     }
 
+    /**
+     * existsByName takes the given String and checks the database to see if there is another user that is already using that username.
+     * @param identifier the username the user has chosen when signing up
+     * @return true if the username is already taken, false if the username is not already taken
+     */
     @Override
     public boolean existsByName(String identifier) {
         return accounts.containsKey(identifier);
     }
 
+    /**
+     * validName takes the given String and checks if it is a valid name (if it contains only letters).
+     * @param name the name that the user inputs in the Name text field
+     * @return true if the name is valid, false if the name is invalid.
+     */
     @Override
     public boolean validName(String name) {
         for (int i = 0; i < name.length(); i++) {
@@ -85,13 +104,20 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
         return true;
     }
 
-
-
+    /**
+     * occurs when the sign up is successful; this method puts the User and their info into the database
+     * @param user represents the user and their info
+     */
     @Override
     public void save(User user) {
         accounts.put(user.getUserName(), user);
         this.save();
     }
+
+    /**
+     * occurs when the user has already signed up, and they want to change their info. This method updates/changes the database
+     * reflect these changes
+     */
     public void save() {
         String sql = "INSERT OR REPLACE INTO users(name, username, password, bio, api_keys, creation_time) VALUES(?,?,?,?,?,?)";
         try (Connection conn = DriverManager.getConnection(dbUrl);
@@ -115,7 +141,13 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
         }
     }
 
-
+    /**
+     * changes the user's password, after inputting the same password twice into the prompt for changing passwords
+     * @param name the user's name
+     * @param username the user's username (unique identifier)
+     * @param password the user's new password
+     * @param bio the user's bio
+     */
     @Override
     public void modifyUser(String name, String username, String password, String bio) {
         User user = accounts.get(username);
@@ -123,10 +155,16 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
             user.setPassword(password);
             user.setName(name);
             user.setBio(bio);
-            this.save(); // Save the updated user information to the CSV file
+            this.save();
         }
     }
 
+    /**
+     * changes the user's name and/or bio
+     * @param name the user's (new) name
+     * @param username the user's username (unique identifier)
+     * @param bio the user's (new) bio
+     */
     @Override
     public void modifyUser(String name, String username, String bio) {
         User user = accounts.get(username);
@@ -137,6 +175,12 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
         }
     }
 
+    /**
+     * changes the user's facebookAPI token and/or instagramAPI token
+     * @param username the user's username (unique identifier)
+     * @param facebookAPI the user's FacebookAPI token
+     * @param instagramAPI the user's InstagramAPI token
+     */
     @Override
     public void modifyUserAPI(String username, String facebookAPI, String instagramAPI) {
         User user = accounts.get(username);
@@ -153,7 +197,7 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
             user.setApiKeys("Facebook", facebookAPI);
             user.setApiKeys("Instagram", instagramAPI);
 
-            this.save(); // Save the updated user information
+            this.save();
         }
     }
 
@@ -162,6 +206,4 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
         return accounts.get(username);
     }
 
-
-    // Other methods like clear, existsByName, modifyUser to be implemented similarly
 }
