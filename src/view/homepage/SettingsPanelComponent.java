@@ -215,22 +215,6 @@ public class SettingsPanelComponent {
                         // Close the custom dialog, which will also close the OptionDialog
                         customDialog.dispose();
 
-//                        if (!reenterNewPassword.equals(newPassword)) {
-//                            JOptionPane.showMessageDialog(
-//                                    customDialog,
-//                                    "New passwords do not match!",
-//                                    "Error",
-//                                    JOptionPane.INFORMATION_MESSAGE
-//                            );
-//                        } else {
-//                            HomepageState currentState = homepageViewModel.getState();
-//                            homepageController.executeSaveChanges(
-//                                    currentState.getUsername(), currentState.getName(), currentState.getBio(),
-//                                    currentPassword, newPassword, reenterNewPassword);
-//
-//                            // Close the custom dialog, which will also close the OptionDialog
-//                            customDialog.dispose();
-//                        }
                     } else {
                         // User clicked "Cancel" or closed the dialog
                         // Close the custom dialog, which will also close the OptionDialog

@@ -126,38 +126,36 @@ class ExtensionPanelComponentsTest {
 
     private Timer createCloseTimer() {
         ActionListener close = new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 Window[] windows = Window.getWindows();
                 for (Window window : windows) {
-                    System.out.println(window.getName()); //we see that
-                    if (window instanceof JDialog) {
-
-
+                    if (window instanceof JDialog && window.isVisible()) {
                         JDialog dialog = (JDialog)window;
-
-                        // this ignores old dialogs
-                        if (dialog.isVisible()) {
-                            String s = ((JOptionPane) ((BorderLayout) dialog.getRootPane()
-                                    .getContentPane().getLayout()).getLayoutComponent(BorderLayout.CENTER)).getMessage().toString();
-
-                            // store the information we got from the JDialog
-                            ExtensionPanelComponentsTest.instaMessage = s;
-                            ExtensionPanelComponentsTest.popUpDiscovered = true;
-                            System.out.println(s);
-
-                            //System.out.println("disposing of..." + window.getClass());
-                            window.dispose();
-                        }
+                        String message = extractMessageFromDialog(dialog);
+                        processDialogMessage(message);
+                        dialog.dispose();
                     }
                 }
             }
         };
 
-        Timer t = new Timer(1000, close);
-        t.setRepeats(false);
-        return t;
+        return new Timer(1000, close);
+    }
+
+    private String extractMessageFromDialog(JDialog dialog) {
+        // Extract and return the message from the dialog
+        JOptionPane optionPane = (JOptionPane) dialog.getContentPane().getComponent(0);
+        return (String) optionPane.getMessage();
+    }
+
+    private void processDialogMessage(String message) {
+        // Process the dialog message and set appropriate flags or variables
+        if (message.contains("Instagram")) {
+            instaMessage = message;
+        } else if (message.contains("Facebook")) {
+            facebookMessage = message;
+        }
+        popUpDiscovered = true;
     }
 }
