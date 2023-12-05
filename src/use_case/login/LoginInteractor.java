@@ -94,7 +94,7 @@ public class LoginInteractor implements LoginInputBoundary {
                 // Adding additional Facebook data
                 facebookData.put("apiKey", facebookApiKey);
 
-                LoginOutputData loginOutputData = new LoginOutputData(user.getName(), user.getUserName(), user.getBio(), instagramData, facebookData, false);
+                LoginOutputData loginOutputData = new LoginOutputData(user.getName(), user.getUserName(), user.getBio(), instagramData, facebookData);
                 loginPresenter.prepareSuccessView(loginOutputData);
             }
         }

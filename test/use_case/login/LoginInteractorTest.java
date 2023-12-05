@@ -9,7 +9,7 @@ import entity.SocialMediaStats.InstagramStats;
 import entity.User;
 import org.junit.Before;
 import org.junit.Test;
-import use_case.change_user_data.FacebookAPIDataAccessInterface;
+import use_case.change_user_data.APIDataAccessInterface;
 import use_case.signup.SignupInputData;
 import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupOutputData;
@@ -22,8 +22,9 @@ import java.util.HashMap;
 import static org.junit.Assert.*;
 
 public class LoginInteractorTest {
-    private FacebookAPIDataAccessInterface facebookAPI;
-    private InstagramAPIDataAccessInterface instagramAPI;
+    private APIDataAccessInterface facebookAPI;
+
+    private APIDataAccessInterface instagramAPI;
     private CommonUserFactory userFactory;
     private HashMap<String, String> apiKeys;
     @Before
