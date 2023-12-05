@@ -29,7 +29,6 @@ public class LoginOutputData implements InstagramDataGetter, FacebookDataGetter 
      * @param bio the user's chosen biography, if any
      * @param facebookData the user's facebook data
      * @param instagramData the user's instagram data
-     //* @param useCaseFailed whether the user login was successful
      */
     public LoginOutputData(String name, String username, String bio, HashMap <String, Object> instagramData, HashMap <String, Object> facebookData) {
         this.name = name;
@@ -58,4 +57,5 @@ public class LoginOutputData implements InstagramDataGetter, FacebookDataGetter 
     public String getBio(){
         return bio;
     }
+
 }
