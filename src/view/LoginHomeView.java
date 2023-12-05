@@ -85,11 +85,10 @@ public class LoginHomeView extends JPanel implements ActionListener, PropertyCha
             viewManagerModel.setActiveView("log in");
             viewManagerModel.firePropertyChanged();
         }
-        System.out.println("Click " + evt.getActionCommand());
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-    }
 
+    }
 }
