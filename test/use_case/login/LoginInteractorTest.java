@@ -1,7 +1,11 @@
 package use_case.login;
 
+import data_access.FacebookAPIDataAccessObject;
+import data_access.InstagramAPIDataAccessObject;
 import data_access.SQLiteUserDataAccessObject;
 import entity.CommonUserFactory;
+import entity.SocialMediaStats.FacebookStats;
+import entity.SocialMediaStats.InstagramStats;
 import entity.User;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,9 +30,9 @@ public class LoginInteractorTest {
     @Before
     public void setUp(){
         userFactory = new CommonUserFactory();
-        apiKeys = new HashMap<>();
-        apiKeys.put("Facebook", "");
-        apiKeys.put("Instagram","");
+        facebookAPI = new FacebookAPIDataAccessObject("", new FacebookStats());
+        instagramAPI = new InstagramAPIDataAccessObject("", new InstagramStats());
+
     }
 
     @Test

@@ -32,6 +32,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         String newName = changeDataInput.getName();
         String oldPassword = changeDataInput.getOldPassword();
         String newPassword = changeDataInput.getNewPassword();
+        String repeatNewPassword = changeDataInput.getRepeateNewPassword();
         String bio = changeDataInput.getBio();
         if (changeDataInput.getNewPassword() != null &&
                 changeDataInput.getOldPassword() != null &&
@@ -43,9 +44,14 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
             if (!oldPassword.equals(pwd)){
                 homepagePresenter.prepareFailView("Incorrect password for " + username + ".");
             }else {
-                changeDataAccessInterface.modifyUser(username, newName, newPassword, bio);
-                ChangeDataOutput changeDataOutput = new ChangeDataOutput(username, newName,bio);
-                homepagePresenter.prepareSuccessView(changeDataOutput);
+                if (repeatNewPassword.equals(newPassword)){
+                    changeDataAccessInterface.modifyUser(username, newName, newPassword, bio);
+                    ChangeDataOutput changeDataOutput = new ChangeDataOutput(username, newName,bio);
+                    homepagePresenter.prepareSuccessView(changeDataOutput);
+                }
+                else{
+                    homepagePresenter.prepareFailView("New passwords does not match.");
+                }
             }
 
 
