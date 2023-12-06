@@ -41,9 +41,15 @@ Features we'd like to implement into MangoDash in the future
 - [ ] Adding a ranking system
 
 ### 🫂 Contributers
+https://github.com/Burakkey
+https://github.com/cndlnn
+https://github.com/aungzm06
+https://github.com/arielycliu
+https://github.com/grandrx10
 
 ### 🧪 Tests
 Tests and how to run them
+Under the MangoDash/tests folder we have tests on everything from FacebookStats to LoginInteractors and SignupViews. To run a test simply navigate to the test file and click run.
 
 ##### 📃 License
 MangoDash is licensed under the MIT License. Feel free to use, modify, and distribute the code for your own purposes.
