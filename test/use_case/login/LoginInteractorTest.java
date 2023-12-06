@@ -1,5 +1,6 @@
 package use_case.login;
 
+import data_access.APIDataAccessInterface;
 import data_access.FacebookAPIDataAccessObject;
 import data_access.InstagramAPIDataAccessObject;
 import data_access.SQLiteUserDataAccessObject;
@@ -9,7 +10,6 @@ import entity.SocialMediaStats.InstagramStats;
 import entity.User;
 import org.junit.Before;
 import org.junit.Test;
-import use_case.change_user_data.APIDataAccessInterface;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -23,11 +23,10 @@ public class LoginInteractorTest {
     private CommonUserFactory userFactory;
     private HashMap<String, String> apiKeys;
     @Before
-    public void setUp(){
+    public void setUp() {
         userFactory = new CommonUserFactory();
         facebookAPI = new FacebookAPIDataAccessObject("", new FacebookStats());
         instagramAPI = new InstagramAPIDataAccessObject("", new InstagramStats());
-
     }
 
     @Test
