@@ -14,3 +14,10 @@ Users can signup or create a new account within our database, using their facebo
 3. Copy in your Facebook or Instagram Access Token -> instruction on how to get your api token here (link to come)
 4. Click "Save Changes"
 5. Head to the Home tab and click the social media you want to view the stats of
+
+### ⛵ What's next for MangoDash
+Features we'd like to implement into MangoDash in the future
+- [ ] More social media platforms (currently we only integrate with facebook or instagram)
+- [ ] Simplify API Token process (streamline the process to get the API key for the user, perhaps logging into the platform through MangoDash)
+- [ ] Add more statistics (adding a page to look at general statistics cross platforms, tracking average like growth over time etc)
+- [ ] Adding a ranking system 
