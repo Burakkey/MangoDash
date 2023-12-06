@@ -177,7 +177,7 @@ public class ChangeDataInteractorTest {
 
 
     @Test
-    public void executeAPIChangesSuccessfullyTest() throws ClassNotFoundException {
+    public void executeAPIChangesSuccessfullyTest() throws ClassNotFoundException, RuntimeException {
         // First create user so that we can test
         User user = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
         ChangeDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
@@ -201,7 +201,6 @@ public class ChangeDataInteractorTest {
 
             @Override
             public void prepareAPIView(ChangeDataOutput changeDataOutput) {
-                // TODO WHAT DO YOU GUYS CHANGE IN HERE
                 HashMap<String,String> expected = new HashMap<>();
                 expected.put("Facebook", "EAAE1wmc7D2IBO7A6ARgobRPzhoPN9LLTx5ZCbzclXCBsMNaAnZADz6ujpfb16WgxJnG4qIRggtbKFfTM2CHGVVUzL21ZBgkZAnlTaGRWnaOw8vApwUrWKSWiCZBwzrCukupaNVb6QQcaYx0RGw4h4J1nJ2pJIRlJEh6wCxcTtTwyVMiDZBY21yO1KLjioqfWRjdtzz6pPOoSZCf7szqhYbiQ47cqx8ZD");
                 expected.put("Instagram",  "EAAMw2YKsBFwBO4pt7KgLmZBeEzVHOYB90bh1HM9xJN1QZAo0qWZBEn8M0A1q5tdXXOjNDE3a8SbZAdxkCqXp4XoJb1QwCKDbXkn0S4jbGNV4UpRa4pqHLhNc1nbBmewt9Ri0l1EmKU29JtY6D3nZCiHeLcvpZB48DR9LpMSVrQvQUMJmtxVLgr8nlc");

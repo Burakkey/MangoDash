@@ -10,8 +10,6 @@ public interface ChangeDataInputBoundary {
      */
     void executeSaveChanges(ChangeDataInput changeDataInput);
 
-    void executeLogout(ChangeDataInput changeDataInput);
-
     /**
      * This method uses the changeDataInput to execute the changes the user makes to their Facebook and/or Instagram API key
      * @param changeDataInput

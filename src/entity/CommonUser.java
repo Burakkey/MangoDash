@@ -90,10 +90,4 @@ class CommonUser implements User {
         return apiKeys;
     }
 
-
-
-    public static void main(String[] args) {
-//        CommonUser commonUser = new CommonUser("Richard", "RickShaltz", "111", "empty", null);
-//        commonUser.setApiKey("Instagram","EAAMw2YKsBFwBO8e6FdON200XZBSg6PH6pq4ZCmxsGHkkZCZBCckZCnaSmJQczJxPCh0q0aNZBwATZAsmddRQrYmC0q8rZC62vCl4M53oxKOjfrbRrpGKSN4WdWajZCQmiIlDcYTJxA4pajiFxiWGPdFzfHMRu3LJDsBom9lboVDQJMexHf3TQuZAYWkPsc4oEaMDTkPJp1LfFSmKiSmTrZB2ZCXdkPIZD");
-    }
 }

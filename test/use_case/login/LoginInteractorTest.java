@@ -31,7 +31,7 @@ public class LoginInteractorTest {
     }
 
     @Test
-    public void successTest() throws ClassNotFoundException {
+    public void successTest() throws ClassNotFoundException, RuntimeException {
 
         User user = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
         LoginInputData inputData = new LoginInputData("username", "password");
@@ -43,7 +43,6 @@ public class LoginInteractorTest {
 
             @Override
             public void prepareSuccessView(LoginOutputData user) {
-                //TODO WHAT ELSE & PROBLEM
                 assertTrue(userRepository.existsByName(user.getUsername()));
                 assertEquals("bio", user.getBio());
             }

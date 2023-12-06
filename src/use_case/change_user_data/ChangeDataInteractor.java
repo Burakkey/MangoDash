@@ -57,12 +57,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
             if (!oldPassword.equals(pwd)){
                 homepagePresenter.prepareFailView("Incorrect password for " + username + ".");
             }else {
-                if (repeatNewPassword.equals(newPassword)){
-                    changeDataAccessInterface.modifyUser(username, newName, newPassword, bio);
-                    ChangeDataOutput changeDataOutput = new ChangeDataOutput(username, newName,bio);
-                    homepagePresenter.prepareSuccessView(changeDataOutput);
-                }
-                else{
+                if (!(repeatNewPassword.equals(newPassword))){
                     homepagePresenter.prepareFailView("New passwords does not match.");
                 }
             }
@@ -77,10 +72,6 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
         }
     }
 
-    @Override
-    public void executeLogout(ChangeDataInput changeDataInput) {
-
-    }
 
     /**
      * Given the changeDataInput, decide whether to successfully change the user's info.
