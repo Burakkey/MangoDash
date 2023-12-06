@@ -3,6 +3,10 @@ package entity;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+/**
+ * Represents a user in this application.
+ * This interface defines the common methods that a user entity has
+ */
 public interface User {
 
 

@@ -6,6 +6,10 @@ import org.json.JSONArray;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 
+/**
+ * ChangeDataInteractor takes the change data input data and uses it to change the user's data. If there is an error with the
+ * input data, the data will not change
+ */
 public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
     final ChangeDataAccessInterface changeDataAccessInterface;
@@ -13,10 +17,16 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
     final ChangeDataOutputBoundary homepagePresenter;
 
     public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter) {
+
         this.changeDataAccessInterface = changeDataAccessInterface;
         this.homepagePresenter = homepagePresenter;
     }
 
+    /**
+     * Given the changeDataInput, decide whether to successfully change the user's info, and which info to change.
+     * This includes changing password, or changing name and/or bio.
+     * @param changeDataInput
+     */
     @Override
     public void executeSaveChanges(ChangeDataInput changeDataInput) {
         String username = changeDataInput.getUsername();
@@ -32,12 +42,7 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
             if (!oldPassword.equals(pwd)){
                 homepagePresenter.prepareFailView("Incorrect password for " + username + ".");
             }else {
-                if (repeatNewPassword.equals(newPassword)){
-                    changeDataAccessInterface.modifyUser(username, newName, newPassword, bio);
-                    ChangeDataOutput changeDataOutput = new ChangeDataOutput(username, newName,bio);
-                    homepagePresenter.prepareSuccessView(changeDataOutput);
-                }
-                else{
+                if (!(repeatNewPassword.equals(newPassword))){
                     homepagePresenter.prepareFailView("New passwords does not match.");
                 }
             }

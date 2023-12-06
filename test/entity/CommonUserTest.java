@@ -47,4 +47,11 @@ public class CommonUserTest {
         user.setName("NewName");
         assertEquals("NewName", user.getName());
     }
+    @Test
+    public void testSetBio() {
+
+        CommonUser user = new CommonUser("Burak", "burakkey", "12345", "I love CS", null, LocalDateTime.now());
+        user.setBio("NewBio");
+        assertEquals("NewBio", user.getBio());
+    }
 }

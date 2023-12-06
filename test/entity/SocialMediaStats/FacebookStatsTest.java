@@ -38,6 +38,7 @@ public class FacebookStatsTest {
         assertEquals(newStats, facebookStats.getStats());
         assertEquals(newPosts, facebookStats.getPosts());
         assertEquals(newFollowers, facebookStats.getFollowers());
+
     }
 
     @Test
@@ -57,4 +58,6 @@ public class FacebookStatsTest {
         assertEquals(posts, facebookStats.getPosts());
         assertEquals(followers, facebookStats.getFollowers());
     }
+
+
 }

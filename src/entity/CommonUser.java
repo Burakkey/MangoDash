@@ -6,6 +6,9 @@ import entity.SocialMediaStats.SocialMediaStats;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+/**
+ * CommonUser represents a common user entity in this application, and has variables representing the information a common user would have
+ */
 class CommonUser implements User {
 
     private String bio;
@@ -17,9 +20,13 @@ class CommonUser implements User {
     private HashMap<String, String> apiKeys;
 
     /**
-     * Requires: password is valid.
-     * @param name
-     * @param password
+     * Constructs a CommonUser object with the provided information:
+     * @param name the user's name
+     * @param username the user's username
+     * @param password the user's password
+     * @param bio the user's bio
+     * @param apiKeys the user's API keys
+     * @param creationTime the time this new user was created
      */
     CommonUser(String name, String username, String password, String bio, HashMap<String, String> apiKeys, LocalDateTime creationTime) {
         this.name = name;
@@ -83,10 +90,4 @@ class CommonUser implements User {
         return apiKeys;
     }
 
-
-
-    public static void main(String[] args) {
-//        CommonUser commonUser = new CommonUser("Richard", "RickShaltz", "111", "empty", null);
-//        commonUser.setApiKey("Instagram","EAAMw2YKsBFwBO8e6FdON200XZBSg6PH6pq4ZCmxsGHkkZCZBCckZCnaSmJQczJxPCh0q0aNZBwATZAsmddRQrYmC0q8rZC62vCl4M53oxKOjfrbRrpGKSN4WdWajZCQmiIlDcYTJxA4pajiFxiWGPdFzfHMRu3LJDsBom9lboVDQJMexHf3TQuZAYWkPsc4oEaMDTkPJp1LfFSmKiSmTrZB2ZCXdkPIZD");
-    }
 }

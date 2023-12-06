@@ -12,17 +12,30 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
+/**
+ * A DataAccessObject that interacts with the Instagram Graph API. This class contains methods that allow the application
+ * to access data on the Instagram platform from the user's Instagram account
+ */
 public class InstagramAPIDataAccessObject implements APIDataAccessInterface {
     private String apiKey;
     private SocialMediaStats instagramStats;
     private boolean apiError;
 
+    /**
+     * given a valid API key, creates a InstagramAPIDataAccessObject that is able to access data related to the user's Instagram account
+     * @param apiKey the valid API key
+     * @param instagramStats the relevant info from the user's Instagram account
+     */
     public InstagramAPIDataAccessObject(String apiKey, SocialMediaStats instagramStats) {
         this.apiKey = apiKey;
         this.instagramStats = instagramStats;
         this.apiError = false;
     }
 
+    /**
+     * retrieves the relevant data from the user's Instagram account
+     * @throws MalformedURLException
+     */
     @Override
     public void fetchData() throws MalformedURLException {
         System.out.println(apiKey);

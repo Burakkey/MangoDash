@@ -4,6 +4,7 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
+import interface_adapter.login_home.LoginHomeViewModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -89,8 +90,5 @@ public class LoginViewTest {
         assertEquals("newUser", loginView.usernameInputField.getText());
         assertEquals("newPass", new String(loginView.passwordInputField.getPassword()));
     }
-
-
-
 
 }

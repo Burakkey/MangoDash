@@ -21,6 +21,12 @@ public class HomepagePresenter implements ChangeDataOutputBoundary, ChangeAPIDat
     private final HomepageViewModel homepageViewModel;
     private ViewManagerModel viewManagerModel;
 
+    /**
+     * Creates a new HomepagePresenter
+     * @param loginViewModel data structure that contains the data in the appropriate format for the LoginView to display
+     * @param homepageViewModel data structure that contains the data in the appropriate format for the HomepageView to display
+     * @param viewManagerModel contains all the different views, changes the active view when needed (in response to user)
+     */
     public HomepagePresenter(LoginViewModel loginViewModel, HomepageViewModel homepageViewModel,
                              ViewManagerModel viewManagerModel) {
         this.loginViewModel = loginViewModel;
@@ -28,6 +34,10 @@ public class HomepagePresenter implements ChangeDataOutputBoundary, ChangeAPIDat
         this.viewManagerModel = viewManagerModel;
     }
 
+    /**
+     * if the input data does not have any errors, then the password change is successful and prepareSuccessView is called.
+     * @param changeDataOutput
+     */
     @Override
     public void prepareSuccessView(ChangeDataOutput changeDataOutput) {
         // On success, switch to the logged in view.
@@ -43,6 +53,10 @@ public class HomepagePresenter implements ChangeDataOutputBoundary, ChangeAPIDat
         this.viewManagerModel.firePropertyChanged();
     }
 
+    /**
+     * If the input API key is valid, then prepareAPIView is called
+     * @param changeDataOutput
+     */
     @Override
     public void prepareAPIView(DataGetter changeDataOutput) {
 
@@ -179,7 +193,10 @@ public class HomepagePresenter implements ChangeDataOutputBoundary, ChangeAPIDat
         return instagramStatsHashMap;
     }
 
-
+    /**
+     * If the input data has errors, then the data changes are unsuccessful
+     * @param error A String containing the case-specific error message
+     */
     @Override
     public void prepareFailView(String error){
         HomepageState currentState = homepageViewModel.getState();
