@@ -107,28 +107,29 @@ public class ChangeDataInteractorTest {
     @Test
     public void passwordDoNotMatchTest() throws ClassNotFoundException {
         // Arrange
-        String username = "username";
-        String oldPassword = "oldPassword";
-        String newPassword = "newPassword";
-        String repeatNewPassword = "differentNewPassword";
-        String bio = "bio";
+        User user = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
+        ChangeDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
+        ((SQLiteUserDataAccessObject) userRepository).save(user);
 
-        ChangeDataAccessInterface mockRepository = mock(ChangeDataAccessInterface.class);
-        ChangeDataOutputBoundary mockPresenter = mock(ChangeDataOutputBoundary.class);
+        ChangeDataInput inputData = new ChangeDataInput("username", "name", "bio", "password", "newPassword", "wrongNewPassword");
 
-        // Create user with correct old password
-        User mockUser = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
-        when(mockRepository.get(username)).thenReturn(mockUser);
 
-        ChangeDataInput inputData = new ChangeDataInput(username, null, oldPassword, newPassword, repeatNewPassword, bio);
-        ChangeDataInputBoundary interactor = new ChangeDataInteractor(mockRepository, mockPresenter);
+        ChangeDataOutputBoundary successPresenter = new ChangeDataOutputBoundary() {
+            @Override
+            public void prepareFailView(String s) {
+                assertEquals("New passwords does not match.", s);
+            }
 
-        // Execute
+            @Override
+            public void prepareSuccessView(ChangeDataOutput changeDataOutput) {
+                fail("Use case success is unexpected.");
+            }
+        };
+
+        ChangeDataInputBoundary interactor = new ChangeDataInteractor(userRepository, successPresenter);
         interactor.executeSaveChanges(inputData);
-
-        // Assert
-        verify(mockPresenter).prepareFailView("New passwords does not match.");
     }
+
 
 }
 
