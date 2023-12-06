@@ -1,11 +1,9 @@
 package data_access;
 
-import entity.SocialMediaStats.FacebookStats;
 import entity.SocialMediaStats.SocialMediaStats;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.change_user_data.APIDataAccessInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,11 +35,11 @@ public class FacebookAPIDataAccessObject implements APIDataAccessInterface {
         this.apiError = false;
     }
 
-    public static void main(String[] args) throws MalformedURLException{
-        String apiKey = "EAAE1wmc7D2IBOwSQlllK9mfR1m48oGF7IIGYa83Yhfm1J4MDLx9nXTP5QO6HOvCaxs8Y7CiZCOAiIaGRotjYkWO37JLzcOOZBiQxJXa4N7LztrGX6TJacJkZBO6YUfhKmjZCjWXPsGcVzbslbaApXXrE4gq9rWUUmbLQLgeZAb81yhODhf8irECJ3eXwP6ZB3QT7a7EKY8e2yoUm2JrgZDZD";
-        FacebookAPIDataAccessObject accessObject = new FacebookAPIDataAccessObject(apiKey, new FacebookStats());
-        accessObject.fetchData();
-    }
+//    public static void main(String[] args) throws MalformedURLException{
+//        String apiKey = "EAAE1wmc7D2IBOwSQlllK9mfR1m48oGF7IIGYa83Yhfm1J4MDLx9nXTP5QO6HOvCaxs8Y7CiZCOAiIaGRotjYkWO37JLzcOOZBiQxJXa4N7LztrGX6TJacJkZBO6YUfhKmjZCjWXPsGcVzbslbaApXXrE4gq9rWUUmbLQLgeZAb81yhODhf8irECJ3eXwP6ZB3QT7a7EKY8e2yoUm2JrgZDZD";
+//        FacebookAPIDataAccessObject accessObject = new FacebookAPIDataAccessObject(apiKey, new FacebookStats());
+//        accessObject.fetchData();
+//    }
 
     /**
      * retrieves the relevant data from the user's Facebook account

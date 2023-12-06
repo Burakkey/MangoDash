@@ -11,7 +11,7 @@ import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
-import use_case.change_user_data.APIDataAccessInterface;
+import data_access.APIDataAccessInterface;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginInteractor;

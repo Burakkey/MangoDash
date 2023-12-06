@@ -1,7 +1,12 @@
 package interface_adapter.homepage;
 
+import use_case.change_api_data.ChangeAPIDataInput;
+import use_case.change_api_data.ChangeAPIDataInputBoundary;
 import use_case.change_user_data.ChangeDataInput;
 import use_case.change_user_data.ChangeDataInputBoundary;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * HomepageController is responsible for handling requests related to the homepage.
@@ -10,13 +15,12 @@ import use_case.change_user_data.ChangeDataInputBoundary;
 public class HomepageController {
 
     private final ChangeDataInputBoundary changeDataInputBoundary;
+    private HashMap<String, ChangeAPIDataInputBoundary> apiDataInput;
 
-    /**
-     * Creates a HomepageController object with the input information from the HomepageView / panels on the Homepage
-     * @param changeDataInputBoundary
-     */
-    public HomepageController(ChangeDataInputBoundary changeDataInputBoundary) {
+    public HomepageController(ChangeDataInputBoundary changeDataInputBoundary, HashMap<String, ChangeAPIDataInputBoundary> apiDataInput) {
+
         this.changeDataInputBoundary = changeDataInputBoundary;
+        this.apiDataInput = apiDataInput;
     }
 
     /**
@@ -45,16 +49,16 @@ public class HomepageController {
 
     }
 
-    /**
-     * Executes changes to the user's API keys
-     * @param username the user's username
-     * @param name the user's name
-     * @param facebookAPI the user's Facebook API in the Facebook API text field
-     * @param instagramAPI the user's Instagram API in the Instagram API text field
-     */
-    public void executeAPIChanges(String username, String name, String facebookAPI, String instagramAPI){
-        ChangeDataInput changeDataInput = new ChangeDataInput(username, name, facebookAPI, instagramAPI);
-        changeDataInputBoundary.executeAPIChanges(changeDataInput);
+    public void executeAPIChanges(String username, String name, HashMap<String, String> apiTokens){
+
+        for (Map.Entry<String, ChangeAPIDataInputBoundary> entry : apiDataInput.entrySet()) {
+            String key = entry.getKey();
+            ChangeAPIDataInputBoundary apiInteractor = entry.getValue();
+            String apiKey = apiTokens.get(key);
+            System.out.println(key + apiKey);
+            ChangeAPIDataInput apiDataInput = new ChangeAPIDataInput(apiKey, username, name);
+            apiInteractor.executeAPIChanges(apiDataInput);
+        }
 
     }
 

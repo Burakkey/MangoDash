@@ -10,7 +10,6 @@ import use_case.signup.SignupUserDataAccessInterface;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -188,14 +187,22 @@ public class SQLiteUserDataAccessObject implements SignupUserDataAccessInterface
             HashMap<String, String> apiKeys = user.getApiKeys();
             if (apiKeys == null) {
                 apiKeys = new HashMap<>();
-                apiKeys.put("Facebook", facebookAPI);
-                apiKeys.put("Instagram", instagramAPI);
+                if (facebookAPI != null) {
+                    apiKeys.put("Facebook", facebookAPI);
+                }
+                if (instagramAPI != null) {
+                    apiKeys.put("Instagram", instagramAPI);
+                }
 
             }
 
             // Update the Facebook and Instagram API keys
-            user.setApiKeys("Facebook", facebookAPI);
-            user.setApiKeys("Instagram", instagramAPI);
+            if (facebookAPI != null) {
+                user.setApiKeys("Facebook", facebookAPI);
+            }
+            if (instagramAPI != null) {
+                user.setApiKeys("Instagram", instagramAPI);
+            }
 
             this.save();
         }

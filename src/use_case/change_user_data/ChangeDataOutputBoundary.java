@@ -16,10 +16,4 @@ public interface ChangeDataOutputBoundary {
      * @param changeDataOutput
      */
     void prepareSuccessView(ChangeDataOutput changeDataOutput);
-
-    /**
-     * The response when changing user info (Facebook, Instagram API keys, the corresponding Social Media data) is successful.
-     * @param changeDataOutput
-     */
-    void prepareAPIView(ChangeDataOutput changeDataOutput);
 }
