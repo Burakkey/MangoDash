@@ -1,4 +1,4 @@
-package use_case.change_user_data;
+package data_access;
 
 import entity.SocialMediaStats.SocialMediaStats;
 

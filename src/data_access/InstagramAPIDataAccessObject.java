@@ -3,7 +3,6 @@ package data_access;
 import entity.SocialMediaStats.SocialMediaStats;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import use_case.change_user_data.APIDataAccessInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +25,7 @@ public class InstagramAPIDataAccessObject implements APIDataAccessInterface {
 
     @Override
     public void fetchData() throws MalformedURLException {
+        System.out.println(apiKey);
         apiError = false;
         HashMap<String, JSONArray> stats = new HashMap<>();
         stats.put("followers", new JSONArray());

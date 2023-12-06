@@ -5,6 +5,8 @@ import interface_adapter.homepage.HomepageState;
 import interface_adapter.homepage.HomepageViewModel;
 import interface_adapter.ViewManagerModel;
 
+import use_case.DataGetter;
+import use_case.change_api_data.instagram.ChangeInstagramDataOutput;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 /**
@@ -44,9 +46,15 @@ public class LoginPresenter implements LoginOutputBoundary {
         homepageState.setUsername(loginOutputData.getUsername());
         homepageState.setBio(loginOutputData.getBio());
         homepageState.setFacebookToken((String) loginOutputData.getFacebookData().get("apiKey"));
-        homepageState.setFacebookStatsHashMap(HomepagePresenter.makeFacebookStatsHashmap(loginOutputData));
+
+        DataGetter instagramGetter = new ChangeInstagramDataOutput(loginOutputData.getInstagramData());
+        DataGetter facebookGetter = new ChangeInstagramDataOutput(loginOutputData.getFacebookData());
+
+        homepageState.setFacebookToken((String) loginOutputData.getFacebookData().get("apiKey"));
+        homepageState.setFacebookStatsHashMap(HomepagePresenter.makeFacebookStatsHashmap(facebookGetter));
+
         homepageState.setInstagramToken((String) loginOutputData.getInstagramData().get("apiKey"));
-        homepageState.setInstagramStatsHashMap(HomepagePresenter.makeInstagramStatsHashmap(loginOutputData));
+        homepageState.setInstagramStatsHashMap(HomepagePresenter.makeInstagramStatsHashmap(instagramGetter));
         this.homepageViewModel.setState(homepageState);
         this.viewManagerModel.setActiveView(homepageViewModel.getViewName());
         this.loginViewModel.setState(new LoginState());

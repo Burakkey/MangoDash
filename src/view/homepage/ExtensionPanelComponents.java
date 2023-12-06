@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ExtensionPanelComponents {
     public static JTextField facebookAPIaccesstoken = new JTextField(15);
@@ -146,9 +147,14 @@ public class ExtensionPanelComponents {
                         if (e.getSource().equals(saveChangesButton)) {
                             HomepageState currentState = homepageViewModel.getState();
                             currentState.setInstagramToken(instagramAPIAccessToken.getText());
+
                             currentState.setFacebookToken(facebookAPIaccesstoken.getText());
+                            HashMap<String, String> apiTokenMap = new HashMap<>();
+                            apiTokenMap.put("Facebook", currentState.getFacebookToken());
+                            apiTokenMap.put("Instagram", currentState.getInstagramToken());
                             homepageController.executeAPIChanges(currentState.getUsername(), currentState.getName(),
-                                    currentState.getFacebookToken(), currentState.getInstagramToken());
+                                    apiTokenMap);
+
                             if (instagramAPIAccessToken.getText().isEmpty()) {
                                 // Do nothing here because API key is blank
                             } else if (currentState.getInstagramKeyError()) {
