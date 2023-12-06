@@ -2,7 +2,10 @@
 ---
 MangoDash is a java project that allows users to link their social media accounts to view key insights, statistics, and graphs. 
 
-### :mag: What it does
+### 🥭 Inspiration
+We wanted to create a simple and intuitive way for social media influencers to track their analytics all in one place. MangoDash allows for the potential to perform cross platform comparisons, and to track growth over time.
+
+### 🔍 What it does
 Users can signup or create a new account within our database, using their facebook or instagram API key. Then they are able to quickly view stats such as their friend count, total likes, average likes, max likes, total comments, average comments, max comments along with bar graphs of their likes and comments per post.
 
 **User instructions:**
