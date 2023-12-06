@@ -44,6 +44,9 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
             }else {
                 if (!(repeatNewPassword.equals(newPassword))){
                     homepagePresenter.prepareFailView("New passwords does not match.");
+                } else {
+                    changeDataAccessInterface.modifyUser(newName, username, newPassword, bio);
+                    homepagePresenter.prepareFailView("Password Changed Successfully!");
                 }
             }
 
