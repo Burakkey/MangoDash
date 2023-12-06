@@ -4,6 +4,4 @@ public interface ChangeDataOutputBoundary {
     void prepareFailView(String s);
 
     void prepareSuccessView(ChangeDataOutput changeDataOutput);
-
-    void prepareAPIView(ChangeDataOutput changeDataOutput);
 }

@@ -1,15 +1,11 @@
 package use_case.login;
 
-import org.json.JSONArray;
-import use_case.FacebookDataGetter;
-import use_case.InstagramDataGetter;
-
 import java.util.HashMap;
 
 /**
  * LoginOutputData contains the required data after the user has logged in
  */
-public class LoginOutputData implements InstagramDataGetter, FacebookDataGetter {
+public class LoginOutputData {
 
     private final String username;
 

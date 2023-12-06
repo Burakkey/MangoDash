@@ -1,12 +1,10 @@
 package use_case.change_user_data;
 
-import entity.SocialMediaStats.FacebookStats;
-import entity.SocialMediaStats.InstagramStats;
+import data_access.APIDataAccessInterface;
 import org.json.JSONArray;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
@@ -14,16 +12,9 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
 
     final ChangeDataOutputBoundary homepagePresenter;
 
-    final APIDataAccessInterface instagramAPIDataAccessInterface;
-    final APIDataAccessInterface facebookAPIDataAccessInterface;
-
-    public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter,
-                                APIDataAccessInterface instagramAPIDataAccessInterface,
-                                APIDataAccessInterface facebookAPIDataAccessInterface) {
+    public ChangeDataInteractor(ChangeDataAccessInterface changeDataAccessInterface, ChangeDataOutputBoundary homepagePresenter) {
         this.changeDataAccessInterface = changeDataAccessInterface;
         this.homepagePresenter = homepagePresenter;
-        this.instagramAPIDataAccessInterface = instagramAPIDataAccessInterface;
-        this.facebookAPIDataAccessInterface = facebookAPIDataAccessInterface;
     }
 
     @Override
@@ -64,55 +55,5 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
     @Override
     public void executeLogout(ChangeDataInput changeDataInput) {
 
-    }
-
-    @Override
-    public void executeAPIChanges(ChangeDataInput changeDataInput) {
-        String username = changeDataInput.getUsername();
-        String facebookAPIToken = changeDataInput.getFacebookAPIToken();
-        String instagramAPIToken = changeDataInput.getInstagramAPIToken();
-        changeDataAccessInterface.modifyUserAPI(username, facebookAPIToken, instagramAPIToken);
-        instagramAPIDataAccessInterface.setAPI(instagramAPIToken);
-        facebookAPIDataAccessInterface.setAPI(facebookAPIToken);
-        boolean instagramKeyError = false;
-        boolean facebookKeyError = false;
-        try {
-            instagramAPIDataAccessInterface.fetchData();
-            facebookAPIDataAccessInterface.fetchData();
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        HashMap<String, JSONArray> instagramStats = instagramAPIDataAccessInterface.getStats().getStats();
-        HashMap<String, JSONArray> facebookStats = facebookAPIDataAccessInterface.getStats().getStats();
-
-        // Creating new HashMaps
-        HashMap<String, Object> instagramData = new HashMap<>();
-        HashMap<String, Object> facebookData = new HashMap<>();
-
-        // Iterating over Instagram data
-        for (String key : instagramStats.keySet()) {
-            JSONArray value = instagramStats.get(key);
-            instagramData.put(key, value);
-        }
-
-
-        // Adding additional Instagram data
-        instagramData.put("apiKey", instagramAPIToken);
-        instagramData.put("keyError", instagramAPIDataAccessInterface.isApiError());
-
-        // Iterating over Facebook data
-        for (String key : facebookStats.keySet()) {
-            JSONArray value = facebookStats.get(key);
-            facebookData.put(key, value);
-        }
-
-        // Adding additional Facebook data
-        facebookData.put("apiKey", facebookAPIToken);
-        facebookData.put("keyError", facebookAPIDataAccessInterface.isApiError());
-
-        ChangeDataOutput changeDataOutput = new ChangeDataOutput(instagramData, facebookData);
-        homepagePresenter.prepareAPIView(changeDataOutput);
     }
 }

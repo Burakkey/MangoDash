@@ -9,6 +9,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="assets" target="1.8" />
       <module name="InstagramCallTest" target="17" />
       <module name="test" target="1.8" />
     </bytecodeTargetLevel>

@@ -2,7 +2,7 @@ package use_case.login;
 
 import entity.User;
 import org.json.JSONArray;
-import use_case.change_user_data.APIDataAccessInterface;
+import data_access.APIDataAccessInterface;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
