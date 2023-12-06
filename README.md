@@ -38,4 +38,12 @@ Features we'd like to implement into MangoDash in the future
 - [ ] More social media platforms (currently we only integrate with facebook or instagram)
 - [ ] Simplify API Token process (streamline the process to get the API key for the user, perhaps logging into the platform through MangoDash)
 - [ ] Add more statistics (adding a page to look at general statistics cross platforms, tracking average like growth over time etc)
-- [ ] Adding a ranking system 
+- [ ] Adding a ranking system
+
+### 🫂 Contributers
+
+### 🧪 Tests
+Tests and how to run them
+
+##### 📃 License
+MangoDash is licensed under the MIT License. Feel free to use, modify, and distribute the code for your own purposes.
