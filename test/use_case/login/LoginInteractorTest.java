@@ -12,10 +12,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 public class LoginInteractorTest {
     private APIDataAccessInterface facebookAPI;
@@ -30,20 +32,18 @@ public class LoginInteractorTest {
     }
 
     @Test
-    public void successTest() throws ClassNotFoundException, RuntimeException {
-
+    public void successTest() throws ClassNotFoundException, RuntimeException, MalformedURLException {
         User user = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
         LoginInputData inputData = new LoginInputData("username", "password");
         LoginUserDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
         userRepository.save(user);
 
-        // This creates a successPresenter that tests whether the test case is as we expect.
         LoginOutputBoundary successPresenter = new LoginOutputBoundary() {
-
             @Override
-            public void prepareSuccessView(LoginOutputData user) {
-                assertTrue(userRepository.existsByName(user.getUsername()));
-                assertEquals("bio", user.getBio());
+            public void prepareSuccessView(LoginOutputData loginOutputData) {
+                assertEquals("name", loginOutputData.getName());
+                assertEquals("bio", loginOutputData.getBio());
+                assertEquals("username", loginOutputData.getUsername());
             }
 
             @Override
@@ -54,8 +54,9 @@ public class LoginInteractorTest {
 
         LoginInputBoundary interactor = new LoginInteractor(userRepository, successPresenter, instagramAPI, facebookAPI);
         interactor.execute(inputData);
-
     }
+
+
     @Test
     public void WrongPasswordForExistedUser() throws ClassNotFoundException{
         User user = userFactory.create("name", "User", "password", "bio", apiKeys, LocalDateTime.now());
