@@ -237,7 +237,7 @@ public class SettingsPanelComponent {
                     }
                     HomepageState currentState = homepageViewModel.getState();
 
-                    if (!currentState.getErrorMessage().isEmpty()){
+                    if (currentState.getErrorMessage() != null && !currentState.getErrorMessage().isEmpty()){
                         JOptionPane.showMessageDialog(null, currentState.getErrorMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
