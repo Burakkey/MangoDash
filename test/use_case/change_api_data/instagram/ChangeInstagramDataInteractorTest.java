@@ -1,15 +1,16 @@
 package use_case.change_api_data.instagram;
 
 import data_access.APIDataAccessInterface;
-import data_access.InstagramAPIDataAccessObject;
+import data_access.FacebookAPIDataAccessObject;
 import data_access.SQLiteUserDataAccessObject;
 import entity.CommonUserFactory;
+import entity.SocialMediaStats.InstagramStats;
 import entity.User;
+import entity.UserFactory;
 import org.json.JSONArray;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import use_case.change_api_data.ChangeAPIDataInput;
 import use_case.change_api_data.ChangeAPIDataOutputBoundary;
 import use_case.change_user_data.ChangeDataAccessInterface;
@@ -22,12 +23,11 @@ import static org.mockito.Mockito.*;
 
 public class ChangeInstagramDataInteractorTest {
 
-    @Mock
-    private ChangeDataAccessInterface mockChangeDataAccessInterface;
+
+    private ChangeDataAccessInterface changeDataAccessInterface;
     @Mock
     private ChangeAPIDataOutputBoundary mockHomepagePresenter;
-    @Mock
-    private APIDataAccessInterface mockInstagramAPIDataAccessInterface;
+    private APIDataAccessInterface instagramAPIDataAccess;
 
     private ChangeInstagramDataInteractor interactor;
 
@@ -37,15 +37,17 @@ public class ChangeInstagramDataInteractorTest {
 
     @Before
     public void setUp() throws ClassNotFoundException {
-        MockitoAnnotations.initMocks(this);
-        interactor = new ChangeInstagramDataInteractor(mockChangeDataAccessInterface, mockHomepagePresenter, mockInstagramAPIDataAccessInterface);
+        InstagramStats instagramStats = new InstagramStats();
+        instagramAPIDataAccess = new FacebookAPIDataAccessObject("", instagramStats);
+        UserFactory userFactory = new CommonUserFactory();
+        ChangeDataAccessInterface userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
+        interactor = new ChangeInstagramDataInteractor(changeDataAccessInterface, mockHomepagePresenter, instagramAPIDataAccess);
         userFactory = new CommonUserFactory();
         HashMap<String, String> apiKeys = new HashMap<>();
         apiKeys.put("Facebook", "");
         apiKeys.put("Instagram", "");
         User mockUser = userFactory.create("name", "username", "password", "bio", apiKeys, LocalDateTime.now());
-        SQLiteUserDataAccessObject userRepository = new SQLiteUserDataAccessObject("testusers.db", userFactory);
-        userRepository.save(mockUser);
+        ((SQLiteUserDataAccessObject) userRepository).save(mockUser);
     }
     @Test
     public void testSuccessfulApiTokenUpdateAndDataFetch() throws MalformedURLException {
@@ -56,7 +58,7 @@ public class ChangeInstagramDataInteractorTest {
     @Test(expected = RuntimeException.class)
     public void testMalformedURLExceptionHandling() throws MalformedURLException {
         ChangeAPIDataInput mockInput = new ChangeAPIDataInput("wrong token", "Username", "Name");
-        doThrow(new MalformedURLException()).when(mockInstagramAPIDataAccessInterface).fetchData();
+        doThrow(new MalformedURLException()).when(instagramAPIDataAccess).fetchData();
 
         interactor.executeAPIChanges(mockInput);
     }
@@ -66,7 +68,7 @@ public class ChangeInstagramDataInteractorTest {
         ChangeAPIDataInput mockInput = new ChangeAPIDataInput(token, "Username", "Name");
         HashMap<String, JSONArray> mockStats = new HashMap<>();
         mockStats.put("followers", new JSONArray()); // Use actual or mock data
-        when(mockInstagramAPIDataAccessInterface.getStats().getStats()).thenReturn(mockStats);
+        when(instagramAPIDataAccess.getStats().getStats()).thenReturn(mockStats);
 
         interactor.executeAPIChanges(mockInput);
 
