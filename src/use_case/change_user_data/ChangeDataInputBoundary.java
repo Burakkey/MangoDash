@@ -9,5 +9,4 @@ public interface ChangeDataInputBoundary {
      * @param changeDataInput
      */
     void executeSaveChanges(ChangeDataInput changeDataInput);
-    void executeLogout(ChangeDataInput changeDataInput);
 }

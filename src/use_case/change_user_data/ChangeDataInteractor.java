@@ -59,9 +59,4 @@ public class ChangeDataInteractor implements ChangeDataInputBoundary{
             homepagePresenter.prepareSuccessView(changeDataOutput);
         }
     }
-
-    @Override
-    public void executeLogout(ChangeDataInput changeDataInput) {
-
-    }
 }
