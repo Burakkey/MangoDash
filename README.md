@@ -20,7 +20,7 @@ cd MangoDash
 ## 🧰 Usage Instructions
 1. Sign up for a new account or login
 2. Head to the extensions tab
-3. Copy in your Facebook or Instagram Access Token -> instruction on how to get your api token here (link to come)
+3. Copy in your Facebook or Instagram Access Token -> (Instagram: https://docs.oceanwp.org/article/487-how-to-get-instagram-access-token, Facebook: https://developers.facebook.com/docs/marketing-apis/overview/authentication/)
 4. Click "Save Changes"
 5. Head to the Home tab and click the social media you want to view the stats of
 
